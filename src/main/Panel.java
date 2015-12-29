@@ -1,3 +1,4 @@
+package main;
 import gameStateManager.GameStateManager;
 
 import java.awt.Graphics;
@@ -6,11 +7,11 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
-import text_Engine.TextWindow;
+import textEngine.TextWindow;
 import characters.PlayableCharacter;
 
 @SuppressWarnings("serial")
-public class textPanel extends JPanel implements KeyListener{
+public class Panel extends JPanel implements KeyListener{
 	PlayableCharacter mainC;
 	TextWindow t;
 	GameStateManager gsm;
@@ -19,7 +20,7 @@ public class textPanel extends JPanel implements KeyListener{
 	private final int FPmS = 1000/60;
 	
 	
-	public textPanel(){
+	public Panel(){
 		super();
 		setFocusable(true);
 		requestFocus();

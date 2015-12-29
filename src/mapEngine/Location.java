@@ -1,4 +1,4 @@
-package map_Engine;
+package mapEngine;
 
 public class Location {
 

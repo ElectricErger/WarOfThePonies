@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import map_Engine.Map;
+import mapEngine.Map;
 
 public class GameStateManager {
 	private GameState currentPlot;
@@ -20,7 +20,7 @@ public class GameStateManager {
 	
 	public GameStateManager(JPanel p){
 		level = TITLE;
-		currentPlot = new StartScreen(this);
+		currentPlot = new StartScreen(this, p);
 		context = p;
 	}
 	
@@ -42,10 +42,6 @@ public class GameStateManager {
 	
 	public Map getMap(){
 		return loc;
-	}
-	
-	public JPanel getPanel(){
-		return context;
 	}
 	
 	public void draw(Graphics g){

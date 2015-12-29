@@ -2,8 +2,8 @@ package characters;
 
 import javax.swing.JPanel;
 
-import text_Engine.TextWindow;
-import map_Engine.Location;
+import textEngine.TextWindow;
+import mapEngine.Location;
 	/**
 	 * All types of objects that are visible in the world will use this class
 	 * If you can see the thing in the world and interact with it, it's here.

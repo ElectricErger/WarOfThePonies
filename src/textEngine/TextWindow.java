@@ -1,4 +1,4 @@
-package text_Engine;
+package textEngine;
 
 import java.awt.Color;
 import java.awt.Graphics;
