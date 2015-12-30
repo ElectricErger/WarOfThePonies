@@ -94,7 +94,7 @@ public class TextWindow {
 		else{
 			if(buffer.size() == 0){
 				if(nextCharacter != null){					
-					nextCharacter.advanceDialog(this); //This tells the character to give the buffer an update
+					TextTranslator.advanceDialog(this); //This needs a bit of refactoring as next character may be contained in TextTranslator
 					nextLine(); //Now we have more dialog
 				}
 				else{
