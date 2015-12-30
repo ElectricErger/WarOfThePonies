@@ -1,19 +1,13 @@
 package main;
-import gameStateManager.GameStateManager;
 
+import gameStateManager.GameStateManager;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JPanel;
-
-import textEngine.TextWindow;
-import characters.PlayableCharacter;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel implements KeyListener{
-	PlayableCharacter mainC;
-	TextWindow t;
 	GameStateManager gsm;
 	Thread main;
 	
@@ -50,9 +44,6 @@ public class Panel extends JPanel implements KeyListener{
 		main.start();
 		
 		String[] s = {"Hello my name is Bob!", "What is your name?", "Bye :("};
-		mainC = new PlayableCharacter(this, s);
-		t = mainC.interact(); //Load up the interaction
-		//Press space to call: t.displayNextLine();
 	}
 	
 	@Override

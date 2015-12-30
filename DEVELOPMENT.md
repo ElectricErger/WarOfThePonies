@@ -59,6 +59,8 @@ When we draw the frame we pass it up to the GSM which maintains the chapter stat
 Actions are taken care of by an "actionListener" implemented in the JPanel. This allows actions ot occur asynchronously with respect to the frames. Similar to draw it passes it up to the GSM (since actions are a function of what state we are in), and subsequently the GameState
 
 
+IMPORTANT ISSUE: We need to resolve whether or not we want to bind keys in some alternative way now, so that we can program for that later. The leading idea at this point in time is linking buttons to numbers (e.g. 1 = left, 2 = up, 3 = right, 4 = down, 5 = A, 6 = B, 7 = Start)
+
 =======================
 Object Models
 =======================
@@ -84,6 +86,10 @@ Battle Engine
 =======================
 Map
 =======================
+
+
+
+
 
 =======================
 CONTENT ORIENTED

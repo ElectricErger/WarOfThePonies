@@ -11,9 +11,6 @@ import mapEngine.Location;
 	 **/
 public abstract class WorldObject {
 	
-	private JPanel context; //IS THIS THE BEST IDEA? MAYBE SOMEWHERE ELSE
-	
-	
 	//Geographical data
 	private Location area; //Perhaps you can be in many locations
 	//On the map you are here
@@ -40,25 +37,15 @@ public abstract class WorldObject {
 	private String[] dialog; //Perhaps this should be a hash table and allow for people to have different dialog depending on where in the plot you are
 	private boolean inConvo;
 	
-	//What happens when you press A
-	public TextWindow interact(){
-		TextWindow t = new TextWindow(this, context);
-		for(String s : dialog){
-			if(s != null){
-				inConvo = true;
-				t.write(s); //We'll write our dialog to a buffer for it to use as it pleases
-			}
-		}
-		if (isTrigger){
-			//Trigger the event
-		}
-		return t;
+	
+	public void advanceDialog(TextWindow t){
+		t.setContent(dialog, null); //This is to be updated as people decide to talk in groups
 	}
-	public void setConvo(boolean b){ inConvo = b; }
-	public boolean getConvo(){ return inConvo; }
+	
+	public void getInConvo(boolean b){ inConvo = b; }
+	public boolean inConvo(){ return inConvo; }
 
-	public WorldObject(JPanel panel, String[] s){
-		context = panel;
+	public WorldObject(String[] s){
 		dialog = s.clone();
 	}
 }

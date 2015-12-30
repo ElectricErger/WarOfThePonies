@@ -19,7 +19,6 @@ import main.WoE;
 public class StartScreen extends GameState {
 	
 	private BufferedImage bg;
-	private GameStateManager manager;
 	private JPanel panel;
 	private final String[] SELECT = {
 			"NEW GAME",
@@ -42,8 +41,8 @@ public class StartScreen extends GameState {
 	
 	
 	public StartScreen(GameStateManager gsm, JPanel p){
+		super(gsm);
 		panel = p;
-		manager = gsm;
 		try {
 			bg = ImageIO.read(getClass().getResourceAsStream("/bg.jpg")); 
 		}
@@ -51,7 +50,6 @@ public class StartScreen extends GameState {
 		selected = optionsSelector = loadSelector = 0;
 		optionsSelected = loadSelected = false;
 	}
-	
 	/**
 	 * Draw assets to screen 
 	 */
@@ -179,7 +177,7 @@ public class StartScreen extends GameState {
 		if(!(loadSelected || optionsSelected)){
 			switch(selected){
 			case 0:
-				manager.nextState(GameStateManager.CHAPTER1, new Chapter1());
+				super.getGameStateManager().nextState(GameStateManager.CHAPTER1, new gamePlay(super.getGameStateManager()));
 				break;
 			case 1:
 				loadSelected = true;
