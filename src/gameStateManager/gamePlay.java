@@ -3,38 +3,77 @@ package gameStateManager;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-public class gamePlay extends GameState{
+import textEngine.TextWindow;
+import battleEngine.Battle;
+import characters.MainCharacter;
+import mapEngine.Map;
+import menuEngine.Menu;
 
+public class gamePlay extends GameState{
+	
+	private MainCharacter player;
+	private boolean inMenu, inBattle, inConvo;
+	private Menu menu;
+	private Battle battle;
+	private TextWindow dialog;
+	private Map world;
+	
 	public gamePlay(GameStateManager g){
+		
 		super(g);
-		//Create a map
-		//Create main character
 		
+		world = new Map();
+		player = new MainCharacter();
+		g.setMainCharacter(player);
 		
-		//For now we are testing the text engine
+		//Should I create a menu object here?
+		dialog = new TextWindow();
+		inMenu = inBattle = inConvo = false;
 	}
 	
 	@Override
 	public void draw(Graphics g) {
+		if(inBattle){
+			battle.draw(g);
+		}
+		else{
+			world.draw(g);
+			if(inMenu){
+				menu.draw(g);
+			}
+		}
+		if(inConvo){
+			dialog.draw(g);
+		}
 		
 	}
 
-	@Override
 	public void keyDown(int key) {
-		switch(key){
-		case KeyEvent.VK_UP:
-			break;
-		case KeyEvent.VK_DOWN:
-			break;
-		case KeyEvent.VK_LEFT:
-			break;
-		case KeyEvent.VK_RIGHT:
-			break;
-		case KeyEvent.VK_SPACE:
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			break;
+		if(inBattle){
+			battle.keyDown(key);
+			inBattle = battle.inBattle();
+		}
+		else{
+			if(inConvo){ //Not sure how to deal with this
+				dialog.keyDown(key);
+				inConvo = dialog.hasContent();
+			}
+			else{
+				if(inMenu){
+					menu.keyDown(key);
+				}
+				else{
+					world.keyDown(key);
+				}
+			}
 		}
 	}
+
+	private void upResponse(){}
+	private void downResponse(){}
+	private void leftResponse(){}
+	private void rightResponse(){}
+	private void forwardResponse(){}
+	private void backwardResponse(){}
 	
 }

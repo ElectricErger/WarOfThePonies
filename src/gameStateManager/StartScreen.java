@@ -12,14 +12,12 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 
 import main.WoE;
 
 public class StartScreen extends GameState {
 	
 	private BufferedImage bg;
-	private JPanel panel;
 	private final String[] SELECT = {
 			"NEW GAME",
 			"LOAD GAME",
@@ -40,9 +38,8 @@ public class StartScreen extends GameState {
 	
 	
 	
-	public StartScreen(GameStateManager gsm, JPanel p){
+	public StartScreen(GameStateManager gsm){
 		super(gsm);
-		panel = p;
 		try {
 			bg = ImageIO.read(getClass().getResourceAsStream("/bg.jpg")); 
 		}
@@ -177,7 +174,7 @@ public class StartScreen extends GameState {
 		if(!(loadSelected || optionsSelected)){
 			switch(selected){
 			case 0:
-				super.getGameStateManager().nextState(GameStateManager.CHAPTER1, new gamePlay(super.getGameStateManager()));
+				super.getGameStateManager().nextState(GameStateManager.INGAME, new gamePlay(super.getGameStateManager()));
 				break;
 			case 1:
 				loadSelected = true;

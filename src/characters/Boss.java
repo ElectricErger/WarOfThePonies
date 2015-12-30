@@ -4,8 +4,7 @@ import javax.swing.JPanel;
 
 public class Boss extends WorldObject{
 
-	public Boss(String[] dialog) {
-		super(dialog);
+	public Boss(){
 		// TODO Auto-generated constructor stub
 	}
 

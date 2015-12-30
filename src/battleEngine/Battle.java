@@ -1,12 +1,18 @@
-package mapEngine;
+package battleEngine;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-public class Map {
-
+public class Battle {
 	
-	public void draw(Graphics g){}
+	private boolean inBattle;
+	
+	
+	public void draw(Graphics g){
+		
+	}
+	
+	public boolean inBattle(){ return inBattle; }
 	
 	public void keyDown(int key){
 		switch(key){

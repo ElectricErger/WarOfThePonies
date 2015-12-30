@@ -2,9 +2,9 @@ package characters;
 
 import javax.swing.JPanel;
 
-public class mainCharacter extends WorldObject{
+public class MainCharacter extends WorldObject{
 
-	public mainCharacter() {
+	public MainCharacter() {
 	}
 
 }

@@ -4,8 +4,7 @@ import javax.swing.JPanel;
 
 public class NPC extends WorldObject{
 
-	public NPC(String[] dialog) {
-		super(dialog);
+	public NPC() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -2,46 +2,38 @@ package gameStateManager;
 
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
 
+import characters.MainCharacter;
 import mapEngine.Map;
 
 public class GameStateManager {
 	private GameState currentPlot;
 	private int level;
 	private Map loc;
-	private JPanel context;
+	
+	private MainCharacter player;
 	
 	public static final int TITLE = 0;
-	public static final int CHAPTER1 = 1;
-	public static final int CHAPTER2 = 2;
-	public static final int CHAPTER3 = 3;
+	public static final int INGAME = 1;
+	public static final int GAMEOVER = 2;
+	public static final int CREDITS = 3;
 	//...
 	
-	public GameStateManager(JPanel p){
+	public GameStateManager(){
 		level = TITLE;
-		currentPlot = new StartScreen(this, p);
-		context = p;
+		currentPlot = new StartScreen(this);
 	}
 	
 	/**
 	 * Previous level trigger advances it by giving it to this method
 	 */
-	public void nextState(int lvl, GameState newLevel){
+	public void nextState(int lvl, GameState newState){
 		level = lvl;
-		currentPlot = newLevel;
+		currentPlot = newState;
 	}
 	
-	public int level(){
-		return level;
-	}
-	
-	public void setMap(Map l){
-		loc = l;
-	}
-	
-	public Map getMap(){
-		return loc;
+	public void setMainCharacter(MainCharacter c){
+		player = c;
 	}
 	
 	public void draw(Graphics g){

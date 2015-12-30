@@ -1,9 +1,9 @@
-package mapEngine;
+package menuEngine;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-public class Map {
+public class Menu {
 
 	
 	public void draw(Graphics g){}

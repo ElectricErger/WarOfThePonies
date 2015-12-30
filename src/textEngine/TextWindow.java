@@ -14,6 +14,7 @@ package textEngine;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -146,5 +147,35 @@ public class TextWindow {
 		};
 		t.start();
 	}
+
+	public void keyDown(int key){
+		switch(key){
+		case KeyEvent.VK_UP:
+			upResponse();
+			break;
+		case KeyEvent.VK_DOWN:
+			downResponse();
+			break;
+		case KeyEvent.VK_LEFT:
+			leftResponse();
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightResponse();
+			break;
+		case KeyEvent.VK_SPACE:
+			forwardResponse();
+			break;
+		case KeyEvent.VK_BACK_SPACE:
+			backwardResponse();
+			break;
+		}
+	}
+
+	private void upResponse(){}
+	private void downResponse(){}
+	private void leftResponse(){}
+	private void rightResponse(){}
+	private void forwardResponse(){ advanceText(); }
+	private void backwardResponse(){}
 }
 

@@ -21,7 +21,7 @@ public class Panel extends JPanel implements KeyListener{
 		addKeyListener(this);
 		requestFocusInWindow();
 
-		gsm = new GameStateManager(this);
+		gsm = new GameStateManager();
 		
 		//Create a thread that repaints every FPS
 		main = new Thread(){
