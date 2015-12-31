@@ -39,9 +39,10 @@ public class Map {
 	public Map(MainCharacter c){
 		player = c;
 		mapLocation = 1; //FOR NOW, THE REAL THING WILL BE 0
+		
 		world = new OverworldParser();
 		locationName = world.getName(mapLocation);
-		field = world.getTiles(mapLocation);
+		field = world.getTiles(mapLocation); //Takes 5~6 seconds...way to long
 		
 		setAbsoluteLocation(field.length/2, field[0].length/2);
 	}
@@ -55,7 +56,7 @@ public class Map {
 	
 	
 	public void draw(Graphics g){
-		setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
+		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
@@ -63,16 +64,17 @@ public class Map {
 	}
 	
 	
-	//OKAY END OF DAY FOR ME. I HAVE 1 MAJOR ISSUE. BUFFERS
-	//I need to make a larger map so it can properly blit
-	//We also haven't dealt with the boarders issue between areas
 	public void drawField(Graphics g){
-		for( int r = top; r < bottom; r++){
-			for( int c = left; c < right; c++ ){
-				Tile tile = field[r][c];
+		int row = 0;
+		for( int i = top; i < bottom; i++){
+			int col = 0;
+			for( int j = left; j < right; j++ ){
+				Tile tile = field[i][j];
 				BufferedImage tilePic = tile.tileImage();
-				g.drawImage(tilePic, r*TILEWIDTH, c*TILEHEIGHT, TILEWIDTH, TILEHEIGHT, null);
+				g.drawImage(tilePic, col*TILEWIDTH, row*TILEHEIGHT, TILEWIDTH, TILEHEIGHT, null);
+				col++;
 			}
+			row++;
 		}
 	}
 	
