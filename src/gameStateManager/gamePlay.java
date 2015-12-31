@@ -9,7 +9,7 @@ import characters.MainCharacter;
 import mapEngine.Map;
 import menuEngine.Menu;
 
-public class gamePlay extends GameState{
+public class GamePlay extends GameState{
 	
 	private MainCharacter player;
 	private boolean inMenu, inBattle, inConvo;
@@ -18,12 +18,12 @@ public class gamePlay extends GameState{
 	private TextWindow dialog;
 	private Map world;
 	
-	public gamePlay(GameStateManager g){
+	public GamePlay(GameStateManager g){
 		
 		super(g);
 		
-		world = new Map();
 		player = new MainCharacter();
+		world = new Map(player);
 		g.setMainCharacter(player);
 		
 		//Should I create a menu object here?

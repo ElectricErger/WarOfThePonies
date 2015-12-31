@@ -20,6 +20,6 @@ public abstract class WorldObject {
 	public void setY(int y){ this.y = y; }
 	
 	//Get location
-	public double getX(){ return x; }
-	public double getY(){ return y; }
+	public int getX(){ return x; }
+	public int getY(){ return y; }
 }

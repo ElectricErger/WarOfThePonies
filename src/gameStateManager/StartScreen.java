@@ -174,7 +174,7 @@ public class StartScreen extends GameState {
 		if(!(loadSelected || optionsSelected)){
 			switch(selected){
 			case 0:
-				super.getGameStateManager().nextState(GameStateManager.INGAME, new gamePlay(super.getGameStateManager()));
+				super.getGameStateManager().nextState(GameStateManager.INGAME, new GamePlay(super.getGameStateManager()));
 				break;
 			case 1:
 				loadSelected = true;
