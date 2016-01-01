@@ -2,11 +2,12 @@ package mapEngine;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 //SCALE WHEN YOU INITIATE
 public class Tile {
 	private boolean solid;
-	private BufferedImage img;
+	private Image img;
 	
 	
 	public Tile(boolean solid, BufferedImage i){
@@ -17,14 +18,8 @@ public class Tile {
 	}
 	
 	public boolean isSolid(){ return solid; }
-	public BufferedImage tileImage(){ return img; }
+	public Image tileImage(){ return img; }
 	private void scale(){
-		
-		int scaleHeight = Map.TILEHEIGHT/img.getHeight();
-		int scaleWidth = Map.TILEWIDTH/img.getWidth();
-		
-		Graphics2D g = (Graphics2D) img.getGraphics();
-		g.scale(scaleHeight, scaleWidth);
-		g.drawImage(img, 0, 0, null); //Not sure if I need this
+		img = img.getScaledInstance(Map.TILEWIDTH, Map.TILEHEIGHT, Image.SCALE_DEFAULT);
 	}
 }

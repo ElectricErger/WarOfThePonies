@@ -2,11 +2,13 @@ package battleEngine;
 
 import java.util.Random;
 
+import battleObjects.Weapon;
 import characters.BattleObject;
 
 public abstract class Action {
 	BattleObject doer;
 	BattleObject target;
+	Weapon w; //Just temporary, we'll deal with this later
 	//who does the attack target - may be self, fellow party members, or opponent of choice
 	boolean magic=false;
 	//default is false, true if move is magical
@@ -40,7 +42,7 @@ public abstract class Action {
 			//damage between 1 and max amount based on weapon, I suggest 4 if bare=hooved
 			//should call weapon that the doer is using - battle object needs a weapon field eventually
 			for(int a=doer.getAttack(); a>0; a--){
-				int dmg=r.nextInt(w.damagedie)+1;
+				int dmg=r.nextInt(w.damagedie())+1;
 				damage=damage+dmg;
 			}
 			if(crit){

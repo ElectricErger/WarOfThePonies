@@ -1,6 +1,10 @@
 package characters;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
+
 import textEngine.TextWindow;
 import mapEngine.Map;
 	/**
@@ -13,13 +17,22 @@ public abstract class WorldObject {
 	private Map area; 
 	private int x;
 	private int y;	
-	private BufferedImage img;	
+	private Image img;	
+	//Animation
+	
+	public WorldObject(String imageLocation){
+		try{ img = ImageIO.read(getClass().getResourceAsStream(imageLocation)); }
+		catch(Exception e){ e.printStackTrace(); }
+	}
 	
 	//Update locations
 	public void setX(int x){ this.x = x; }
 	public void setY(int y){ this.y = y; }
-	
+		
 	//Get location
 	public int getX(){ return x; }
 	public int getY(){ return y; }
+
+	//Get image
+	public Image getImage(){ return img; }
 }

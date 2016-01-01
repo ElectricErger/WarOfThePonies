@@ -31,25 +31,26 @@ public class Map {
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles
 	
-	private static final int TILESACROSS = 16;
-	private static final int TILESDOWN = 8;
+	private static final int TILESACROSS = 64;
+	private static final int TILESDOWN = 32;
 	
-	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS;
-	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN;
+	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
+	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
 	
 	public Map(MainCharacter c){
 		player = c;
 		mapLocation = 0; //FOR NOW, THE REAL THING WILL BE 0
 		
 		world = new OverworldParser();
-		world.parse(mapLocation); //Only takes a few ms to get a 35x35 map ready now
+		world.parse(mapLocation);
 		locationName = world.getName(mapLocation);
 		field = world.getTileMap(mapLocation);
 		tiles = world.getTileSet(mapLocation);
-		setAbsoluteLocation(field[0].length/2, field.length/2);
+		
+		c.setX(field[0].length/2); c.setY(field.length/2);
 	}
 
-	public void setAbsoluteLocation(int x, int y){ //This may cause an off by 1 error
+	public void setAbsoluteLocation(int x, int y){
 		top = y-TILESDOWN/2;
 		bottom = y+TILESDOWN/2;
 		left = x-TILESACROSS/2;
@@ -58,21 +59,16 @@ public class Map {
 	
 	
 	public void draw(Graphics g){
-		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
-
-		long start = System.nanoTime();
+		setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
-		drawCharacters(g); //Player an any other top layer people
-		
-		long stop = System.nanoTime();
-		
-		System.out.println((stop-start)/1000000 + "ms to blit this frame");
+		drawCharacters(g); //Player an any other top layer people		
 	}
 	
 	
 	public void drawField(Graphics g){
+		
 		int row = 0;
 		for( int i = top; i < bottom; i++){
 			int col = 0;
@@ -89,7 +85,17 @@ public class Map {
 	}
 	
 	public void drawCharacters(Graphics g){
-		
+		g.drawImage(player.getImage(),
+				convertAbsoluteToRelativeX(player.getX()),
+				convertAbsoluteToRelativeY(player.getY()),
+				null);
+	}
+	
+	public int convertAbsoluteToRelativeX(int x){
+		return (x-left-1)*TILEWIDTH;
+	}
+	public int convertAbsoluteToRelativeY(int y){
+		return(y-top+1)*TILEHEIGHT;
 	}
 	
 	
@@ -116,10 +122,10 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
+	private void upResponse(){ player.setY(player.getY()-1); }
+	private void downResponse(){ player.setY(player.getY()+1); }
+	private void leftResponse(){ player.setX(player.getX()-1); }
+	private void rightResponse(){ player.setX(player.getX()+1); }
 	private void forwardResponse(){}
 	private void backwardResponse(){}
 }
