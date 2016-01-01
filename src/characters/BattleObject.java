@@ -3,6 +3,8 @@ package characters;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import battleEngine.Action;
+
 public abstract class BattleObject extends WorldObject implements Comparable<BattleObject>{
 
 	private String name;
@@ -13,15 +15,15 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	private int magicAttack, magicDefence;
 	private int speed, accuracy, luck;
 	private int level, exp, expToNextLevel;
-	private ArrayList<Attack> moves;
-	public int initiative=0;
-	public boolean defeated=false;
+	private ArrayList<Action> moves;
+	private int initiative=0;
+	private boolean defeated=false;
 	//Still needs weapon and armor
 	
 	public BattleObject(String imgString, BattleClass c) {
 		super(imgString);
 		type = c;
-		moves = new ArrayList<Attack>(); //Maybe the constructor will give it...
+		moves = new ArrayList<Action>(); //Maybe the constructor will give it...
 	}
 	
 	//Getters for when you enter a battle
@@ -41,12 +43,15 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public int getInit(){return initiative;}
 	public int getExpToNextLevel(){ return expToNextLevel; }
 	public BattleClass getType(){ return type; }
-	public ArrayList<Attack> getAttacks(){ return moves; }
+	public ArrayList<Action> getAttacks(){ return moves; }
+	//changed to Action array which encompasses attacks/spells/defence/and eventually item use;
 	public boolean getdefeated(){return defeated;}
 	
 	//During and after battles some things need to be updated
+	public void setInit(int init){initiative=init;}
 	public void setHP(int newHP){ HP = newHP; }
 	public void setMP(int newMP){ MP = newMP; }
+	public void setdefeated(boolean newdefeated){defeated=newdefeated;}
 	public void setExp(int newExp){ exp = newExp; } //This is just the model, when you get EXP it should be the one calling these methods
 	
 	//When you level up
@@ -61,7 +66,8 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public void setSpeed(int newSpeed){ speed = newSpeed; }
 	public void setAccuracy(int newAccuracy){ accuracy = newAccuracy; }
 	public void setLuck(int newLuck){ luck = newLuck; }
-	public void addMove(Attack newMove){ moves.add(newMove); }
+	public void addMove(Action newMove){ moves.add(newMove); }
+	@Override
 	public int compareTo(BattleObject compareto){
 		int compareinit=((BattleObject)compareto).getInit();
 		return compareinit-this.initiative;
