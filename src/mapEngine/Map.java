@@ -64,8 +64,6 @@ public class Map {
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
-		
-		System.out.println(field[player.getY()][player.getX()]);
 	}
 	
 	
@@ -87,7 +85,17 @@ public class Map {
 	}
 	
 	public void drawCharacters(Graphics g){
-		player.draw(g);
+		g.drawImage(player.getImage(),
+				convertAbsoluteToRelativeX(player.getX()),
+				convertAbsoluteToRelativeY(player.getY()),
+				null);
+	}
+	
+	public int convertAbsoluteToRelativeX(int x){
+		return (x-left-1)*TILEWIDTH;
+	}
+	public int convertAbsoluteToRelativeY(int y){
+		return(y-top+1)*TILEHEIGHT;
 	}
 	
 	
@@ -114,10 +122,10 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
+	private void upResponse(){ player.setY(player.getY()-1); }
+	private void downResponse(){ player.setY(player.getY()+1); }
+	private void leftResponse(){ player.setX(player.getX()-1); }
+	private void rightResponse(){ player.setX(player.getX()+1); }
 	private void forwardResponse(){}
 	private void backwardResponse(){}
 }
