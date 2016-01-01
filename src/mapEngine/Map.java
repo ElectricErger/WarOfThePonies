@@ -42,7 +42,7 @@ public class Map {
 		mapLocation = 0; //FOR NOW, THE REAL THING WILL BE 0
 		
 		world = new OverworldParser();
-		world.parse(mapLocation); //Only takes a few ms to get a 35x35 map ready now
+		world.parse(mapLocation);
 		locationName = world.getName(mapLocation);
 		field = world.getTileMap(mapLocation);
 		tiles = world.getTileSet(mapLocation);
@@ -59,20 +59,18 @@ public class Map {
 	
 	public void draw(Graphics g){
 		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
-
 		long start = System.nanoTime();
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people
 		
-		long stop = System.nanoTime();
-		
-		System.out.println((stop-start)/1000000 + "ms to blit this frame");
+		System.out.println((System.nanoTime() - start)/1000000 + "ms per frame");
 	}
 	
 	
 	public void drawField(Graphics g){
+		
 		int row = 0;
 		for( int i = top; i < bottom; i++){
 			int col = 0;
