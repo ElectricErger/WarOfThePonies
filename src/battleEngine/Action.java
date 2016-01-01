@@ -6,10 +6,10 @@ import battleObjects.Weapon;
 import characters.BattleObject;
 
 public abstract class Action {
+	String name;
 	BattleObject doer;
 	BattleObject target;
 	Weapon w; //Just temporary, we'll deal with this later
-	//who does the attack target - may be self, fellow party members, or opponent of choice
 	boolean magic=false;
 	//default is false, true if move is magical
 	int cost=0;
@@ -23,6 +23,7 @@ public abstract class Action {
 		private BasicAttack(BattleObject attacker, BattleObject defender){
 			doer=attacker;
 			target=defender;
+			name="Basic Attack";
 		}
 		private void accuracy(){
 			int roll=r.nextInt(21);
@@ -59,7 +60,9 @@ public abstract class Action {
 				int start=target.getHP();
 				start=start-damage;
 				target.setHP(start);
-				if(target.getHP()<=0) target.defeated=true;
+				if(target.getHP()<=0) {
+					target.setdefeated(true);
+				}
 				
 			}
 			
