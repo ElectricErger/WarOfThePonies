@@ -2,6 +2,10 @@ package battleEngine;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+
+import mapEngine.Map;
+import characters.BattleObject;
 
 public class Battle {
 	
@@ -11,6 +15,8 @@ public class Battle {
 	public void draw(Graphics g){
 		
 	}
+	
+	public void startBattle(ArrayList<BattleObject> party, Map location){}
 	
 	public boolean inBattle(){ return inBattle; }
 	

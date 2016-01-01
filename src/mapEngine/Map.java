@@ -1,12 +1,97 @@
+/*
+ * How map works
+ * You can travel anywhere within the overworld (an object that tells us what location is connected to what
+ * You start out in a town, and if you leave the boarders of that town you go to the next area.
+ * When you switch areas you update you and all other instances of Map to tell all of the people you changed. Also XY has to be updated
+ * 	This is to avoid writing out the whole map and assets even though we aren't using it.
+ * XY refers to tiles. The screen at any point in time will have 16 tiles across and 8 down
+ * 	As the graphics engine gets better and we add in animations/smooth transitions we'll probably have to add room on that buffer
+ * 
+ * 
+ * All WorldObjects are absolute to the XY coordinates of the map
+ */
+
+
 package mapEngine;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+
+import main.WoE;
+import characters.*;
 
 public class Map {
-
 	
-	public void draw(Graphics g){}
+	private MainCharacter player;
+	private OverworldParser world;
+	private int[][] field;
+	private Tile[] tiles;
+	private int mapLocation;
+	private String locationName;
+	private int top, bottom, right, left; // Window bounds in terms of tiles
+	
+	private static final int TILESACROSS = 16;
+	private static final int TILESDOWN = 8;
+	
+	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS;
+	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN;
+	
+	public Map(MainCharacter c){
+		player = c;
+		mapLocation = 0; //FOR NOW, THE REAL THING WILL BE 0
+		
+		world = new OverworldParser();
+		world.parse(mapLocation); //Only takes a few ms to get a 35x35 map ready now
+		locationName = world.getName(mapLocation);
+		field = world.getTileMap(mapLocation);
+		tiles = world.getTileSet(mapLocation);
+		setAbsoluteLocation(field[0].length/2, field.length/2);
+	}
+
+	public void setAbsoluteLocation(int x, int y){ //This may cause an off by 1 error
+		top = y-TILESDOWN/2;
+		bottom = y+TILESDOWN/2;
+		left = x-TILESACROSS/2;
+		right = x+TILESACROSS/2;
+	}
+	
+	
+	public void draw(Graphics g){
+		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
+
+		long start = System.nanoTime();
+		
+		drawField(g); //Bottom layer, walking plain
+		drawAssets(g); //Buildings, signs, things that don't move
+		drawCharacters(g); //Player an any other top layer people
+		
+		long stop = System.nanoTime();
+		
+		System.out.println((stop-start)/1000000 + "ms to blit this frame");
+	}
+	
+	
+	public void drawField(Graphics g){
+		int row = 0;
+		for( int i = top; i < bottom; i++){
+			int col = 0;
+			for( int j = left; j < right; j++ ){
+				g.drawImage(tiles[field[i][j]].tileImage(), col*TILEWIDTH, row*TILEHEIGHT, null);
+				col++;
+			}
+			row++;
+		}
+	}
+	
+	public void drawAssets(Graphics g){
+		
+	}
+	
+	public void drawCharacters(Graphics g){
+		
+	}
+	
 	
 	public void keyDown(int key){
 		switch(key){
