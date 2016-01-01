@@ -25,7 +25,8 @@ public class Map {
 	
 	private MainCharacter player;
 	private OverworldParser world;
-	private Tile[][] field;
+	private int[][] field;
+	private Tile[] tiles;
 	private int mapLocation;
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles
@@ -38,13 +39,14 @@ public class Map {
 	
 	public Map(MainCharacter c){
 		player = c;
-		mapLocation = 1; //FOR NOW, THE REAL THING WILL BE 0
+		mapLocation = 0; //FOR NOW, THE REAL THING WILL BE 0
 		
 		world = new OverworldParser();
+		world.parse(mapLocation); //Only takes a few ms to get a 35x35 map ready now
 		locationName = world.getName(mapLocation);
-		field = world.getTiles(mapLocation); //Takes 5~6 seconds...way to long
-		
-		setAbsoluteLocation(field.length/2, field[0].length/2);
+		field = world.getTileMap(mapLocation);
+		tiles = world.getTileSet(mapLocation);
+		setAbsoluteLocation(field[0].length/2, field.length/2);
 	}
 
 	public void setAbsoluteLocation(int x, int y){ //This may cause an off by 1 error
@@ -57,10 +59,16 @@ public class Map {
 	
 	public void draw(Graphics g){
 		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
+
+		long start = System.nanoTime();
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people
+		
+		long stop = System.nanoTime();
+		
+		System.out.println((stop-start)/1000000 + "ms to blit this frame");
 	}
 	
 	
@@ -69,9 +77,7 @@ public class Map {
 		for( int i = top; i < bottom; i++){
 			int col = 0;
 			for( int j = left; j < right; j++ ){
-				Tile tile = field[i][j];
-				BufferedImage tilePic = tile.tileImage();
-				g.drawImage(tilePic, col*TILEWIDTH, row*TILEHEIGHT, TILEWIDTH, TILEHEIGHT, null);
+				g.drawImage(tiles[field[i][j]].tileImage(), col*TILEWIDTH, row*TILEHEIGHT, null);
 				col++;
 			}
 			row++;

@@ -19,7 +19,10 @@ public class OverworldParser {
 	private RandomAccessFile overworld;
 	//private BufferedReader overworld;
 	private int currentMap;
-	private Tile[][] tiles;
+	private int[][] tiles;
+	private Tile[] tileArray;
+	private String mapName;
+	private int width, height;
 	//Surrounding maps and conditions to change .... maybe in Map?
 	
 	/*
@@ -69,49 +72,61 @@ public class OverworldParser {
 		return newLoc;
 	}
 	
-	public String getName(int location){
-		//Looks up where we are and gets the name
-		return "";
+	//Throws a null pointer exception if you didn't run parse
+	//These 3 are still being workshopped a bit
+	public String getName(int location) throws NullPointerException{
+		return mapName;
 	}
 
-	//MAYBE I SHOULD NAME THIS PARSE DATA
-	public Tile[][] getTiles(int location){
+	public int[][] getTileMap(int location) throws NullPointerException{
+		//if(location != currentMap){ return null; }
+		return tiles;
+	}
+	
+	public Tile[] getTileSet(int location) throws NullPointerException{
+		return tileArray;
+	}
+
+
+	public void parse(int location){
 		String[] mapData = findMapByIndex(location);
 
 		if(mapData == null){
 			System.out.println("An error has occured reading the map. Please contact the developers and reinstall the game.");
+			System.exit(0);
 		}
 		
 		String[] header = mapData[0].split(",");
-		String[] tilePics = mapData[1].split(",");		
 		
 		//Final data needed from header
-		String name = header[1];
-		int width = Integer.parseInt(header[2]);
-		int height = Integer.parseInt(header[3]);
+		mapName = header[1];
+		width = Integer.parseInt(header[2]);
+		height = Integer.parseInt(header[3]);
 		
+		String[] tilePics = mapData[1].split(",");		
+		tiles = new int[height][width];
 		
-		//Process map to tiles
-		tiles = new Tile[width][height];
-
-		for(int row = 2; row<height; row++){
-			String[] mapParse = mapData[row].split(",");
-			for(int col = 0; col<width; col++){				
-				try {
-					tiles[row][col] = new Tile(
-						false,
-						ImageIO.read(getClass().getResourceAsStream(
-							"/Floor/"+tilePics[Integer.parseInt(mapParse[col])-1])
-						)
-					);
-				} catch (Exception e) { e.printStackTrace(); System.out.println(tilePics[Integer.parseInt(mapParse[col])-1]); }
-				
-			}
-		}
-		
-		return tiles;
+		parseTiles(tilePics, false);
+		parseMap(mapData);
 	}
 	
+	private void parseTiles(String[] tileBuffer, boolean solid) {
+		tileArray = new Tile[tileBuffer.length];
+		for(int i = 0; i<tileBuffer.length; i++){
+			try { tileArray[i] = new Tile(solid,ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i]))); }
+			catch (Exception e) { e.printStackTrace(); }
+		}
+	}
+	
+	//I have to get the whole map data...is there a way to only get rows 2 to N-2?
+	private void parseMap(String[] mapData){
+		for(int row = 2; row<height; row++){
+			String[] mapRow = mapData[row].split(",");
+			for(int col = 0; col<width; col++){	//At row 100 we aren't getting anything...why		
+				tiles[row][col] = Integer.parseInt(mapRow[col]);
+			}
+		}
+	}
 	
 	private String[] findMapByIndex(int location){
 		try { overworld.seek(0); } catch (Exception e1) { e1.printStackTrace(); }

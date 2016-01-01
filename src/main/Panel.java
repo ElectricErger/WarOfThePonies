@@ -52,18 +52,13 @@ public class Panel extends JPanel implements KeyListener{
 		gsm.draw(g);
 	}
 
+	//Consider making this a thread
 	@Override
 	public void keyTyped(KeyEvent e) {}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		gsm.keyDown(e.getKeyCode());
-		
-		/*
-		 * if (e.getKeyCode() == KeyEvent.VK_SPACE){
-			//t.displayNextLine();
-		}
-		 */
 	}
 
 	@Override
