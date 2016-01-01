@@ -31,11 +31,11 @@ public class Map {
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles
 	
-	private static final int TILESACROSS = 16;
-	private static final int TILESDOWN = 8;
+	private static final int TILESACROSS = 64;
+	private static final int TILESDOWN = 32;
 	
-	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS;
-	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN;
+	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
+	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
 	
 	public Map(MainCharacter c){
 		player = c;
@@ -46,10 +46,11 @@ public class Map {
 		locationName = world.getName(mapLocation);
 		field = world.getTileMap(mapLocation);
 		tiles = world.getTileSet(mapLocation);
-		setAbsoluteLocation(field[0].length/2, field.length/2);
+		
+		c.setX(field[0].length/2); c.setY(field.length/2);
 	}
 
-	public void setAbsoluteLocation(int x, int y){ //This may cause an off by 1 error
+	public void setAbsoluteLocation(int x, int y){
 		top = y-TILESDOWN/2;
 		bottom = y+TILESDOWN/2;
 		left = x-TILESACROSS/2;
@@ -58,14 +59,13 @@ public class Map {
 	
 	
 	public void draw(Graphics g){
-		//setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
-		long start = System.nanoTime();
+		setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
-		drawCharacters(g); //Player an any other top layer people
+		drawCharacters(g); //Player an any other top layer people		
 		
-		System.out.println((System.nanoTime() - start)/1000000 + "ms per frame");
+		System.out.println(field[player.getY()][player.getX()]);
 	}
 	
 	
@@ -87,7 +87,7 @@ public class Map {
 	}
 	
 	public void drawCharacters(Graphics g){
-		
+		player.draw(g);
 	}
 	
 	

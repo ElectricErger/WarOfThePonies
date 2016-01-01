@@ -1,5 +1,6 @@
 package characters;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class BattleObject extends WorldObject implements Comparable<BattleObject>{
@@ -17,7 +18,8 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public boolean defeated=false;
 	//Still needs weapon and armor
 	
-	public BattleObject(BattleClass c) {
+	public BattleObject(String imgString, BattleClass c) {
+		super(imgString);
 		type = c;
 		moves = new ArrayList<Attack>(); //Maybe the constructor will give it...
 	}

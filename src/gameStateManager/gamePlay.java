@@ -22,7 +22,7 @@ public class GamePlay extends GameState{
 		
 		super(g);
 		
-		player = new MainCharacter();
+		player = new MainCharacter("/CharacterPics/player.bmp");
 		world = new Map(player);
 		g.setMainCharacter(player);
 		
