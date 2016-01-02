@@ -1,3 +1,11 @@
+/*
+ * Rebuilding Tile to be the bulk of the map
+ * It needs to reference the worldObject in it (blocking it and allowing for dialog)
+ * The image will be an array outside of this.
+ * 
+ * BRANCH THIS SHIT
+ */
+
 package mapEngine;
 
 import java.awt.Graphics;
