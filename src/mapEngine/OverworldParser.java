@@ -117,7 +117,10 @@ public class OverworldParser {
 	private void parseTileImages(String[] tileBuffer) {
 		tileArray = new Image[tileBuffer.length];
 		for(int i = 0; i<tileBuffer.length; i++){
-			try { tileArray[i] = ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i])); }
+			try {
+				tileArray[i] = ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i])); 
+				tileArray[i] = tileArray[i].getScaledInstance(Map.TILEWIDTH, Map.TILEHEIGHT, Image.SCALE_DEFAULT);
+			}
 			catch (Exception e) { e.printStackTrace(); }
 		}
 	}
