@@ -104,17 +104,20 @@ public class OverworldParser {
 		width = Integer.parseInt(header[2]);
 		height = Integer.parseInt(header[3]);
 		
+		//Parse Images
 		String[] tilePics = mapData[1].split(",");		
-		tiles = new int[height][width];
+		parseTileImages(tilePics);
 		
-		parseTiles(tilePics, false);
+		//Parse Tiles
+		tiles = new Tile[height][width];
 		parseMap(mapData);
 	}
 	
-	private void parseTiles(String[] tileBuffer, boolean solid) {
-		tileArray = new Tile[tileBuffer.length];
+	//Parse timages
+	private void parseTileImages(String[] tileBuffer) {
+		tileArray = new Image[tileBuffer.length];
 		for(int i = 0; i<tileBuffer.length; i++){
-			try { tileArray[i] = new Tile(solid,ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i]))); }
+			try { tileArray[i] = ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i])); }
 			catch (Exception e) { e.printStackTrace(); }
 		}
 	}
@@ -123,8 +126,8 @@ public class OverworldParser {
 	private void parseMap(String[] mapData){
 		for(int row = 2; row<height; row++){
 			String[] mapRow = mapData[row].split(",");
-			for(int col = 0; col<width; col++){	//At row 100 we aren't getting anything...why		
-				tiles[row][col] = Integer.parseInt(mapRow[col]);
+			for(int col = 0; col<width; col++){		
+				tiles[row][col] = new Tile(Integer.parseInt(mapRow[col]));
 			}
 		}
 	}

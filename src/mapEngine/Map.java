@@ -45,8 +45,8 @@ public class Map {
 		world = new OverworldParser();
 		world.parse(mapLocation);
 		locationName = world.getName(mapLocation);
-		field = world.getTileMap(mapLocation);
-		tiles = world.getTileSet(mapLocation);
+		field = world.getTiles(mapLocation);
+		tileImages = world.getTileImages(mapLocation);
 		
 		c.setX(field[0].length/2); c.setY(field.length/2);
 	}
@@ -67,14 +67,14 @@ public class Map {
 		drawCharacters(g); //Player an any other top layer people		
 	}
 	
-	
+	//Draws tiles
 	public void drawField(Graphics g){
 		
 		int row = 0;
 		for( int i = top; i < bottom; i++){
 			int col = 0;
 			for( int j = left; j < right; j++ ){
-				g.drawImage(tiles[field[i][j]].tileImage(), col*TILEWIDTH, row*TILEHEIGHT, null);
+				g.drawImage(tileImages[field[i][j].getTileIndex()], col*TILEWIDTH, row*TILEHEIGHT, null);
 				col++;
 			}
 			row++;

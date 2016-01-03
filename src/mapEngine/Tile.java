@@ -12,13 +12,15 @@ import characters.WorldObject;
 //SCALE WHEN YOU INITIATE
 public class Tile {
 	private WorldObject inUseBy;
-	private int img;
+	private int img; ///The image associated with the tile
 	
-	public Tile(WorldObject object, int tileImage){
-		inUseBy = object;
+	public Tile(int tileImage){
+		//inUseBy = object; //We will implement this later when the files is finished
 		img = tileImage;
 	}
 	
 	public WorldObject getObject(){ return inUseBy; }
-	public int tileImage(){ return img; }
+	public int getTileIndex(){ return img; }
+	
+	public void setObject(WorldObject occupiedBy){ inUseBy = occupiedBy; }
 }
