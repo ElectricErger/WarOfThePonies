@@ -62,9 +62,13 @@ public class Map {
 	public void draw(Graphics g){
 		setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
 		
+//		long start = System.nanoTime();
+		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
+		
+//		System.out.println((System.nanoTime() - start)/1000000 + "ms for this frame");
 	}
 	
 	//Draws tiles
@@ -76,7 +80,7 @@ public class Map {
 			int col = 0;
 			for( int j = left; j < right; j++ ){
 				g.drawImage(tileImages[field[i][j].getTileIndex()], col*TILEWIDTH, row*TILEHEIGHT, null);
-				col++;				
+				col++;
 			}
 			row++;
 		}
