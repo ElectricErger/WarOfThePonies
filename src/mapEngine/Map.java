@@ -15,6 +15,7 @@
 package mapEngine;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -25,8 +26,8 @@ public class Map {
 	
 	private MainCharacter player;
 	private OverworldParser world;
-	private int[][] field;
-	private Tile[] tiles;
+	private Tile[][] field;
+	private Image[] tileImages;
 	private int mapLocation;
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles

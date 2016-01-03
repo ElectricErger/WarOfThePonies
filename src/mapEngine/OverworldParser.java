@@ -1,6 +1,7 @@
 //If you change the protocol, you will rewrite this file with final variables for protocol numbers
 package mapEngine;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.RandomAccessFile;
@@ -19,8 +20,8 @@ public class OverworldParser {
 	private RandomAccessFile overworld;
 	//private BufferedReader overworld;
 	private int currentMap;
-	private int[][] tiles;
-	private Tile[] tileArray;
+	private Tile[][] tiles;
+	private Image[] tileArray;
 	private String mapName;
 	private int width, height;
 	//Surrounding maps and conditions to change .... maybe in Map?
@@ -72,18 +73,18 @@ public class OverworldParser {
 		return newLoc;
 	}
 	
-	//Throws a null pointer exception if you didn't run parse
 	//These 3 are still being workshopped a bit
-	public String getName(int location) throws NullPointerException{
+	public String getName(int location){
+		if(location != currentMap){ parse(location); }
 		return mapName;
 	}
 
-	public int[][] getTileMap(int location) throws NullPointerException{
-		//if(location != currentMap){ return null; }
+	public Tile[][] getTiles(int location){
 		return tiles;
 	}
 	
-	public Tile[] getTileSet(int location) throws NullPointerException{
+	public Image[] getTileImages(int location){
+		if(location != currentMap){ parse(location); }
 		return tileArray;
 	}
 
