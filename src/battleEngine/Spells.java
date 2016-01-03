@@ -33,7 +33,7 @@ public class Spells extends Action {
 			int hp=target.getHP();
 			target.setHP(hp+health);
 		}
-		private void healingSpell(){
+		void healingSpell(){
 			amountHealed();
 			updateHP();
 			updateMP();

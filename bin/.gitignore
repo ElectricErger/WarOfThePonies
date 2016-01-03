@@ -1,7 +1,9 @@
+/CharacterPics/
 /Floor/
 /MapLayout.xlsx
 /Maps/
 /battleEngine/
+/battleObjects/
 /bg.jpg
 /characters/
 /gameStateManager/
@@ -10,5 +12,3 @@
 /menuEngine/
 /textEngine/
 /worldMaptemp.map
-/battleObjects/
-/CharacterPics/

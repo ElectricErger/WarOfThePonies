@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import battleEngine.Action.BasicAttack;
+import battleEngine.Action.MultiAttack;
+import battleEngine.Spells.Heal;
 import characters.BattleObject;
 import characters.Boss;
 import characters.MainCharacter;
@@ -13,7 +16,6 @@ public class Round {
 	ArrayList<BattleObject> participants;
 	ArrayList<Boss> opponents;
 	ArrayList<BattleObject> party;
-	//need a separate list of opponents and of protagonists
 	
 	private Round(ArrayList<Boss> e, ArrayList<BattleObject> p){
 		party=p;
@@ -21,7 +23,6 @@ public class Round {
 		ArrayList<BattleObject> part=new ArrayList();
 		for(BattleObject main:p)part.add(main);
 		for (Boss enemy:e)part.add(enemy);
-		//since Boss is a subclass of BattleObject, as far as I can tell it should be okay to add, but Eclipse is whining??
 		part=participants;
 		
 	}
@@ -51,7 +52,7 @@ public class Round {
 	}
 	void award(int exp){
 		for(BattleObject bob:participants){
-			if(bob instanceof Boss==false){
+			if(!(bob instanceof Boss)){
 				int current=bob.getExp();
 				current=current+exp;
 				bob.setExp(current);
@@ -73,33 +74,41 @@ public class Round {
 					if(party.contains(fighter))party.remove(fighter);
 				}
 				else{
-					battleMenu(fighter, g);
-					//not sure where to create a graphics variable so this makes sense
+					Action selection;
+					if(!(fighter instanceof Boss)){
+						battleMenu(fighter);
+						//method for selection action, returns Action selection
+						selection=fighter.getAttacks().get(0);//placeholder
 					}
+					else{
+						selection=fighter.getAttacks().get(0);//placeholder
+						//AI method for selection action
+					}
+					execute(selection);					
 				}
 			}
 		for(BattleObject fighter: order){
 			fighter.setInit(0);
 			fighter.setdefeated(false);
+			}
 		}
 		award(exp);
 	}
-	void battleMenu(BattleObject fighter, Graphics g){
-		if(fighter instanceof Boss ==false){
-			String[] actions=new String[fighter.getAttacks().size()];
-			int index=0;
-			for(Action a:fighter.getAttacks()){
-				String action=a.name+" MP cost "+a.cost;
-				actions[index]=action;
-				g.drawString(action, 0, 0+index*g.getFontMetrics().getHeight());
-				//this is a placeholder menu, I wasn't sure where we wanted to position it, and have no idea how to actually do this
-				index++;
-			}
-			//method for selecting an action
+	void battleMenu(BattleObject fighter){
+		//creates string array of possible actions and their costs, should be printed to player to choose from
+		String[] actions=new String[fighter.getAttacks().size()];
+		int index=0;
+		for(Action a:fighter.getAttacks()){
+			String action=a.name+" MP cost "+a.cost;
+			actions[index]=action;
+			index++;
 		}
-		else{
-			//need AI to make selection, drawing menu is not required, but creating an AI sure as hell is 	
-		}
+	}
+	void execute(Action selection){
+		//does whatever the selected action is supposed to do
+		if(selection instanceof BasicAttack)((BasicAttack)selection).update();
+		if(selection instanceof Heal)((Heal)selection).healingSpell();
+		if(selection instanceof MultiAttack)((MultiAttack)selection).update(((MultiAttack) selection).attacks);
 	}
 
 }

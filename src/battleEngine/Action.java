@@ -1,7 +1,9 @@
 package battleEngine;
 
+import java.util.ArrayList;
 import java.util.Random;
 
+import battleEngine.Action.BasicAttack;
 import battleObjects.Weapon;
 import characters.BattleObject;
 
@@ -52,7 +54,7 @@ public abstract class Action {
 			}
 			
 		}
-		private void update(){
+		void update(){
 			accuracy();
 			if(hit){
 				critical();
@@ -66,6 +68,30 @@ public abstract class Action {
 				
 			}
 			
+		}
+	}
+	class MultiAttack extends Action{
+		ArrayList<BasicAttack> attacks;
+		int numberofTargets;
+		private MultiAttack(BattleObject[] targets, BattleObject attacker){	
+			name="Multi Attack";
+			//cost=some cost of using multi attack, add an int to constructor if MP cost is desired
+			numberofTargets=targets.length;
+			attacks=new ArrayList<BasicAttack>();
+			for(BattleObject target:targets){
+				BasicAttack a=new BasicAttack(attacker,target);
+				attacks.add(a);
+			}
+		}
+	}
+	//Multi attack could have an MP cost, or could only be given to characters of a certain class/level/weapon, or both...
+	void update(ArrayList<BasicAttack> attacks){
+		for(BasicAttack a: attacks){
+			a.update();
+			/*int mp=doer.getMP();
+			mp=mp-cost;
+			doer.setMP(mp);
+			Uncomment if Multiattack has MP cost*/
 		}
 	}
 }
