@@ -128,10 +128,22 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){ player.setY(player.getY()-1); }
-	private void downResponse(){ player.setY(player.getY()+1); }
-	private void leftResponse(){ player.setX(player.getX()-1); }
-	private void rightResponse(){ player.setX(player.getX()+1); }
+	private void upResponse(){
+		player.move(player.UP);;
+		//player.setY(player.getY()-1);
+	}
+	private void downResponse(){
+		player.move(player.DOWN);;
+		//player.setY(player.getY()+1);
+		}
+	private void leftResponse(){
+		player.move(player.LEFT);;
+		//player.setX(player.getX()-1);
+		}
+	private void rightResponse(){
+		player.move(player.RIGHT);;
+		//player.setX(player.getX()+1);
+		}
 	private void forwardResponse(){}
 	private void backwardResponse(){}
 }
