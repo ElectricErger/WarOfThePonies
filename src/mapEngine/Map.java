@@ -48,7 +48,8 @@ public class Map {
 		field = world.getTiles(mapLocation);
 		tileImages = world.getTileImages(mapLocation);
 
-		c.setX(field[0].length/2); c.setY(field.length/2);
+		c.setX(field[0].length/2);
+		c.setY(field.length/2);
 	}
 
 	public void setAbsoluteLocation(int x, int y){
@@ -128,22 +129,10 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){
-		player.move(player.UP);;
-		//player.setY(player.getY()-1);
-	}
-	private void downResponse(){
-		player.move(player.DOWN);;
-		//player.setY(player.getY()+1);
-		}
-	private void leftResponse(){
-		player.move(player.LEFT);;
-		//player.setX(player.getX()-1);
-		}
-	private void rightResponse(){
-		player.move(player.RIGHT);;
-		//player.setX(player.getX()+1);
-		}
+	private void upResponse(){ player.move(player.UP); }
+	private void downResponse(){ player.move(player.DOWN); }
+	private void leftResponse(){ player.move(player.LEFT); }
+	private void rightResponse(){ player.move(player.RIGHT); }
 	private void forwardResponse(){}
 	private void backwardResponse(){}
 }
