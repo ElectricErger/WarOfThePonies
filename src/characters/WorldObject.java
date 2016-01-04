@@ -53,10 +53,14 @@ public abstract class WorldObject {
 	public void setX(int x){ this.x = x*Map.TILEWIDTH; }
 	public void setY(int y){ this.y = y*Map.TILEHEIGHT; }
 		
-	//Get location - in tiles
-	public int getX(){ return x/Map.TILEWIDTH; }
-	public int getY(){ return y/Map.TILEHEIGHT; }
+	//Get location - In pixels
+	public int getX(){ return x; }
+	public int getY(){ return y; }
 
+	//Get location - In tiles
+	public int getXInTiles(){ return x/Map.TILEWIDTH;}
+	public int getYInTiles(){ return y/Map.TILEHEIGHT;}
+	
 	//Get image
 	public Image getImage(){ return currentImage; }
 	
