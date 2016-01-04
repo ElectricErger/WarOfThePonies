@@ -34,12 +34,14 @@ public abstract class WorldObject {
 	
 	private static final int NUM_FRAMES = 4; //Number of sprite frames in a cycle
 	private static final int FRAME_SPEED = 8; //The number of game frames per sprite frame
-	private static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED;
-	private static final int PIXELS_PER_FRAME_Y= FRAMES_PER_CYCLE/Map.TILEHEIGHT;
-	private static final int PIXELS_PER_FRAME_X = FRAMES_PER_CYCLE/Map.TILEWIDTH;
+	private static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
+	private static final double PIXELS_PER_FRAME_Y= Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
+	private static final double PIXELS_PER_FRAME_X = Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
 	
 	private int walkingDirection;
 	private int framesWalked = 0;
+	private double offsetX;
+	private double offsetY;
 	
 	public WorldObject(String imageLocation){
 		try{
@@ -50,16 +52,16 @@ public abstract class WorldObject {
 	}
 	
 	//Update locations - In tiles
-	public void setX(int x){ this.x = x*Map.TILEWIDTH; }
-	public void setY(int y){ this.y = y*Map.TILEHEIGHT; }
-		
-	//Get location - In pixels
-	public int getX(){ return x; }
-	public int getY(){ return y; }
+	public void setX(int x){ this.x = x; }
+	public void setY(int y){ this.y = y; }
 
 	//Get location - In tiles
-	public int getXInTiles(){ return x/Map.TILEWIDTH;}
-	public int getYInTiles(){ return y/Map.TILEHEIGHT;}
+	public int getX(){ return x;}
+	public int getY(){ return y;}
+	
+	//Get the fraction of a tile moved
+	public double getOffsetX(){	return offsetX; }
+	public double getOffsetY(){ return offsetY; }
 	
 	//Get image
 	public Image getImage(){ return currentImage; }
@@ -76,52 +78,66 @@ public abstract class WorldObject {
 		Thread t = new Thread(){
 			public void run(){
 				for( int i = 0; i<FRAMES_PER_CYCLE; i++ ){
+					updateOffset(direction);
+					
 					if(framesWalked % FRAME_SPEED == 0){
 						for(int walkingFrame = 0; walkingFrame<NUM_FRAMES; walkingFrame++){
-						currentImage = imgSheet.getSubimage(
-							walkingFrame*FRAME_WIDTH,
-							direction*FRAME_HEIGHT,
-							FRAME_WIDTH,
-							FRAME_HEIGHT);
+							currentImage = imgSheet.getSubimage(
+									walkingFrame*FRAME_WIDTH,
+									direction*FRAME_HEIGHT,
+									FRAME_WIDTH,
+									FRAME_HEIGHT);
+						}
+						
+						try { Thread.sleep(Panel.FPmS); }
+						catch (Exception e) { e.printStackTrace(); }
 					}
-					
-					switch(direction){
-					case UP:
-						y -= PIXELS_PER_FRAME_Y;
-						break;
-					case RIGHT:
-						x += PIXELS_PER_FRAME_X;
-						break;
-					case DOWN:
-						y += PIXELS_PER_FRAME_Y;
-						break;
-					case LEFT:
-						x -= PIXELS_PER_FRAME_X;
-						break;
-					}
-					
-					try { Thread.sleep(Panel.FPmS); }
-					catch (Exception e) { e.printStackTrace(); }
 				}
-					//Update map find a way to update the map object for MainCharacter.
-				}
-				currentImage = imgSheet.getSubimage(
-						0,
-						direction*FRAME_HEIGHT,
-						FRAME_WIDTH,
-						FRAME_HEIGHT);
-				isWalking = false;
+				animationCleanup(direction);
 			}
 		};
 		t.start();
 	}
-
-	public void draw(Graphics g){
-		if(isWalking){//Since we already updated the variable, we need to offset?
-			
-		}
-		else{
-			
+	private void updateOffset(int direction){
+		switch(direction){
+		case UP:
+			offsetY -= PIXELS_PER_FRAME_Y;
+			break;
+		case RIGHT:
+			offsetX += PIXELS_PER_FRAME_X;
+			break;
+		case DOWN:
+			offsetY += PIXELS_PER_FRAME_Y;
+			break;
+		case LEFT:
+			offsetX -= PIXELS_PER_FRAME_X;
+			break;
 		}
 	}
+	private void animationCleanup(int direction){
+		currentImage = imgSheet.getSubimage(
+				0,
+				direction*FRAME_HEIGHT,
+				FRAME_WIDTH,
+				FRAME_HEIGHT);
+		isWalking = false;
+		offsetX = offsetY = 0;
+		
+		switch(direction){
+		case UP:
+			y--;
+			break;
+		case RIGHT:
+			x++;
+			break;
+		case DOWN:
+			y++;
+			break;
+		case LEFT:
+			x--;
+			break;
+		}
+	}
+	
+	public void draw(Graphics g){}
 }

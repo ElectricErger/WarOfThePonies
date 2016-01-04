@@ -31,8 +31,8 @@ public class Map {
 	private int mapLocation;
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles
-	private int xOffset = 0;
-	private int yOffset = 0;
+	private double xOffset = 0;
+	private double yOffset = 0;
 	
 	private static final int TILESACROSS = 64;
 	private static final int TILESDOWN = 32;
@@ -55,52 +55,48 @@ public class Map {
 	}
 
 	//I Broke something
-	public void setAbsoluteLocation(int x, int y){
-		top = y/TILEHEIGHT-TILESDOWN/2;
-		bottom = y/TILEHEIGHT+TILESDOWN/2;
-		left = x/TILEWIDTH-TILESACROSS/2;
-		right = x/TILEWIDTH+TILESACROSS/2;
-		
-		xOffset = x%TILEWIDTH;
-		yOffset = y%TILEHEIGHT;
+	public void centerAround(int x, int y){
+		top = y-TILESDOWN/2;
+		bottom = y+TILESDOWN/2;
+		left = x-TILESACROSS/2;
+		right = x+TILESACROSS/2;
+	}
+	public void centerAround(int x, int y, double offsetX, double offsetY){
+		centerAround(x,y);
+		xOffset = offsetX;
+		yOffset = offsetY;
 	}
 	
 	
 	public void draw(Graphics g){
-		setAbsoluteLocation(player.getX(), player.getY()); //Eventually: pixel by pixel
+		centerAround(player.getX(), player.getY(), player.getOffsetX(), player.getOffsetY());
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
 	}
 	
-	//Draws tiles
+	//I have 1 bad frame and the tiles above are missing
 	public void drawField(Graphics g){
-		
-		
 		int row = 0;
 		for( int i = top-1; i < bottom+1; i++){
 			int col = 0;
 			for( int j = left-1; j < right+1; j++ ){
 				g.drawImage(
 						tileImages[field[i][j].getTileIndex()],
-						col*TILEWIDTH + xOffset,
-						row*TILEHEIGHT + yOffset,
+						(int)(col*TILEWIDTH+xOffset), //Left and right not working
+						(int)(row*TILEHEIGHT-yOffset),
 						null);
 				col++;
 			}
 			row++;
-		}
+		}	
 	}
-	
-	public void drawAssets(Graphics g){
-		
-	}
-	
-	public void drawCharacters(Graphics g){
+	public void drawAssets(Graphics g){}
+	public void drawCharacters(Graphics g){ //Rebuild this
 		g.drawImage(player.getImage(),
-				convertAbsoluteToRelativeX(player.getXInTiles()),
-				convertAbsoluteToRelativeY(player.getYInTiles()),
+				convertAbsoluteToRelativeX(player.getX()),
+				convertAbsoluteToRelativeY(player.getY()),
 				null);
 	}
 	
