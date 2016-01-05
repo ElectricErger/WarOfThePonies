@@ -17,6 +17,7 @@ public class GamePlay extends GameState{
 	private Battle battle;
 	private TextWindow dialog;
 	private Map world;
+	private Plot plot;
 	
 	public GamePlay(GameStateManager g){
 		
@@ -25,13 +26,25 @@ public class GamePlay extends GameState{
 		player = new MainCharacter("/CharacterPics/player.bmp");
 		world = new Map(player);
 		g.setMainCharacter(player);
+
+		plot = new Plot();
 		
 		//Should I create a menu object here?
 		dialog = new TextWindow();
 		inMenu = inBattle = inConvo = false;
 	}
+
+	public void inBattle(){ inBattle = true; }
+	public void inConvo(){ inConvo = true; }
+	public void inMenu(){ inMenu = true; }
 	
-	@Override
+	public void endBattle(){ inBattle = false; }
+	public void endConvo(){ inConvo = false; }
+	public void leaveMenu(){ inMenu = false; }
+	
+	
+	//Redirects to current state
+	@Override 
 	public void draw(Graphics g) {
 		if(inBattle){
 			battle.draw(g);
@@ -47,7 +60,6 @@ public class GamePlay extends GameState{
 		}
 		
 	}
-
 	public void keyDown(int key) {
 		if(inBattle){
 			battle.keyDown(key);

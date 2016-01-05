@@ -35,7 +35,7 @@ public abstract class WorldObject {
 	private static final int NUM_CYCLES = 4; //The number of rows of images
 	
 	private static final int NUM_FRAMES = 4; //Number of sprite frames in a cycle
-	private static final int FRAME_SPEED = 16; //The number of game frames per sprite frame
+	private static final int FRAME_SPEED = 4; //The number of game frames per sprite frame
 	private static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
 	private static final double PIXELS_PER_FRAME_Y= (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
 	private static final double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
@@ -68,6 +68,8 @@ public abstract class WorldObject {
 	
 	//Get image
 	public Image getImage(){ return currentImage; }
+	
+	public int getDirection(){ return walkingDirection; }
 	
 	//Movement and animation
 	public void move(int direction){

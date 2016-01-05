@@ -132,10 +132,40 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){ player.move(player.UP); }
-	private void downResponse(){ player.move(player.DOWN); }
-	private void leftResponse(){ player.move(player.LEFT); }
-	private void rightResponse(){ player.move(player.RIGHT); }
-	private void forwardResponse(){}
+	private void upResponse(){ player.move(WorldObject.UP); }
+	private void downResponse(){ player.move(WorldObject.DOWN); }
+	private void leftResponse(){ player.move(WorldObject.LEFT); }
+	private void rightResponse(){ player.move(WorldObject.RIGHT); }
+	private void forwardResponse(){
+		Tile nextTile = getAdjacentTile(player.getDirection());
+		WorldObject person = nextTile.getObject();
+		if(person != null){
+			//Start up text or purchase
+		}
+		else{
+			//there is nothing there
+		}
+	}
 	private void backwardResponse(){}
+	
+	private Tile getAdjacentTile(int direction){
+		int x = player.getX();
+		int y = player.getY();
+		Tile t = null;
+		switch (player.getDirection()){
+		case WorldObject.UP:
+			t = field[x][y-1];
+			break;
+		case WorldObject.RIGHT:
+			t = field[x+1][y];
+			break;
+		case WorldObject.DOWN:
+			t = field[x][y+1];
+			break;
+		case WorldObject.LEFT:
+			t = field[x-1][y];
+			break;
+		}
+		return t;
+	}
 }
