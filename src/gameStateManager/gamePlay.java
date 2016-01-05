@@ -69,6 +69,7 @@ public class GamePlay extends GameState{
 		}
 	}
 
+	//Don't need?
 	private void upResponse(){}
 	private void downResponse(){}
 	private void leftResponse(){}

@@ -34,8 +34,8 @@ public class Map {
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
-	private static final int TILESACROSS = 64;
-	private static final int TILESDOWN = 32;
+	private static final int TILESACROSS = 32;
+	private static final int TILESDOWN = 16;
 	
 	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
 	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
@@ -78,14 +78,14 @@ public class Map {
 	
 	//I have 1 bad frame and the tiles above are missing
 	public void drawField(Graphics g){
-		int row = 0;
+		int row = -1;
 		for( int i = top-1; i < bottom+1; i++){
-			int col = 0;
+			int col = -1;
 			for( int j = left-1; j < right+1; j++ ){
 				g.drawImage(
 						tileImages[field[i][j].getTileIndex()],
 						(int)(col*TILEWIDTH+xOffset), //Left and right not working
-						(int)(row*TILEHEIGHT-yOffset),
+						(int)(row*TILEHEIGHT+yOffset),
 						null);
 				col++;
 			}
@@ -107,7 +107,8 @@ public class Map {
 		return(y-top+1)*TILEHEIGHT;
 	}
 	
-	
+
+	//Responsiveness is slow. Consider making it a vector.
 	public void keyDown(int key){
 		switch(key){
 		case KeyEvent.VK_UP:
