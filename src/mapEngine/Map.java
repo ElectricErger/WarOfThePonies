@@ -15,6 +15,7 @@
 package mapEngine;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
@@ -25,14 +26,16 @@ public class Map {
 	
 	private MainCharacter player;
 	private OverworldParser world;
-	private int[][] field;
-	private Tile[] tiles;
+	private Tile[][] field;
+	private Image[] tileImages;
 	private int mapLocation;
 	private String locationName;
 	private int top, bottom, right, left; // Window bounds in terms of tiles
+	private double xOffset = 0;
+	private double yOffset = 0;
 	
-	private static final int TILESACROSS = 64;
-	private static final int TILESDOWN = 32;
+	private static final int TILESACROSS = 32;
+	private static final int TILESDOWN = 16;
 	
 	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
 	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
@@ -44,47 +47,53 @@ public class Map {
 		world = new OverworldParser();
 		world.parse(mapLocation);
 		locationName = world.getName(mapLocation);
-		field = world.getTileMap(mapLocation);
-		tiles = world.getTileSet(mapLocation);
-		
-		c.setX(field[0].length/2); c.setY(field.length/2);
+		field = world.getTiles(mapLocation);
+		tileImages = world.getTileImages(mapLocation);
+
+		c.setX(field[0].length/2);
+		c.setY(field.length/2);
 	}
 
-	public void setAbsoluteLocation(int x, int y){
+	//I Broke something
+	public void centerAround(int x, int y){
 		top = y-TILESDOWN/2;
 		bottom = y+TILESDOWN/2;
 		left = x-TILESACROSS/2;
 		right = x+TILESACROSS/2;
 	}
+	public void centerAround(int x, int y, double offsetX, double offsetY){
+		centerAround(x,y);
+		xOffset = offsetX;
+		yOffset = offsetY;
+	}
 	
 	
 	public void draw(Graphics g){
-		setAbsoluteLocation(player.getX(), player.getY()); //update map relative to players position
+		centerAround(player.getX(), player.getY(), player.getOffsetX(), player.getOffsetY());
 		
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
 	}
 	
-	
+	//I have 1 bad frame and the tiles above are missing
 	public void drawField(Graphics g){
-		
-		int row = 0;
-		for( int i = top; i < bottom; i++){
-			int col = 0;
-			for( int j = left; j < right; j++ ){
-				g.drawImage(tiles[field[i][j]].tileImage(), col*TILEWIDTH, row*TILEHEIGHT, null);
+		int row = -1;
+		for( int i = top-1; i < bottom+1; i++){
+			int col = -1;
+			for( int j = left-1; j < right+1; j++ ){
+				g.drawImage(
+						tileImages[field[i][j].getTileIndex()],
+						(int)(col*TILEWIDTH+xOffset), //Left and right not working
+						(int)(row*TILEHEIGHT+yOffset),
+						null);
 				col++;
 			}
 			row++;
-		}
+		}	
 	}
-	
-	public void drawAssets(Graphics g){
-		
-	}
-	
-	public void drawCharacters(Graphics g){
+	public void drawAssets(Graphics g){}
+	public void drawCharacters(Graphics g){ //Rebuild this
 		g.drawImage(player.getImage(),
 				convertAbsoluteToRelativeX(player.getX()),
 				convertAbsoluteToRelativeY(player.getY()),
@@ -98,7 +107,8 @@ public class Map {
 		return(y-top+1)*TILEHEIGHT;
 	}
 	
-	
+
+	//Responsiveness is slow. Consider making it a vector.
 	public void keyDown(int key){
 		switch(key){
 		case KeyEvent.VK_UP:
@@ -122,10 +132,10 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){ player.setY(player.getY()-1); }
-	private void downResponse(){ player.setY(player.getY()+1); }
-	private void leftResponse(){ player.setX(player.getX()-1); }
-	private void rightResponse(){ player.setX(player.getX()+1); }
+	private void upResponse(){ player.move(player.UP); }
+	private void downResponse(){ player.move(player.DOWN); }
+	private void leftResponse(){ player.move(player.LEFT); }
+	private void rightResponse(){ player.move(player.RIGHT); }
 	private void forwardResponse(){}
 	private void backwardResponse(){}
 }

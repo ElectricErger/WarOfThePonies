@@ -11,7 +11,7 @@ public class Panel extends JPanel implements KeyListener{
 	GameStateManager gsm;
 	Thread main;
 	
-	private final int FPmS = 1000/60;
+	public static final int FPmS = 1000/60;
 	
 	
 	public Panel(){
