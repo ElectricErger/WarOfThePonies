@@ -114,7 +114,7 @@ public class Map {
 						(int)(col*TILEWIDTH+xOffset), //Left and right not working
 						(int)(row*TILEHEIGHT+yOffset),
 						null);
-				g.drawString(j+","+i, col*TILEWIDTH, row*TILEHEIGHT);
+				//g.drawString(j+","+i, col*TILEWIDTH, row*TILEHEIGHT);
 				col++;
 			}
 			row++;
@@ -201,7 +201,7 @@ public class Map {
 			game.inConvo(true);
 			//Start up text or purchase
 			textbox.loadWithCharacter(person);
-			System.out.println("Opening text box");
+			textbox.keyDown(KeyEvent.VK_SPACE);
 		}
 		else{
 			//there is nothing there

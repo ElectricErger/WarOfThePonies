@@ -40,7 +40,6 @@ public abstract class WorldObject {
 	protected static final double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
 	
 	protected int walkingDirection;
-	protected int framesWalked = 0;
 	private double offsetX;
 	private double offsetY;
 	
@@ -104,21 +103,19 @@ public abstract class WorldObject {
 	private void animate(int direction){
 		Thread t = new Thread(){
 			public void run(){
-				for( int i = 0; i<FRAMES_PER_CYCLE; i++ ){
-					
-					//Only displaying one image from walk cycle
+				int walkingFrame = 0;
+				for( int i = 0; i<FRAMES_PER_CYCLE; i++ ){ //16 frames in a whole cycle
 					updateOffset(direction); //If I turn this off I can make it public for another method
-					if(framesWalked % FRAME_SPEED == 0){
-						for(int walkingFrame = 0; walkingFrame<NUM_FRAMES; walkingFrame++){
-							currentImage = imgSheet.getSubimage(
-									walkingFrame*Map.TILEWIDTH,
-									direction*Map.TILEHEIGHT,
-									Map.TILEWIDTH,
-									Map.TILEHEIGHT);
-						}
-						try { Thread.sleep(Panel.FPmS); }
-						catch (Exception e) { e.printStackTrace(); }
+					if(i % FRAME_SPEED == 0){
+						currentImage = imgSheet.getSubimage(
+								walkingFrame*Map.TILEWIDTH,
+								direction*Map.TILEHEIGHT,
+								Map.TILEWIDTH,
+								Map.TILEHEIGHT);
+						walkingFrame++;
 					}
+					try { Thread.sleep(Panel.FPmS); }
+					catch (Exception e) { e.printStackTrace(); }
 				}
 				animationCleanup(direction);
 			}

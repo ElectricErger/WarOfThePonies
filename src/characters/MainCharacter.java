@@ -13,10 +13,11 @@ public class MainCharacter extends BattleObject{
 	}
 	
 	public void animate(int direction){
+		walkingDirection = direction;
 		Thread t = new Thread(){
 			public void run(){
 				for( int i = 0; i<FRAMES_PER_CYCLE; i++ ){
-					if(framesWalked % FRAME_SPEED == 0){
+					if(i % FRAME_SPEED == 0){
 						for(int walkingFrame = 0; walkingFrame<NUM_FRAMES; walkingFrame++){
 							currentImage = imgSheet.getSubimage(
 									walkingFrame*Map.TILEWIDTH,

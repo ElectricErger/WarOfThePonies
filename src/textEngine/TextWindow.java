@@ -12,6 +12,10 @@
 
 package textEngine;
 
+import gameStateManager.GamePlay;
+import gameStateManager.GameState;
+import gameStateManager.GameStateManager;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -22,39 +26,51 @@ import javax.swing.JPanel;
 import main.WoE;
 import characters.WorldObject;
 
-/**
- * When an text window is made, it's made for a specific person
- * If we have a conversation, we make a different text window and they trigger events
- * 
- *
- */
 public class TextWindow {
 	
-	private boolean hasContent; //When there is content we can 
+	private GamePlay game;	
 	
-	private boolean writing;
-	ArrayList<String> buffer;
-	String currentString, stringBuffer; // The string buffer is for creeping and what should be displayed
-	WorldObject character, nextCharacter;
+	//What data we are working with
+	private WorldObject character;
+	private ArrayList<String> buffer;
+
+	//Current state
+	private String currentString, stringBuffer; // The string buffer is for creeping and what should be displayed
+	private boolean hasContent, writing;
+	
+	private static final long TEXTSPEED = 1000/25; //in 1000ms we should have X text speed 
 	
 	
-	private final long TEXTSPEED = 1000/10; //in 1000ms we should have X text speed 
 	
-	public TextWindow(){
+	
+	public TextWindow(GamePlay g){
 		buffer = new ArrayList<String>();
 		hasContent = false;
+		game = g;
+		stringBuffer = "";
 	}
 	
 	// Views
 	public void draw(Graphics g){
+		drawBox(g);
+		drawName(g);
+		writeText(g);
+		playSound();
+	}
+	
+	private void drawBox(Graphics g){
 		g.setColor(Color.BLUE);
 		g.fillRect(0, WoE.HEIGHT*3/4, WoE.WIDTH, WoE.HEIGHT/4);
 		g.setColor(Color.WHITE);
 		g.drawRect(0, WoE.HEIGHT*3/4, WoE.WIDTH, WoE.HEIGHT/4);
-		
-		//DRAW NAME
-		
-		g.drawString(currentString, 0, WoE.HEIGHT*3/4+40);
+	}
+	private void drawName(Graphics g){
+		//g.drawString(character.getName());
+	}
+	private void writeText(Graphics g){
+		g.drawString(stringBuffer, 0, WoE.HEIGHT*3/4+40);
+	}
+	private void playSound(){
 		if(writing){
 			//Play sound
 			//This was put here because it should play as the words advance with the frames, not the buffer
@@ -62,52 +78,69 @@ public class TextWindow {
 	}
 	
 	
-	// Object controllers
-	//Depreciated
-	public void setContent(String[] dialog, WorldObject next) {
-		nextCharacter = next;
-		for(String s : dialog){
-			buffer.add(s);
-		}
-		hasContent = true;
-	}
+	// Starts the convo
 	public void loadWithCharacter(WorldObject character){
+		//Look up the character in the translator
 		buffer.add("HELLO");
 		buffer.add("THIS IS A LOREM IPSUM TO TEST HOW TEXT WILL APPEAR. PLEASE DISREGARD ANY AND ALL DATA");
 		buffer.add("I AM ACTUALLY YOUR BIRTH MOTHER. PLEASE LET ME OUT!");
 		buffer.add("Remember, all screems for mercy are actually simulations, and should not be taken seriously.");
 		hasContent = true;
+		
+		currentString = buffer.get(0);
 	}
 
-	public boolean hasContent(){
-		return hasContent;
+	//Direct control
+	public void keyDown(int key){
+		switch(key){
+		case KeyEvent.VK_UP:
+			upResponse();
+			break;
+		case KeyEvent.VK_DOWN:
+			downResponse();
+			break;
+		case KeyEvent.VK_LEFT:
+			leftResponse();
+			break;
+		case KeyEvent.VK_RIGHT:
+			rightResponse();
+			break;
+		case KeyEvent.VK_SPACE:
+			forwardResponse();
+			break;
+		case KeyEvent.VK_BACK_SPACE:
+			backwardResponse();
+			break;
+		}
 	}
 
-	synchronized public void advanceText(){
+	private void upResponse(){}
+	private void downResponse(){}
+	private void leftResponse(){}
+	private void rightResponse(){}
+	private void forwardResponse(){ advanceText(); }
+	private void backwardResponse(){}
+
+
+	//What happens when we press buttons
+	synchronized private void advanceText(){
 		if(writing){
 			stringBuffer = currentString;
-			writing = false; //Should writing be used for the loop?
-			//Design nextLine to break if !writing
+			writing = false;
+			//Stops the creeping
 		}
 		else{
 			if(buffer.size() == 0){
-				if(nextCharacter != null){					
-					TextTranslator.advanceDialog(this); //This needs a bit of refactoring as next character may be contained in TextTranslator
-					nextLine(); //Now we have more dialog
-				}
-				else{
-					hasContent = false;					
-				}
+				hasContent = false; //Do I even need this now?
+				cleanup();
+				game.inConvo( false );
 			}
 			else{
 				nextLine();
 			}
-			nextLine();
 		}
 	}
-	
-
-	synchronized public void nextLine(){
+	synchronized private void nextLine(){
 		writing = true;
 		currentString = buffer.get(0);
 		buffer.remove(0); //This is kind of like a stack
@@ -140,35 +173,13 @@ public class TextWindow {
 		};
 		t.start();
 	}
-
-	public void keyDown(int key){
-		switch(key){
-		case KeyEvent.VK_UP:
-			upResponse();
-			break;
-		case KeyEvent.VK_DOWN:
-			downResponse();
-			break;
-		case KeyEvent.VK_LEFT:
-			leftResponse();
-			break;
-		case KeyEvent.VK_RIGHT:
-			rightResponse();
-			break;
-		case KeyEvent.VK_SPACE:
-			forwardResponse();
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			backwardResponse();
-			break;
-		}
+	private void cleanup(){
+		currentString = stringBuffer = "";
+		writing = hasContent = false;
+		
 	}
-
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
-	private void forwardResponse(){ advanceText(); }
-	private void backwardResponse(){}
+	
+	//Getters and setters
+	public boolean hasContent(){ return hasContent; } //Do I need this?
 }
 

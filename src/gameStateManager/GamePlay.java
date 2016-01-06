@@ -29,7 +29,7 @@ public class GamePlay extends GameState{
 		//Make the variables
 		world = new Map(this);
 		player = new MainCharacter("/CharacterPics/player.bmp", world);
-		dialog = new TextWindow();
+		dialog = new TextWindow(this);
 		menu = new Menu();
 		
 		//Give the initialization variables to the linked classes
