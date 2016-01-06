@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import textEngine.TextWindow;
 import main.WoE;
 import characters.*;
 
@@ -30,6 +31,7 @@ public class Map {
 	private MainCharacter player;
 	private OverworldParser world;
 	private GamePlay game;
+	private TextWindow textbox;
 	
 	//Tile information
 	private Tile[][] field;
@@ -48,8 +50,12 @@ public class Map {
 	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
 	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
 	
+	//TESTING
 	private NPC thing;
 	private ArrayList<NPC> charactersOnScreen;
+	
+	
+	
 	
 	public Map(GamePlay g){
 		mapLocation = 0; 
@@ -190,12 +196,12 @@ public class Map {
 	else{ player.move(WorldObject.RIGHT); }
 	}
 	private void forwardResponse(){
-		Tile nextTile = getAdjacentTile(player.getDirection());
-		WorldObject person = nextTile.getObject();
+		WorldObject person = getAdjacentTile(player.getDirection()).getObject();
 		if(person != null){
 			game.inConvo(true);
 			//Start up text or purchase
-			//textbox.load(person);
+			textbox.loadWithCharacter(person);
+			System.out.println("Opening text box");
 		}
 		else{
 			//there is nothing there
@@ -225,14 +231,10 @@ public class Map {
 		}
 		return t;
 	}
-	public void occupy(WorldObject o){
-		field[o.getY()][o.getX()].setObject(o);
-	}
-	public void unoccupy(WorldObject o){
-		field[o.getY()][o.getX()].unsetObject();
-	}
-	public void unoccupy(int x, int y){
-		field[y][x].unsetObject();
-	}
+	public void occupy(WorldObject o){ field[o.getY()][o.getX()].setObject(o); }
+	public void unoccupy(WorldObject o){ field[o.getY()][o.getX()].unsetObject(); }
+	public void unoccupy(int x, int y){ field[y][x].unsetObject(); }
+	
+	public void setText(TextWindow dialog) { textbox = dialog; }
 }
 

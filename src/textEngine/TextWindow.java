@@ -63,10 +63,7 @@ public class TextWindow {
 	
 	
 	// Object controllers
-	/**
-	 * Content the character has to say and who should talk next at the end
-	 * @param String s - The string to write
-	 */
+	//Depreciated
 	public void setContent(String[] dialog, WorldObject next) {
 		nextCharacter = next;
 		for(String s : dialog){
@@ -74,18 +71,18 @@ public class TextWindow {
 		}
 		hasContent = true;
 	}
+	public void loadWithCharacter(WorldObject character){
+		buffer.add("HELLO");
+		buffer.add("THIS IS A LOREM IPSUM TO TEST HOW TEXT WILL APPEAR. PLEASE DISREGARD ANY AND ALL DATA");
+		buffer.add("I AM ACTUALLY YOUR BIRTH MOTHER. PLEASE LET ME OUT!");
+		buffer.add("Remember, all screems for mercy are actually simulations, and should not be taken seriously.");
+		hasContent = true;
+	}
 
-	/**
-	 * Tells you if someone is talking
-	 * @return
-	 */
 	public boolean hasContent(){
 		return hasContent;
 	}
 
-	/**
-	 * Call this method to advance the text
-	 */
 	synchronized public void advanceText(){
 		if(writing){
 			stringBuffer = currentString;
@@ -109,11 +106,7 @@ public class TextWindow {
 		}
 	}
 	
-	/**
-	 * The controller calls this when the user presses A
-	 * and the world object is talking
-	 * The 
-	 */
+
 	synchronized public void nextLine(){
 		writing = true;
 		currentString = buffer.get(0);

@@ -26,15 +26,21 @@ public class GamePlay extends GameState{
 		
 		super(g);
 		
+		//Make the variables
 		world = new Map(this);
 		player = new MainCharacter("/CharacterPics/player.bmp", world);
-		world.setPlayer(player);
+		dialog = new TextWindow();
+		menu = new Menu();
+		
+		//Give the initialization variables to the linked classes
 		g.setMainCharacter(player);
+		world.setPlayer(player);
+		world.setText(dialog);
 
+		
 		plot = new Plot();
 		
-		//Should I create a menu object here?
-		dialog = new TextWindow();
+		//
 		inMenu = inBattle = inConvo = false;
 	}
 
@@ -45,19 +51,12 @@ public class GamePlay extends GameState{
 	//Redirects to current state
 	@Override 
 	public void draw(Graphics g) {
-		if(inBattle){
-			battle.draw(g);
-		}
+		if(inBattle){ battle.draw(g); }
 		else{
 			world.draw(g);
-			if(inMenu){
-				menu.draw(g);
-			}
+			if(inMenu){ menu.draw(g); }
 		}
-		if(inConvo){
-			dialog.draw(g);
-		}
-		
+		if(inConvo){ dialog.draw(g); }
 	}
 	public void keyDown(int key) {
 		if(inBattle){
@@ -80,12 +79,5 @@ public class GamePlay extends GameState{
 		}
 	}
 
-	//Don't need?
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
-	private void forwardResponse(){}
-	private void backwardResponse(){}
 	
 }
