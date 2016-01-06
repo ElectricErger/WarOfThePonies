@@ -14,10 +14,13 @@
 
 package mapEngine;
 
+import gameStateManager.GamePlay;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import main.WoE;
 import characters.*;
@@ -26,11 +29,16 @@ public class Map {
 	
 	private MainCharacter player;
 	private OverworldParser world;
+	private GamePlay game;
+	
+	//Tile information
 	private Tile[][] field;
 	private Image[] tileImages;
 	private int mapLocation;
 	private String locationName;
-	private int top, bottom, right, left; // Window bounds in terms of tiles
+	
+	//Window information
+	private int top, bottom, right, left;
 	private double xOffset = 0;
 	private double yOffset = 0;
 	
@@ -40,9 +48,13 @@ public class Map {
 	public static final int TILEWIDTH = WoE.WIDTH/TILESACROSS+1;
 	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
 	
-	public Map(MainCharacter c){
+	private NPC thing;
+	private ArrayList<NPC> charactersOnScreen;
+	
+	public Map(MainCharacter c, GamePlay g){
 		player = c;
-		mapLocation = 0; //FOR NOW, THE REAL THING WILL BE 0
+		mapLocation = 0; 
+		game = g;
 		
 		world = new OverworldParser();
 		world.parse(mapLocation);
@@ -50,6 +62,13 @@ public class Map {
 		field = world.getTiles(mapLocation);
 		tileImages = world.getTileImages(mapLocation);
 
+		//For testing only
+		thing = new NPC("/CharacterPics/player.bmp");
+		thing.setX(field[0].length/2);
+		thing.setY(field.length/2-5);
+		charactersOnScreen = new ArrayList<NPC>();
+		charactersOnScreen.add(thing);
+		
 		c.setX(field[0].length/2);
 		c.setY(field.length/2);
 	}
@@ -98,6 +117,14 @@ public class Map {
 				convertAbsoluteToRelativeX(player.getX()),
 				convertAbsoluteToRelativeY(player.getY()),
 				null);
+		//For testing only
+		for(NPC c : charactersOnScreen){		
+			//Needs to be offset too...
+			g.drawImage(thing.getImage(),
+					convertAbsoluteToRelativeX(c.getX())+(int)(xOffset*TILEWIDTH),
+					convertAbsoluteToRelativeY(c.getY())+(int)(yOffset*TILEHEIGHT),
+					null);
+		}
 	}
 	
 	public int convertAbsoluteToRelativeX(int x){
@@ -140,7 +167,9 @@ public class Map {
 		Tile nextTile = getAdjacentTile(player.getDirection());
 		WorldObject person = nextTile.getObject();
 		if(person != null){
+			game.inConvo(true);
 			//Start up text or purchase
+			//textbox.load(person);
 		}
 		else{
 			//there is nothing there

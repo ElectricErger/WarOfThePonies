@@ -21,8 +21,8 @@ public abstract class WorldObject {
 	private int y;	
 	private boolean isAnimated;
 	private BufferedImage imgSheet; //Debating if it should be Image for scaling purposes
-	private boolean isWalking;
 	private Image currentImage;
+	private boolean isWalking;
 
 	public static final int UP = 0;
 	public static final int RIGHT = 1;
@@ -52,6 +52,7 @@ public abstract class WorldObject {
 			currentImage = imgSheet.getSubimage(0, 0, Map.TILEWIDTH, Map.TILEHEIGHT);
 		}
 		catch(Exception e){ e.printStackTrace(); }
+		isWalking = false;
 	}
 	
 	//Update locations - In tiles

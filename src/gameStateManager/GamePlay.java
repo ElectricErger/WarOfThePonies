@@ -1,3 +1,6 @@
+/*
+ * This is the state manager for playing the game.
+ */
 package gameStateManager;
 
 import java.awt.Graphics;
@@ -24,7 +27,7 @@ public class GamePlay extends GameState{
 		super(g);
 		
 		player = new MainCharacter("/CharacterPics/player.bmp");
-		world = new Map(player);
+		world = new Map(player, this);
 		g.setMainCharacter(player);
 
 		plot = new Plot();
@@ -34,14 +37,9 @@ public class GamePlay extends GameState{
 		inMenu = inBattle = inConvo = false;
 	}
 
-	public void inBattle(){ inBattle = true; }
-	public void inConvo(){ inConvo = true; }
-	public void inMenu(){ inMenu = true; }
-	
-	public void endBattle(){ inBattle = false; }
-	public void endConvo(){ inConvo = false; }
-	public void leaveMenu(){ inMenu = false; }
-	
+	public void inBattle(boolean b){ inBattle = b; }
+	public void inConvo(boolean b){ inConvo = b; }
+	public void inMenu(boolean b){ inMenu = b; }
 	
 	//Redirects to current state
 	@Override 
