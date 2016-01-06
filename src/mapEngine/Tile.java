@@ -23,4 +23,10 @@ public class Tile {
 	public int getTileIndex(){ return img; }
 	
 	public void setObject(WorldObject occupiedBy){ inUseBy = occupiedBy; }
+	public WorldObject occupiedBy(){ return inUseBy; }
+	public boolean occupied(){
+		if(inUseBy == null ) return false;
+		else return true;
+	}
+	public void unsetObject(){ inUseBy = null; }
 }

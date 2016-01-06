@@ -3,6 +3,7 @@ package characters;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import mapEngine.Map;
 import battleEngine.Action;
 
 public abstract class BattleObject extends WorldObject implements Comparable<BattleObject>{
@@ -20,8 +21,8 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	private boolean defeated=false;
 	//Still needs weapon and armor
 	
-	public BattleObject(String imgString, BattleClass c) {
-		super(imgString);
+	public BattleObject(String imgString, BattleClass c, Map m) {
+		super(imgString, m);
 		type = c;
 		moves = new ArrayList<Action>(); //Maybe the constructor will give it...
 	}

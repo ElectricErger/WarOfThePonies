@@ -26,8 +26,9 @@ public class GamePlay extends GameState{
 		
 		super(g);
 		
-		player = new MainCharacter("/CharacterPics/player.bmp");
-		world = new Map(player, this);
+		world = new Map(this);
+		player = new MainCharacter("/CharacterPics/player.bmp", world);
+		world.setPlayer(player);
 		g.setMainCharacter(player);
 
 		plot = new Plot();

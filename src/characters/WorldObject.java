@@ -20,8 +20,8 @@ public abstract class WorldObject {
 	private int x; //Absolute...not tiles
 	private int y;	
 	private boolean isAnimated;
-	private BufferedImage imgSheet; //Debating if it should be Image for scaling purposes
-	private Image currentImage;
+	protected BufferedImage imgSheet; //Debating if it should be Image for scaling purposes
+	protected Image currentImage;
 	private boolean isWalking;
 
 	public static final int UP = 0;
@@ -32,20 +32,19 @@ public abstract class WorldObject {
 	private static final int FRAME_WIDTH = 32;
 	private static final int FRAME_HEIGHT = 32;
 	
-	private static final int NUM_CYCLES = 4; //The number of rows of images
+	protected static final int NUM_CYCLES = 4; //The number of rows of images
+	protected static final int NUM_FRAMES = 4; //Number of sprite frames in a cycle
+	protected static final int FRAME_SPEED = 4; //The number of game frames per sprite frame
+	protected static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
+	protected static final double PIXELS_PER_FRAME_Y= (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
+	protected static final double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
 	
-	private static final int NUM_FRAMES = 4; //Number of sprite frames in a cycle
-	private static final int FRAME_SPEED = 4; //The number of game frames per sprite frame
-	private static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
-	private static final double PIXELS_PER_FRAME_Y= (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
-	private static final double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
-	
-	private int walkingDirection;
-	private int framesWalked = 0;
+	protected int walkingDirection;
+	protected int framesWalked = 0;
 	private double offsetX;
 	private double offsetY;
 	
-	public WorldObject(String imageLocation){
+	public WorldObject(String imageLocation, Map m){
 		try{
 			Image img = ImageIO.read(getClass().getResourceAsStream(imageLocation));		
 			scale(img);
@@ -53,6 +52,7 @@ public abstract class WorldObject {
 		}
 		catch(Exception e){ e.printStackTrace(); }
 		isWalking = false;
+		area = m;
 	}
 	
 	//Update locations - In tiles
@@ -77,7 +77,7 @@ public abstract class WorldObject {
 		if(!isWalking){
 			isWalking = true;
 			walkingDirection = direction;
-			
+			area.unoccupy(this);
 			//Position is updated, so offset is negative
 			switch(direction){
 			case UP:
@@ -107,7 +107,7 @@ public abstract class WorldObject {
 				for( int i = 0; i<FRAMES_PER_CYCLE; i++ ){
 					
 					//Only displaying one image from walk cycle
-					updateOffset(direction);
+					updateOffset(direction); //If I turn this off I can make it public for another method
 					if(framesWalked % FRAME_SPEED == 0){
 						for(int walkingFrame = 0; walkingFrame<NUM_FRAMES; walkingFrame++){
 							currentImage = imgSheet.getSubimage(
@@ -141,7 +141,7 @@ public abstract class WorldObject {
 			break;
 		}
 	}
-	private void animationCleanup(int direction){
+	protected void animationCleanup(int direction){
 		currentImage = imgSheet.getSubimage(
 				0,
 				direction*Map.TILEHEIGHT,
@@ -149,6 +149,7 @@ public abstract class WorldObject {
 				Map.TILEHEIGHT);
 		isWalking = false;
 		offsetX = offsetY = 0;
+		area.occupy(this);
 	}
 	
 	public void draw(Graphics g){}

@@ -39,7 +39,7 @@ public class Map {
 	
 	//Window information
 	private int top, bottom, right, left;
-	private double xOffset = 0;
+	private double xOffset = 0; //percentage x
 	private double yOffset = 0;
 	
 	private static final int TILESACROSS = 32;
@@ -51,8 +51,7 @@ public class Map {
 	private NPC thing;
 	private ArrayList<NPC> charactersOnScreen;
 	
-	public Map(MainCharacter c, GamePlay g){
-		player = c;
+	public Map(GamePlay g){
 		mapLocation = 0; 
 		game = g;
 		
@@ -63,17 +62,21 @@ public class Map {
 		tileImages = world.getTileImages(mapLocation);
 
 		//For testing only
-		thing = new NPC("/CharacterPics/player.bmp");
+		thing = new NPC("/CharacterPics/player.bmp", this);
 		thing.setX(field[0].length/2);
 		thing.setY(field.length/2-5);
+		thing.move(WorldObject.UP);
+		//Occupy by is not set
 		charactersOnScreen = new ArrayList<NPC>();
 		charactersOnScreen.add(thing);
-		
+	}
+	public void setPlayer(MainCharacter c){
+		player = c;
+
 		c.setX(field[0].length/2);
 		c.setY(field.length/2);
 	}
-
-	//I Broke something
+	
 	public void centerAround(int x, int y){
 		top = y-TILESDOWN/2;
 		bottom = y+TILESDOWN/2;
@@ -94,8 +97,7 @@ public class Map {
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
 	}
-	
-	//I have 1 bad frame and the tiles above are missing
+
 	public void drawField(Graphics g){
 		int row = -1;
 		for( int i = top-1; i < bottom+1; i++){
@@ -106,6 +108,7 @@ public class Map {
 						(int)(col*TILEWIDTH+xOffset), //Left and right not working
 						(int)(row*TILEHEIGHT+yOffset),
 						null);
+				g.drawString(j+","+i, col*TILEWIDTH, row*TILEHEIGHT);
 				col++;
 			}
 			row++;
@@ -121,17 +124,19 @@ public class Map {
 		for(NPC c : charactersOnScreen){		
 			//Needs to be offset too...
 			g.drawImage(thing.getImage(),
-					convertAbsoluteToRelativeX(c.getX())+(int)(xOffset*TILEWIDTH),
-					convertAbsoluteToRelativeY(c.getY())+(int)(yOffset*TILEHEIGHT),
+					convertAbsoluteToRelativeX(c.getX())+(int)(xOffset),
+					convertAbsoluteToRelativeY(c.getY())+(int)(yOffset),
 					null);
 		}
 	}
 	
+	//Convert tiles to pixels
+	//Off by 1?
 	public int convertAbsoluteToRelativeX(int x){
-		return (x-left-1)*TILEWIDTH;
+		return (x-left)*TILEWIDTH;
 	}
 	public int convertAbsoluteToRelativeY(int y){
-		return(y-top+1)*TILEHEIGHT;
+		return(y-top)*TILEHEIGHT;
 	}
 	
 
@@ -159,10 +164,31 @@ public class Map {
 		}
 	}
 
-	private void upResponse(){ player.move(WorldObject.UP); }
-	private void downResponse(){ player.move(WorldObject.DOWN); }
-	private void leftResponse(){ player.move(WorldObject.LEFT); }
-	private void rightResponse(){ player.move(WorldObject.RIGHT); }
+	//Can I optimize this?
+	private void upResponse(){
+		if(getAdjacentTile(WorldObject.UP).occupied()){
+			player.animate(WorldObject.UP);
+		}
+		else{ player.move(WorldObject.UP);}
+	}
+	private void downResponse(){
+		if(getAdjacentTile(WorldObject.DOWN).occupied()){
+			player.animate(WorldObject.DOWN);
+		}
+		else{ player.move(WorldObject.DOWN); }
+	}
+	private void leftResponse(){
+		if(getAdjacentTile(WorldObject.LEFT).occupied()){
+			player.animate(WorldObject.LEFT);
+		}
+		else{ player.move(WorldObject.LEFT); }
+	}
+	private void rightResponse(){
+		if(getAdjacentTile(WorldObject.RIGHT).occupied()){
+			player.animate(WorldObject.RIGHT);
+		}
+	else{ player.move(WorldObject.RIGHT); }
+	}
 	private void forwardResponse(){
 		Tile nextTile = getAdjacentTile(player.getDirection());
 		WorldObject person = nextTile.getObject();
@@ -177,24 +203,36 @@ public class Map {
 	}
 	private void backwardResponse(){}
 	
+	//Up block works, but not any others
+	//Currently WRT player only, if we want to make this soft, we'll replace that
 	private Tile getAdjacentTile(int direction){
 		int x = player.getX();
 		int y = player.getY();
 		Tile t = null;
-		switch (player.getDirection()){
+		switch (direction){
 		case WorldObject.UP:
-			t = field[x][y-1];
+			t = field[y-1][x];
 			break;
 		case WorldObject.RIGHT:
-			t = field[x+1][y];
+			t = field[y][x+1];
 			break;
 		case WorldObject.DOWN:
-			t = field[x][y+1];
+			t = field[y+1][x];
 			break;
 		case WorldObject.LEFT:
-			t = field[x-1][y];
+			t = field[y][x-1];
 			break;
 		}
 		return t;
 	}
+	public void occupy(WorldObject o){
+		field[o.getY()][o.getX()].setObject(o);
+	}
+	public void unoccupy(WorldObject o){
+		field[o.getY()][o.getX()].unsetObject();
+	}
+	public void unoccupy(int x, int y){
+		field[y][x].unsetObject();
+	}
 }
+
