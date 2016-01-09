@@ -32,6 +32,7 @@ public class Map {
 	private OverworldParser world;
 	private GamePlay game;
 	private TextWindow textbox;
+	private Characters npcs;
 	
 	//Tile information
 	private Tile[][] field;
@@ -52,8 +53,7 @@ public class Map {
 	public static final int TILEHEIGHT = WoE.HEIGHT/TILESDOWN+1;
 	
 	//TESTING
-	private NPC thing;
-	private ArrayList<NPC> charactersOnScreen;
+	private NPC[] charactersOnScreen;
 	
 	
 	
@@ -72,15 +72,6 @@ public class Map {
 		
 		
 		//Load Objects
-		
-		//For testing only
-		thing = new NPC("/Characters/person1.jpg", this);
-		thing.setX(field[0].length/2);
-		thing.setY(field.length/2-5);
-		thing.move(WorldObject.UP);
-		//Occupy by is not set
-		charactersOnScreen = new ArrayList<NPC>();
-		charactersOnScreen.add(thing);
 	}
 	public void setPlayer(MainCharacter c){
 		player = c;
@@ -140,10 +131,10 @@ public class Map {
 		//For testing only
 		for(NPC c : charactersOnScreen){		
 			//Needs to be offset too...
-			g.drawImage(thing.getImage(),
+/*			g.drawImage(thing.getImage(),
 					convertAbsoluteToRelativeX(c.getX())+(int)(xOffset),
 					convertAbsoluteToRelativeY(c.getY())+(int)(yOffset),
-					null);
+					null);*/
 		}
 	}
 	
@@ -284,5 +275,10 @@ public class Map {
 	public void unoccupy(int x, int y){ field[y][x].unsetObject(); }
 	
 	public void setText(TextWindow dialog) { textbox = dialog; }
+	public void setNPCs(Characters npcs){
+		this.npcs = npcs;
+		int[] chars = {0}; //Get characters on current map
+		charactersOnScreen = npcs.getNPCS(chars);
+	}
 }
 

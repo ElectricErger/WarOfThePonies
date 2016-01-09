@@ -1,11 +1,17 @@
 package menuEngine;
 
+import gameStateManager.GamePlay;
+
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 public class Menu {
-
+	private GamePlay game;
 	
+	public Menu(GamePlay gp) {
+		game = gp;
+	}
+
 	public void draw(Graphics g){}
 	
 	public void keyDown(int key){

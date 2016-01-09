@@ -30,14 +30,15 @@ public class GamePlay extends GameState{
 		
 		//Make the variables
 		world = new Map(this);
-		player = new MainCharacter("/Characters/player.jpg", world);
 		dialog = new TextWindow(this);
-		menu = new Menu();
+		menu = new Menu(this);
+		//Pieces to go on the board
+		player = new MainCharacter("/characterData/player.jpg", world);
 		npcs = new Characters(world);
 		
 		//Give the initialization variables to the linked classes
-		g.setMainCharacter(player);
 		world.setPlayer(player);
+		world.setNPCs(npcs);
 		world.setText(dialog);
 
 		plot = 0;

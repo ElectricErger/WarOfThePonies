@@ -15,7 +15,7 @@ public class Characters {
 	public Characters(Map m){
 		mapObject = m;
 		try {
-			FileReader fr = new FileReader("res/npcs.txt");
+			FileReader fr = new FileReader("res/characterData/npcs.txt");
 			BufferedReader br = new BufferedReader(fr);
 			
 			parseFile(br);
