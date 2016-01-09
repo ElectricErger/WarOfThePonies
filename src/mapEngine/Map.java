@@ -68,8 +68,13 @@ public class Map {
 		field = world.getTiles(mapLocation);
 		tileSet = world.getTileImages(mapLocation);
 
+		//Load NPCS
+		
+		
+		//Load Objects
+		
 		//For testing only
-		thing = new NPC("/CharacterPics/player.bmp", this);
+		thing = new NPC("/Characters/person1.jpg", this);
 		thing.setX(field[0].length/2);
 		thing.setY(field.length/2-5);
 		thing.move(WorldObject.UP);

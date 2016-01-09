@@ -122,14 +122,21 @@ Plot Format
 If I can figure out how to do this correctly we will put it into a res file
 
 
+
 =======================
 Map Format
 =======================
 We have two types of map files:
-World Map: a singleton that contains all pertinant information about that map
+World Map: a singleton that contains all pertainent information about that map
 Maps: That have all the information about tiles and people's locations
 
-MAP NUMBER, TILE FILE
+===World Map====
+MAP NUMBER, MAP NAME
+MAP FILE
+CONNECTIONS,...,...
+
+===Map===
+TILE FILE
 MAP DATA
 .
 .

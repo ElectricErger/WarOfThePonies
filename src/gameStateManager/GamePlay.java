@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 
 import textEngine.TextWindow;
 import battleEngine.Battle;
+import characters.Characters;
 import characters.MainCharacter;
 import mapEngine.Map;
 import menuEngine.Menu;
@@ -20,7 +21,8 @@ public class GamePlay extends GameState{
 	private Battle battle;
 	private TextWindow dialog;
 	private Map world;
-	private Plot plot;
+	private Characters npcs;
+	private int plot;
 	
 	public GamePlay(GameStateManager g){
 		
@@ -28,21 +30,25 @@ public class GamePlay extends GameState{
 		
 		//Make the variables
 		world = new Map(this);
-		player = new MainCharacter("/CharacterPics/player.bmp", world);
+		player = new MainCharacter("/Characters/player.jpg", world);
 		dialog = new TextWindow(this);
 		menu = new Menu();
+		npcs = new Characters(world);
 		
 		//Give the initialization variables to the linked classes
 		g.setMainCharacter(player);
 		world.setPlayer(player);
 		world.setText(dialog);
 
-		
-		plot = new Plot();
-		
-		//
+		plot = 0;
 		inMenu = inBattle = inConvo = false;
 	}
+	
+	public void advancePlot(){
+		plot++;
+		//Do things
+	}
+	public int plot(){ return plot; }
 
 	public void inBattle(boolean b){ inBattle = b; }
 	public void inConvo(boolean b){ inConvo = b; }
