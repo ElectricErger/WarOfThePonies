@@ -78,6 +78,26 @@ public class GamePlay extends GameState{
 			}
 		}
 	}
+	public void keyUp(int key) {
+		if(inBattle){
+			battle.keyUp(key);
+			inBattle = battle.inBattle();
+		}
+		else{
+			if(inConvo){ //Not sure how to deal with this
+				dialog.keyUp(key);
+				inConvo = dialog.hasContent();
+			}
+			else{
+				if(inMenu){
+					menu.keyUp(key);
+				}
+				else{
+					world.keyUp(key);
+				}
+			}
+		}
+	}
 
 	
 }

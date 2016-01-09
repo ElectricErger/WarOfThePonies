@@ -68,7 +68,7 @@ public class TextWindow {
 		//g.drawString(character.getName());
 	}
 	private void writeText(Graphics g){
-		g.drawString(stringBuffer, 0, WoE.HEIGHT*3/4+40);
+		g.drawString(stringBuffer, 20, WoE.HEIGHT*3/4+40);
 	}
 	private void playSound(){
 		if(writing){
@@ -181,5 +181,10 @@ public class TextWindow {
 	
 	//Getters and setters
 	public boolean hasContent(){ return hasContent; } //Do I need this?
+
+	public void keyUp(int key) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

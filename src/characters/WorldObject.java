@@ -28,6 +28,7 @@ public abstract class WorldObject {
 	public static final int RIGHT = 1;
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
+	public static final int STOP = 4;
 	
 	private static final int FRAME_WIDTH = 32;
 	private static final int FRAME_HEIGHT = 32;

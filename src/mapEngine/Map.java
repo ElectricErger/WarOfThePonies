@@ -36,6 +36,7 @@ public class Map {
 	//Tile information
 	private Tile[][] field;
 	private Image[] tileImages;
+	private BufferedImage tileSet;
 	private int mapLocation;
 	private String locationName;
 	
@@ -65,7 +66,7 @@ public class Map {
 		world.parse(mapLocation);
 		locationName = world.getName(mapLocation);
 		field = world.getTiles(mapLocation);
-		tileImages = world.getTileImages(mapLocation);
+		tileSet = world.getTileImages(mapLocation);
 
 		//For testing only
 		thing = new NPC("/CharacterPics/player.bmp", this);
@@ -102,6 +103,7 @@ public class Map {
 		drawField(g); //Bottom layer, walking plain
 		drawAssets(g); //Buildings, signs, things that don't move
 		drawCharacters(g); //Player an any other top layer people		
+		//move();
 	}
 
 	public void drawField(Graphics g){
@@ -110,7 +112,11 @@ public class Map {
 			int col = -1;
 			for( int j = left-1; j < right+1; j++ ){
 				g.drawImage(
-						tileImages[field[i][j].getTileIndex()],
+						tileSet.getSubimage(
+								field[i][j].getTileIndex()*TILEWIDTH,
+								0,
+								TILEWIDTH,
+								TILEHEIGHT),
 						(int)(col*TILEWIDTH+xOffset), //Left and right not working
 						(int)(row*TILEHEIGHT+yOffset),
 						null);
@@ -121,7 +127,7 @@ public class Map {
 		}	
 	}
 	public void drawAssets(Graphics g){}
-	public void drawCharacters(Graphics g){ //Rebuild this
+	public void drawCharacters(Graphics g){
 		g.drawImage(player.getImage(),
 				convertAbsoluteToRelativeX(player.getX()),
 				convertAbsoluteToRelativeY(player.getY()),
@@ -170,30 +176,22 @@ public class Map {
 		}
 	}
 
-	//Can I optimize this?
-	private void upResponse(){
-		if(getAdjacentTile(WorldObject.UP).occupied()){
-			player.animate(WorldObject.UP);
-		}
-		else{ player.move(WorldObject.UP);}
+	//With the variable set, all we have to do is call the move function, which can be done on a loop
+	private void upResponse(){ 
+		player.move(WorldObject.UP);
+		//player.setVector(WorldObject.UP);
 	}
-	private void downResponse(){
-		if(getAdjacentTile(WorldObject.DOWN).occupied()){
-			player.animate(WorldObject.DOWN);
-		}
-		else{ player.move(WorldObject.DOWN); }
+	private void downResponse(){ 
+		player.move(WorldObject.DOWN);
+		//player.setVector(WorldObject.DOWN); 
 	}
 	private void leftResponse(){
-		if(getAdjacentTile(WorldObject.LEFT).occupied()){
-			player.animate(WorldObject.LEFT);
-		}
-		else{ player.move(WorldObject.LEFT); }
+		player.move(WorldObject.LEFT);
+		//player.setVector(WorldObject.LEFT);
 	}
 	private void rightResponse(){
-		if(getAdjacentTile(WorldObject.RIGHT).occupied()){
-			player.animate(WorldObject.RIGHT);
-		}
-	else{ player.move(WorldObject.RIGHT); }
+		player.move(WorldObject.RIGHT);
+		//player.setVector(WorldObject.RIGHT);
 	}
 	private void forwardResponse(){
 		WorldObject person = getAdjacentTile(player.getDirection()).getObject();
@@ -208,8 +206,53 @@ public class Map {
 		}
 	}
 	private void backwardResponse(){}
+
+	public void keyUp(int key){
+		switch(key){
+		case KeyEvent.VK_UP:
+			stopUpResponse();
+			break;
+		case KeyEvent.VK_DOWN:
+			stopDownResponse();
+			break;
+		case KeyEvent.VK_LEFT:
+			stopLeftResponse();
+			break;
+		case KeyEvent.VK_RIGHT:
+			stopRightResponse();
+			break;
+		}
+	}
 	
-	//Up block works, but not any others
+	private void stopUpResponse(){
+		if(player.getVector() == WorldObject.UP){
+			player.setVector(WorldObject.STOP);
+		}
+	}
+	private void stopDownResponse(){
+		if(player.getVector() == WorldObject.DOWN){
+			player.setVector(WorldObject.STOP);
+		}
+	}
+	private void stopLeftResponse(){
+		if(player.getVector() == WorldObject.LEFT){
+			player.setVector(WorldObject.STOP);
+		}
+	}
+	private void stopRightResponse(){
+		if(player.getVector() == WorldObject.RIGHT){
+			player.setVector(WorldObject.STOP);
+		}
+	}
+	
+	//Now just make this an update loop and we are all good.
+	public void move(){
+		if(getAdjacentTile(player.getVector()).occupied()){
+			player.animate(player.getVector());
+		}
+		else{ player.move(player.getVector()); }
+	}
+	
 	//Currently WRT player only, if we want to make this soft, we'll replace that
 	private Tile getAdjacentTile(int direction){
 		int x = player.getX();

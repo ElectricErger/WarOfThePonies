@@ -22,8 +22,12 @@ public class OverworldParser {
 	private int currentMap;
 	private Tile[][] tiles;
 	private Image[] tileArray;
+	private BufferedImage tileFile;
 	private String mapName;
 	private int width, height;
+
+	public static final int TILE_PIXELS_X = 36;
+	public static final int TILE_PIXELS_Y = 36;
 	//Surrounding maps and conditions to change .... maybe in Map?
 	
 	/*
@@ -54,8 +58,7 @@ public class OverworldParser {
 	
 	public OverworldParser(){
 		try {
-			overworld = new RandomAccessFile("res/Maps/worldMap.map", "r");
-			//overworld = new BufferedReader(new FileReader("res/Maps/worldMap.map"));
+			overworld = new RandomAccessFile("res/maps/worldMap.map", "r");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("We are sorry, but we could not find vital files. Please reinstall the game.\n"
@@ -78,17 +81,15 @@ public class OverworldParser {
 		if(location != currentMap){ parse(location); }
 		return mapName;
 	}
-
 	public Tile[][] getTiles(int location){
 		return tiles;
 	}
-	
-	public Image[] getTileImages(int location){
+	public BufferedImage getTileImages(int location){
 		if(location != currentMap){ parse(location); }
-		return tileArray;
+		return tileFile;
 	}
 
-
+	
 	public void parse(int location){
 		String[] mapData = findMapByIndex(location);
 
@@ -105,27 +106,35 @@ public class OverworldParser {
 		height = Integer.parseInt(header[3]);
 		
 		//Parse Images
-		String[] tilePics = mapData[1].split(",");		
+		//String[] tilePics = mapData[1].split(",");
+		String tilePics = mapData[1];
 		parseTileImages(tilePics);
-		
+
 		//Parse Tiles
 		tiles = new Tile[height][width];
 		parseMap(mapData);
 	}
 	
-	//Parse timages
-	private void parseTileImages(String[] tileBuffer) {
-		tileArray = new Image[tileBuffer.length];
-		for(int i = 0; i<tileBuffer.length; i++){
-			try {
-				tileArray[i] = ImageIO.read(getClass().getResourceAsStream("/Floor/"+tileBuffer[i])); 
-				tileArray[i] = tileArray[i].getScaledInstance(Map.TILEWIDTH, Map.TILEHEIGHT, Image.SCALE_DEFAULT);
-			}
-			catch (Exception e) { e.printStackTrace(); }
+
+	private void parseTileImages(String location){
+		try{
+			tileFile = scale(ImageIO.read(getClass().getResourceAsStream("/tiles/"+location)));
 		}
+		catch(Exception e){}
+	}
+	private BufferedImage scale(Image img){
+		int currentX = img.getWidth(null);
+		BufferedImage imgSheet;
+		img = img.getScaledInstance(
+				currentX/TILE_PIXELS_X*Map.TILEWIDTH,
+				Map.TILEHEIGHT,
+				0);
+		imgSheet = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+		imgSheet.createGraphics().drawImage(img, 0, 0, null);
+		imgSheet.createGraphics().dispose();
+		return imgSheet;
 	}
 	
-	//I have to get the whole map data...is there a way to only get rows 2 to N-2?
 	private void parseMap(String[] mapData){
 		for(int row = 2; row<height; row++){
 			String[] mapRow = mapData[row].split(",");

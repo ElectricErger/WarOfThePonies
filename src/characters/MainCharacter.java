@@ -7,9 +7,12 @@ import mapEngine.Map;
 
 
 public class MainCharacter extends BattleObject{
+
+	private int currentVector;
 	
 	public MainCharacter(String img, Map m) {
 		super(img, new BattleClass(), m); //Hrm...maybe?
+		currentVector = STOP;
 	}
 	
 	public void animate(int direction){
@@ -34,4 +37,7 @@ public class MainCharacter extends BattleObject{
 		};
 		t.start();
 	}
+
+	public int getVector(){ return currentVector; }
+	public void setVector(int direction){ currentVector = direction; }
 }

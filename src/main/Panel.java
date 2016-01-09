@@ -52,17 +52,9 @@ public class Panel extends JPanel implements KeyListener{
 		gsm.draw(g);
 	}
 
-	//Consider making this a thread
-	@Override
 	public void keyTyped(KeyEvent e) {}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		gsm.keyDown(e.getKeyCode());
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) { gsm.keyDown(e.getKeyCode()); }
+	public void keyReleased(KeyEvent e) { gsm.keyUp(e.getKeyCode()); }
 	
 	
 }

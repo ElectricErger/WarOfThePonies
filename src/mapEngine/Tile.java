@@ -15,7 +15,6 @@ public class Tile {
 	private int img; ///The image associated with the tile
 	
 	public Tile(int tileImage){
-		//inUseBy = object; //We will implement this later when the files is finished
 		img = tileImage;
 	}
 	

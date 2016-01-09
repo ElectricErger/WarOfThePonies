@@ -240,6 +240,7 @@ public class StartScreen extends GameState {
 		}
 	}
 
+	public void keyUp(int key){}
 	//Depending on your context A does the following
 	private void forwardOption(){
 		switch(optionsSelector){

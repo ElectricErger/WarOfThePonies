@@ -49,4 +49,9 @@ public class Battle {
 	private void rightResponse(){}
 	private void forwardResponse(){}
 	private void backwardResponse(){}
+
+	public void keyUp(int key) {
+		// TODO Auto-generated method stub
+		
+	}
 }
