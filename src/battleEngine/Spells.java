@@ -23,7 +23,9 @@ public class Spells extends Action {
 			this.target=target;
 			this.lower=lower;
 			this.upper=upper;
+			type="healing";
 		}
+
 		private void amountHealed(){
 			int amount=r.nextInt(upper-lower+2);
 			amount=amount+lower;
@@ -33,7 +35,7 @@ public class Spells extends Action {
 			int hp=target.getHP();
 			target.setHP(hp+health);
 		}
-		void healingSpell(){
+		void execute(){
 			amountHealed();
 			updateHP();
 			updateMP();

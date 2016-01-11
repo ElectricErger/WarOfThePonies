@@ -3,6 +3,7 @@ package battleEngine;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Stack;
 
 import battleEngine.Action.BasicAttack;
 import battleEngine.Action.MultiAttack;
@@ -15,6 +16,7 @@ public class Round {
 	ArrayList<BattleObject> participants;
 	ArrayList<Boss> opponents;
 	ArrayList<BattleObject> party;
+	ArrayList<Action> actions;
 	
 	private Round(ArrayList<Boss> e, ArrayList<BattleObject> p){
 		party=p;
@@ -23,6 +25,7 @@ public class Round {
 		for(BattleObject main:p)part.add(main);
 		for (Boss enemy:e)part.add(enemy);
 		part=participants;
+		actions= new ArrayList<Action>();
 		
 	}
 	
@@ -78,10 +81,12 @@ public class Round {
 						battleMenu(fighter);
 						//method for selection action, returns Action selection
 						selection=fighter.getAttacks().get(0);//placeholder
+						actions.add(selection);
 					}
 					else{
 						selection=fighter.getAttacks().get(0);//placeholder
 						//AI method for selection action
+						actions.add(selection);
 					}
 					execute(selection);					
 				}
@@ -105,9 +110,7 @@ public class Round {
 	}
 	void execute(Action selection){
 		//does whatever the selected action is supposed to do
-		if(selection instanceof BasicAttack)((BasicAttack)selection).update();
-		if(selection instanceof Heal)((Heal)selection).healingSpell();
-		if(selection instanceof MultiAttack)((MultiAttack)selection).update(((MultiAttack) selection).attacks);
+		selection.execute();
 	}
 
 }
