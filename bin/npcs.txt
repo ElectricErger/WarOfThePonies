@@ -1,0 +1,9 @@
+0,Steve
+person1.jpg
+0\vHello I am Steve. Your supervisor.\nWhat you don't know is that I am actually evil.\nDESTROY ALL HUMANS
+
+1,Applejack
+ applejack.jpg
+ 0\vLooks like we'll have to take him out Twi.\nBattles out here are different from those you may be used to, do you want me to walk you though it.
+ 1\vGood job Twilight. You're stronger than you look.
+ 

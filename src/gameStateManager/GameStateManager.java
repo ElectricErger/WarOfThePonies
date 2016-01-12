@@ -32,15 +32,9 @@ public class GameStateManager {
 		currentPlot = newState;
 	}
 	
-	public void setMainCharacter(MainCharacter c){
-		player = c;
-	}
+	public void setMainCharacter(MainCharacter c){ player = c; }
 	
-	public void draw(Graphics g){
-		currentPlot.draw(g);
-	}
-	
-	public void keyDown(int key){
-		currentPlot.keyDown(key);
-	}
+	public void draw(Graphics g){ currentPlot.draw(g); }
+	public void keyDown(int key){ currentPlot.keyDown(key); }
+	public void keyUp(int key){ currentPlot.keyUp(key); }
 }

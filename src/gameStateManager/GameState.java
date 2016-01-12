@@ -20,4 +20,6 @@ public abstract class GameState {
 	protected GameStateManager getGameStateManager(){
 		return gsm;
 	}
+
+	public abstract void keyUp(int key);
 }

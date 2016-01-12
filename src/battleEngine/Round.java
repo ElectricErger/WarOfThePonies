@@ -84,8 +84,10 @@ public class Round {
 						actions.add(selection);
 					}
 					else{
-						selection=fighter.getAttacks().get(0);//placeholder
-						//AI method for selection action
+						if(opponents.contains(fighter)){//AI.choose(actions, party);
+							
+						}
+						else selection=fighter.getAttacks().get(0);//placeholder
 						actions.add(selection);
 					}
 					execute(selection);					

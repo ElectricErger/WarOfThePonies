@@ -93,6 +93,15 @@ public abstract class Action {
 					index++;}
 			}
 		}
+		void setTargets(ArrayList<BattleObject> party){
+			int index=0;
+			for(BattleObject target:party){
+				if(index>attacks.length-1) break;
+				else {BasicAttack a=new BasicAttack(doer,target);
+					attacks[index]=a;
+					index++;}
+			}
+		}
 		void execute(){
 			for(BasicAttack a: attacks){
 				a.execute();

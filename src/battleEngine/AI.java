@@ -2,22 +2,24 @@ package battleEngine;
 
 import java.util.ArrayList;
 
+import battleEngine.Action.MultiAttack;
 import characters.BattleObject;
 import characters.Boss;
 
 public class AI {
 	BattleObject enemy;
-	private AI(BattleObject a){
+	
+	AI(BattleObject a){
 		enemy=a;
 	}
 
-	BattleObject lastAttacker(Round r){
+	BattleObject lastAttacker(ArrayList<Action> actions){
 		BattleObject target;
-		int i=r.actions.size();
+		int i=actions.size();
 		do{
 			i--;
-			target=r.actions.get(i).doer;
-		} while(r.actions.get(i).target!=enemy);
+			target=actions.get(i).doer;
+		} while(actions.get(i).target!=enemy);
 		return target;
 	}
 	ArrayList<Action> selectHeal(){
@@ -82,27 +84,31 @@ public class AI {
 		Action selection=sorted.get(sorted.size()-1);
 		return selection;
 	}
-	Action choose(Round r){
+	Action choose(ArrayList<Action> actions, ArrayList<BattleObject> party){
 		Action selection=null;
 		if (enemy.getHP()<=(enemy.getMaxHP()/3)){
 			selection=mostCostly(selectHeal());
 			if(selection==null){
 				selection=mostCostly(selectNormal());
-				selection.setTarget(lastAttacker(r));
+				selection.setTarget(lastAttacker(actions));
 			}
 		}
 		else{ 
-			if(!(selectSpell().isEmpty())){
-				selection=mostCostly(selectSpell());
+			ArrayList<Action> spells=selectSpell();
+			if(!(spells.isEmpty())){
+				selection=mostCostly(spells);
 			}
 			else{
-				
+				if(!(selectMulti().isEmpty())){
+					selection=mostCostly(selectMulti());
+					((MultiAttack) selection).setTargets(party);
+				}
 			}
 		}
 		
 		if(selection==null){
 			selection=mostCostly(selectNormal());
-			selection.setTarget(lastAttacker(r));
+			selection.setTarget(lastAttacker(actions));
 		}
 		return selection;
 	}

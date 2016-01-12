@@ -122,6 +122,46 @@ Plot Format
 If I can figure out how to do this correctly we will put it into a res file
 
 
+
 =======================
 Map Format
 =======================
+We have two types of map files:
+World Map: a singleton that contains all pertainent information about that map
+Maps: That have all the information about tiles and people's locations
+
+===World Map====
+MAP NUMBER, MAP NAME
+MAP FILE
+CONNECTIONS,...,...
+
+===Map===
+TILE FILE
+MAP DATA
+.
+.
+.
+
+CHARACTER NUMBER, X, Y
+.
+.
+.
+
+OBJECT, IMG, X, Y
+.
+.
+.
+
+=======================
+Characters Format
+=======================
+Characters are objects that need certain information such as dialog, sprite, and location. 
+
+CHARACTER NUMBER, MAP NUMBER
+PLOT NUMBER: DIALOG (new line = \n)
+.
+.
+.
+
+<TRIGGER>
+TRIGGER NUMBER: 
