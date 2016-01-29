@@ -18,11 +18,10 @@ public abstract class Action {
 	//magic effects will have an MP cost
 	Random r;
 	//element of randomness associated with damage, accuracy, crits, healing etc
-	String type;
-	//healing, physical(single target), multi, buff, debuff, magicatk
-	void execute(){
-	}
-	void setTarget(BattleObject defender){target=defender;}
+	int type;
+	//1=healing, 2=physical(single target), 3=multi, 4=buff/debuff, 5=magicatk
+	public abstract void execute();
+	public void setTarget(BattleObject defender){target=defender;}
 	class BasicAttack extends Action {
 		int damage=0;
 		boolean hit=false;
@@ -31,7 +30,7 @@ public abstract class Action {
 			doer=attacker;
 			target=defender;
 			name="Basic Attack";
-			type="physical";
+			type=2;
 		}
 			private void accuracy(){
 			int roll=r.nextInt(21);
@@ -60,7 +59,7 @@ public abstract class Action {
 			}
 			
 		}
-		void execute(){
+		public void execute(){
 			accuracy();
 			if(hit){
 				critical();
@@ -84,7 +83,7 @@ public abstract class Action {
 			//cost=some cost of using multi attack, add an int to constructor if MP cost is desired
 			numberofTargets=number;
 			attacks=new BasicAttack[numberofTargets];
-			type="multi";
+			type=3;
 			int index=0;
 			for(BattleObject target:targets){
 				if(index>attacks.length-1) break;
@@ -102,7 +101,7 @@ public abstract class Action {
 					index++;}
 			}
 		}
-		void execute(){
+		public void execute(){
 			for(BasicAttack a: attacks){
 				a.execute();
 				/*int mp=doer.getMP();

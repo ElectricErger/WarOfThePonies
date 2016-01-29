@@ -2,7 +2,7 @@ package battleEngine;
 
 import characters.BattleObject;
 
-public class Spells extends Action {
+public abstract class Spells extends Action {
 	private Spells(String name, int mp){
 		this.name=name;
 		magic=true;
@@ -35,7 +35,7 @@ public class Spells extends Action {
 			int hp=target.getHP();
 			target.setHP(hp+health);
 		}
-		void execute(){
+		public void execute(){
 			amountHealed();
 			updateHP();
 			updateMP();

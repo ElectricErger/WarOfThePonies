@@ -25,28 +25,28 @@ public class AI {
 	ArrayList<Action> selectHeal(){
 		ArrayList<Action> heals=new ArrayList();
 		for(Action a:enemy.getAttacks()){
-			if(a.type=="healing")heals.add(a);
+			if(a.type==1)heals.add(a);
 		}
 		return heals;
 	}
 	ArrayList<Action> selectNormal(){
 		ArrayList<Action> attacks=new ArrayList<Action>();
 		for (Action a:enemy.getAttacks()){
-			if(a.type=="physical") attacks.add(a);
+			if(a.type==2) attacks.add(a);
 		}
 		return attacks;
 	}
 	ArrayList<Action> selectMulti(){
 		ArrayList<Action> attacks=new ArrayList<Action>();
 		for (Action a:enemy.getAttacks()){
-			if(a.type=="multi") attacks.add(a);
+			if(a.type==3) attacks.add(a);
 		}
 		return attacks;
 	}
 	ArrayList<Action> selectSpell(){
 		ArrayList<Action> attacks=new ArrayList<Action>();
 		for (Action a:enemy.getAttacks()){
-			if(a.type=="magicatk") attacks.add(a);
+			if(a.type==5) attacks.add(a);
 		}
 		return attacks;
 	}
