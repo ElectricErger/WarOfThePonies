@@ -84,7 +84,7 @@ public class AI {
 		Action selection=sorted.get(sorted.size()-1);
 		return selection;
 	}
-	Action choose(ArrayList<Action> actions, ArrayList<BattleObject> party){
+	Action choose(ArrayList<Action> actions, BattleObject[] party){
 		Action selection=null;
 		if (enemy.getHP()<=(enemy.getMaxHP()/3)){
 			selection=mostCostly(selectHeal());
