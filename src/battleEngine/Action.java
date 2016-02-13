@@ -18,6 +18,10 @@ public abstract class Action {
 	//magic effects will have an MP cost
 	Random r;
 	//element of randomness associated with damage, accuracy, crits, healing etc
+	int type;
+	//1=healing, 2=physical(single target), 3=multi, 4=buff/debuff, 5=magicatk
+	public abstract void execute();
+	public void setTarget(BattleObject defender){target=defender;}
 	class BasicAttack extends Action {
 		int damage=0;
 		boolean hit=false;
@@ -26,8 +30,9 @@ public abstract class Action {
 			doer=attacker;
 			target=defender;
 			name="Basic Attack";
+			type=2;
 		}
-		private void accuracy(){
+			private void accuracy(){
 			int roll=r.nextInt(21);
 			if(roll+doer.getAccuracy()>target.getDefence()) hit=true;
 			//determines if a non-magical attack hits; 
@@ -54,7 +59,7 @@ public abstract class Action {
 			}
 			
 		}
-		void update(){
+		public void execute(){
 			accuracy();
 			if(hit){
 				critical();
@@ -71,27 +76,41 @@ public abstract class Action {
 		}
 	}
 	class MultiAttack extends Action{
-		ArrayList<BasicAttack> attacks;
+		BasicAttack[] attacks;
 		int numberofTargets;
-		private MultiAttack(BattleObject[] targets, BattleObject attacker){	
+		private MultiAttack(int number, BattleObject[] targets, BattleObject attacker){	
 			name="Multi Attack";
 			//cost=some cost of using multi attack, add an int to constructor if MP cost is desired
-			numberofTargets=targets.length;
-			attacks=new ArrayList<BasicAttack>();
+			numberofTargets=number;
+			attacks=new BasicAttack[numberofTargets];
+			type=3;
+			int index=0;
 			for(BattleObject target:targets){
-				BasicAttack a=new BasicAttack(attacker,target);
-				attacks.add(a);
+				if(index>attacks.length-1) break;
+				else {BasicAttack a=new BasicAttack(attacker,target);
+					attacks[index]=a;
+					index++;}
 			}
 		}
-	}
-	//Multi attack could have an MP cost, or could only be given to characters of a certain class/level/weapon, or both...
-	void update(ArrayList<BasicAttack> attacks){
-		for(BasicAttack a: attacks){
-			a.update();
-			/*int mp=doer.getMP();
-			mp=mp-cost;
-			doer.setMP(mp);
-			Uncomment if Multiattack has MP cost*/
+		void setTargets(ArrayList<BattleObject> party){
+			int index=0;
+			for(BattleObject target:party){
+				if(index>attacks.length-1) break;
+				else {BasicAttack a=new BasicAttack(doer,target);
+					attacks[index]=a;
+					index++;}
+			}
 		}
+		public void execute(){
+			for(BasicAttack a: attacks){
+				a.execute();
+				/*int mp=doer.getMP();
+				mp=mp-cost;
+				doer.setMP(mp);
+				Uncomment if Multiattack has MP cost*/
+			}
+		}
+	//Multi attack could have an MP cost, or could only be given to characters of a certain class/level/weapon, or both...
+	
 	}
 }

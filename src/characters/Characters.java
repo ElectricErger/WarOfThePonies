@@ -9,9 +9,11 @@ import java.util.ArrayList;
 import mapEngine.Map;
 
 public class Characters {
+	//Class variables
 	private ArrayList<NPC> npcs = new ArrayList<NPC>();
 	private Map mapObject;
 	
+	//Singleton
 	public Characters(Map m){
 		mapObject = m;
 		try {

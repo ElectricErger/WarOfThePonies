@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import mapEngine.Map;
 import battleEngine.Action;
+import battleObjects.Item;
 
 public abstract class BattleObject extends WorldObject implements Comparable<BattleObject>{
 
@@ -19,6 +20,7 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	private ArrayList<Action> moves;
 	private int initiative=0;
 	private boolean defeated=false;
+	private ArrayList<Item> inventory;
 	//Still needs weapon and armor
 	
 	public BattleObject(String imgString, BattleClass c, Map m) {
@@ -47,6 +49,7 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public ArrayList<Action> getAttacks(){ return moves; }
 	//changed to Action array which encompasses attacks/spells/defence/and eventually item use;
 	public boolean getdefeated(){return defeated;}
+	public ArrayList<Item> getInventory(){return inventory;}
 	
 	//During and after battles some things need to be updated
 	public void setInit(int init){initiative=init;}

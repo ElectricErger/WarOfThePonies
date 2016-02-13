@@ -33,12 +33,13 @@ public abstract class WorldObject {
 	private static final int FRAME_WIDTH = 32;
 	private static final int FRAME_HEIGHT = 32;
 	
-	protected static final int NUM_CYCLES = 4; //The number of rows of images
-	protected static final int NUM_FRAMES = 4; //Number of sprite frames in a cycle
+	protected static final int NUM_CYCLES = 4; //The number of rows (up, down, left, right)
+	protected int NUM_FRAMES = 4; //Number of columns (frames)
+
 	protected static final int FRAME_SPEED = 4; //The number of game frames per sprite frame
-	protected static final int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
-	protected static final double PIXELS_PER_FRAME_Y= (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
-	protected static final double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
+	protected int FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED; //Number of game frames in a cycle
+	protected double PIXELS_PER_FRAME_Y = (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;  //Pixels moved up/down in a cycle
+	protected double PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE; //Pixels moved left/right in a cycle
 	
 	protected int walkingDirection;
 	private double offsetX;
@@ -46,11 +47,18 @@ public abstract class WorldObject {
 	
 	public WorldObject(String imageLocation, Map m){
 		try{
-			Image img = ImageIO.read(getClass().getResourceAsStream(imageLocation));		
+			Image img = ImageIO.read(getClass().getResourceAsStream(imageLocation));
+			//Get the frames
+			NUM_FRAMES = img.getWidth(null)/FRAME_WIDTH;
+			FRAMES_PER_CYCLE = NUM_FRAMES * FRAME_SPEED;
+			PIXELS_PER_FRAME_Y = (double)Map.TILEHEIGHT/FRAMES_PER_CYCLE;
+			PIXELS_PER_FRAME_X = (double)Map.TILEWIDTH/FRAMES_PER_CYCLE;
+			
+			//Update image
 			scale(img);
-			currentImage = imgSheet.getSubimage(0, 0, Map.TILEWIDTH, Map.TILEHEIGHT);
+			currentImage = imgSheet.getSubimage(0, 0, Map.TILEWIDTH, Map.TILEHEIGHT);			
 		}
-		catch(Exception e){ e.printStackTrace(); }
+		catch(Exception e){ System.out.println("We cannot find your file:"+ imageLocation); e.printStackTrace(); }
 		isWalking = false;
 		area = m;
 	}

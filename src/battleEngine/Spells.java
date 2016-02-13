@@ -2,7 +2,7 @@ package battleEngine;
 
 import characters.BattleObject;
 
-public class Spells extends Action {
+public abstract class Spells extends Action {
 	private Spells(String name, int mp){
 		this.name=name;
 		magic=true;
@@ -23,7 +23,9 @@ public class Spells extends Action {
 			this.target=target;
 			this.lower=lower;
 			this.upper=upper;
+			//type="healing";
 		}
+
 		private void amountHealed(){
 			int amount=r.nextInt(upper-lower+2);
 			amount=amount+lower;
@@ -33,7 +35,7 @@ public class Spells extends Action {
 			int hp=target.getHP();
 			target.setHP(hp+health);
 		}
-		void healingSpell(){
+		public void execute(){
 			amountHealed();
 			updateHP();
 			updateMP();

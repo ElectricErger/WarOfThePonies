@@ -33,7 +33,7 @@ public class GamePlay extends GameState{
 		dialog = new TextWindow(this);
 		menu = new Menu(this);
 		//Pieces to go on the board
-		player = new MainCharacter("/characterData/player.jpg", world);
+		player = new MainCharacter("/characterData/player.png", world);
 		npcs = new Characters(world);
 		
 		//Give the initialization variables to the linked classes
