@@ -68,7 +68,7 @@ public abstract class Action {
 				start=start-damage;
 				target.setHP(start);
 				if(target.getHP()<=0) {
-					target.setdefeated(true);
+					target.setDefeated(true);
 				}
 				
 			}

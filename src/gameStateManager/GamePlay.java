@@ -5,9 +5,11 @@ package gameStateManager;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import textEngine.TextWindow;
 import battleEngine.Battle;
+import characters.BattleObject;
 import characters.Characters;
 import characters.MainCharacter;
 import mapEngine.Map;
@@ -23,6 +25,7 @@ public class GamePlay extends GameState{
 	private Map world;
 	private Characters npcs;
 	private int plot;
+	private BattleObject[] party = new BattleObject[6];
 	
 	public GamePlay(GameStateManager g){
 		
@@ -40,6 +43,7 @@ public class GamePlay extends GameState{
 		world.setPlayer(player);
 		world.setNPCs(npcs);
 		world.setText(dialog);
+		party[0] = player;
 
 		plot = 0;
 		inMenu = inBattle = inConvo = false;
@@ -71,7 +75,7 @@ public class GamePlay extends GameState{
 			inBattle = battle.inBattle();
 		}
 		else{
-			if(inConvo){ //Not sure how to deal with this
+			if(inConvo){ //Not sure how to deal with this - May display, but wont advance
 				dialog.keyDown(key);
 				inConvo = dialog.hasContent();
 			}
@@ -106,5 +110,7 @@ public class GamePlay extends GameState{
 		}
 	}
 
-	
+	public void startBattle(BattleObject[] enemies){
+		battle.startBattle(party, enemies, world);
+	}
 }

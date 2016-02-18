@@ -1,6 +1,5 @@
 package characters;
 
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import mapEngine.Map;
@@ -36,8 +35,8 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public int getMaxMP(){ return maxMP; }
 	public int getAttack(){ return attack; }
 	public int getDefence(){ return defence; }
-	public int getmagicAttack(){ return magicAttack; }
-	public int getmagicDefence(){ return magicDefence; }
+	public int getMagicAttack(){ return magicAttack; }
+	public int getMagicDefence(){ return magicDefence; }
 	public int getSpeed(){ return speed; }
 	public int getAccuracy(){ return accuracy; }
 	public int getLuck(){ return luck; }
@@ -48,14 +47,14 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public BattleClass getType(){ return type; }
 	public ArrayList<Action> getAttacks(){ return moves; }
 	//changed to Action array which encompasses attacks/spells/defence/and eventually item use;
-	public boolean getdefeated(){return defeated;}
+	public boolean getDefeated(){return defeated;}
 	public ArrayList<Item> getInventory(){return inventory;}
 	
 	//During and after battles some things need to be updated
 	public void setInit(int init){initiative=init;}
 	public void setHP(int newHP){ HP = newHP; }
 	public void setMP(int newMP){ MP = newMP; }
-	public void setdefeated(boolean newdefeated){defeated=newdefeated;}
+	public void setDefeated(boolean newdefeated){defeated=newdefeated;}
 	public void setExp(int newExp){ exp = newExp; } //This is just the model, when you get EXP it should be the one calling these methods
 	
 	//When you level up
@@ -65,16 +64,16 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	public void setMaxMP(int newMaxMP){ maxMP = newMaxMP; }
 	public void setAttack(int newAttack){ attack = newAttack; }
 	public void setDefence(int newDefence){ defence = newDefence; }
-	public void setmagicAttack(int newMA){ magicAttack = newMA; }
-	public void setmagicDefence(int newMD){ magicDefence = newMD; }
+	public void setMagicAttack(int newMA){ magicAttack = newMA; }
+	public void setMagicDefence(int newMD){ magicDefence = newMD; }
 	public void setSpeed(int newSpeed){ speed = newSpeed; }
 	public void setAccuracy(int newAccuracy){ accuracy = newAccuracy; }
 	public void setLuck(int newLuck){ luck = newLuck; }
 	public void addMove(Action newMove){ moves.add(newMove); }
 	@Override
 	public int compareTo(BattleObject compareto){
-		int compareinit=((BattleObject)compareto).getInit();
-		return compareinit-this.initiative;
+		int compareInit=((BattleObject)compareto).getInit();
+		return compareInit-this.initiative;
 	}
 	//hopefully allows comparison/sorting by initiative
 }

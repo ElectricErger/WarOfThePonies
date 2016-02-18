@@ -131,9 +131,9 @@ World Map: a singleton that contains all pertainent information about that map
 Maps: That have all the information about tiles and people's locations
 
 ===World Map====
-MAP NUMBER, MAP NAME
+MAP NUMBER,MAP NAME
 MAP FILE
-CONNECTIONS,...,...
+CONNECTION NUMBER,X1,Y1,WIDTH,HEIGHT
 
 ===Map===
 TILE FILE

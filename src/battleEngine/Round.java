@@ -70,7 +70,7 @@ public class Round {
 		ArrayList<BattleObject> order=order();
 		while(party.isEmpty()==false&&opponents.isEmpty()==false){
 			for(BattleObject fighter:order){
-				boolean dead=fighter.getdefeated();
+				boolean dead=fighter.getDefeated();
 				if(dead){
 					if(opponents.contains(fighter))opponents.remove(fighter);
 					if(party.contains(fighter))party.remove(fighter);
@@ -95,7 +95,7 @@ public class Round {
 			}
 		for(BattleObject fighter: order){
 			fighter.setInit(0);
-			fighter.setdefeated(false);
+			fighter.setDefeated(false);
 			}
 		}
 		award(exp);

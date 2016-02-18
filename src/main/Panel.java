@@ -42,8 +42,6 @@ public class Panel extends JPanel implements KeyListener{
 			}
 		};
 		main.start();
-		
-		String[] s = {"Hello my name is Bob!", "What is your name?", "Bye :("};
 	}
 	
 	@Override
