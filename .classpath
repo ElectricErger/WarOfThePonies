@@ -4,8 +4,10 @@
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="src" path="resourceChecks"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/rebel/Documents/School/Other learning/Java 101/libraries/dom4j-1.6.1/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rebel/Documents/School/Other learning/Java 101/libraries/dom4j-1.6.1/lib/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/rebel/Documents/School/Other learning/Java 101/libraries/slick/lib/slick.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Slick2D">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/rebel/Documents/School/Other learning/Java 101/workspace/SlickGame/Assets/natives-windows"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
