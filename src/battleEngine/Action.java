@@ -47,7 +47,7 @@ public abstract class Action {
 		}
 		private void damage(Weapon w){
 			//get one random amount of damage for each point of attack
-			//damage between 1 and max amount based on weapon, I suggest 4 if bare=hooved
+			//damage between 1 and max amount based on weapon, I suggest 4 if barehooved
 			//should call weapon that the doer is using - battle object needs a weapon field eventually
 			for(int a=doer.getAttack(); a>0; a--){
 				int dmg=r.nextInt(w.damagedie())+1;
@@ -92,7 +92,7 @@ public abstract class Action {
 					index++;}
 			}
 		}
-		void setTargets(ArrayList<BattleObject> party){
+		void setTargets(BattleObject[] party){
 			int index=0;
 			for(BattleObject target:party){
 				if(index>attacks.length-1) break;

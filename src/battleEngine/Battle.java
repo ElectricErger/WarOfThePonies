@@ -12,18 +12,20 @@ public class Battle {
 	
 	private boolean inBattle;
 	private BattleObject[] initiativeOrder;
-	private ArrayList<BattleObject> party;
-	private ArrayList<BattleObject> enemies;
+	private BattleObject[] party;
+	private BattleObject[] enemies;
+	private BattleObject current;
+	private int currentIndex;
 	
 	public void draw(Graphics g){
 		
 	}
 	
-	public void startBattle(ArrayList<BattleObject> party, ArrayList<BattleObject> enemies, Map location){
+	public void startBattle(BattleObject[] party, BattleObject[] enemies, Map location){
 		this.party=party;
 		this.enemies=enemies;
 		inBattle=true;
-		initiativeOrder=new BattleObject[enemies.size()+party.size()-2];
+		initiativeOrder=new BattleObject[enemies.length+party.length-2];
 		int i=0;
 		for(BattleObject b:party){
 			initiativeOrder[i]=b;
@@ -34,41 +36,68 @@ public class Battle {
 			i++;
 		}
 		Arrays.sort(initiativeOrder);
+		current=initiativeOrder[0];
+		currentIndex=0;
 	}
 	public void endBattle(){
 		int battleExp=0;
 		for(BattleObject enemy: enemies){
 			battleExp=battleExp+enemy.getExp();
 		}
-		battleExp=battleExp/party.size();
+		battleExp=battleExp/party.length;
 		for(BattleObject p:party){
 			p.setExp(p.getExp()+battleExp);
 			p.setExpToNextLevel(p.getExpToNextLevel()-battleExp);
 		}
+		inBattle=false;
 	}
-	public void selectAction(ArrayList<Action> menu, int i){
-		menu.get(i).execute();
+	private boolean isDefeated(BattleObject[] bo){
+		for(BattleObject a:bo){
+			boolean defeat=a.getdefeated();
+			if (defeat=false) return false;
+		}
+		return true;
 	}
-	public BattleObject nextAttacker(int a){
-		BattleObject next=initiativeOrder[a+1];
-		return next;
-	}
-	public void round(BattleObject current){
-		if(enemies.contains(current)){
-			AI enemy=new AI(current);
-			Action attack=enemy.choose(current.getAttacks(), party);
-			attack.execute();
-			int a=0;
-			for(BattleObject b: initiativeOrder){
-				if(b==initiativeOrder[a])break;
-				else a++;
+	public void check(){
+		if(isDefeated(enemies))endBattle();
+		else{
+			if(isDefeated(party)){
+				//call game over
 			}
-			round(nextAttacker(a));
+			else nextAttacker();
 		}
-		else {
-			Menu menu=new Menu(current);
-			//Make a stupid menu to select from
+	}
+	public void nextAttacker(){
+		currentIndex++;
+		current=initiativeOrder[currentIndex];
+		round();
+	}
+	public void runAI(){
+		AI enemy=new AI(current);
+		Action attack=enemy.choose(current.getAttacks(), party);
+		attack.execute();
+		check();
+		
+	}
+	public void runPlayer(){
+		//UI
+		attack.execute();
+		check();
+	}
+	public void round(){
+		for(BattleObject b:enemies){
+			if(current==b){
+				runAI();
+				break;
+			}
 		}
+		for(BattleObject b:party){
+			if(current==b){
+				runPlayer();
+				break;
+			}
+		}
+		nextAttacker();
 	}
 	public boolean inBattle(){ return inBattle; }
 	
