@@ -213,8 +213,54 @@
 	RD - "We have a situation."
 	RD - "Maud! Limestone! Report!"
 	/Maud and Limestone move in
-	Maud - "We were dispatched at 0600 hours to do recon with the "
-
+	Maud - "We were dispatched at 0600 hours to do recon with Corpral Rarity in the mines."
+	Maud - "See how the diplomatic relations with the Diamond Dogs were going."
+	Twilight - "You got Rarity to work with the Diamond Dogs!"
+	RD - "Of course. She was the clear pick with her diamond radar spell."
+	RD - "That being said, she practically has a hazmat suit on down there."
+	Spike - "That's Rarity for you."
+	Maud - "May I continue?"
+	Twilight - "Yes, sorry."
+	Maud - "So we were in the mines when we were ambushed."
+	Twilight - "Ambushed by who?"
+	Maud - "*Dull glare*"
+	Limestone - "Diamond Dogs that's who!"
+	Maud - "The ambush caught us both off guard."
+	Maud - "We were beaten badly."
+	RD - "The Diamond Dogs want to get rid of Sombra as much as we do."
+	RD - "He's mining the crystals dry, and eliminating anyone who gets in his way."
+	RD - "They help team Mud Pie lay some traps out of their dry mines."
+	RD - "Our diplomatic relations seemed to be going smoothly."
+	RD - "We recently started planning to work with the dragons."
+	RD - "Offering them gems for arms."
+	RD - "In light of this event, I am inclined to believe the Diamond Dogs are going to make the deal by themselves."
+	RD - "And get rid of 3 birds with one stone."
+	Limestone - "WHY I OUGHTA!"
+	Limestone - "When I get my hooves on those ruffians, I'm going to rip them a new a-"
+	Maud - "Our main mission now should be to find Rarity."
+	RD - "Agreed."
+	RD - "Twilight, this will be a good first mission for you."
+	RD - "You will join Team Mud Pie to find Rarity and ensure her safety."
+	RD - "You are free to engage any hostiles, but do NOT agress any friendlies."
+	RD - "We don't want to ensight anything."
+	All - "Yes ma'am"
+/Leave the quarters. Back in downtown.
+	Pinkie - "Talk to me when you are ready to go Twilight."
+/Start mission
+	Pinkie - "Okay troups, we have our mission, lets-"
+	/Starts digging
+	Pinkie - "GO!"
+	/Twilight is left alone
+	Spike - "Any idea how we're going to get down there?"
+	Twilight - "I don't kn-"
+	/Twilight get's pulled underground
+	Twilight - "GYAAAAAAAH!"
+/Underground mines
+	
+	
+	
+	
+	
 	
 	
 	Pinkie - "So do you really know me from another world?"
