@@ -27,7 +27,7 @@ import org.newdawn.slick.Graphics;
 import main.WoE;
 
 public class StartScreen extends BasicGameState {
-	private int id=0;
+	private static final int id=0;
 	Image background;
 	
 	private BufferedImage bg;
@@ -143,7 +143,7 @@ public class StartScreen extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
-		background=new Image("/bg.jpg");
+		background=new Image("/res/bg.jpg");
 		
 	}
 	@Override

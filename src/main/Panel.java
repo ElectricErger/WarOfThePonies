@@ -24,7 +24,7 @@ public class Panel extends StateBasedGame {
 		 * Note that each state has a built in event listener for mouse/key/gamecontroller so you don't need to write/add one
 		 */
 		addState(new StartScreen());
-		addState(new GamePlay());
+		//addState(new GamePlay());
 	}
 
 		

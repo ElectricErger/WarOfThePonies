@@ -25,7 +25,7 @@ public class WoE{
 			woE.setDisplayMode(800, 600, true);
 		//creates window and sets to fullscreen - put in the non-fullscreen basic dimensions you want
 		//to tell it how big the picture is supposed to be(e.g. how many tiles should fit)
-			game.enterState(0);
+			woE.start();
 		//starts game, calls init, render, then update, render, update, render etc
 		}
 		catch(SlickException e){
