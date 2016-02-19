@@ -8,14 +8,27 @@
 package gameStateManager;
 
 import java.awt.*;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.*;
+import org.newdawn.slick.*;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.ShapeRenderer;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
+
 import main.WoE;
 
-public class StartScreen extends GameState {
+public class StartScreen extends BasicGameState {
+	private int id=0;
+	Image background;
 	
 	private BufferedImage bg;
 	private final String[] SELECT = {
@@ -38,143 +51,134 @@ public class StartScreen extends GameState {
 	
 	
 	
-	public StartScreen(GameStateManager gsm){
-		super(gsm);
-		try {
-			bg = ImageIO.read(getClass().getResourceAsStream("/bg.jpg")); 
-		}
-		catch (Exception e) { e.printStackTrace(); }
+	public StartScreen(){
+		super();
 		selected = optionsSelector = loadSelector = 0;
 		optionsSelected = loadSelected = false;
 	}
-	/**
-	 * Draw assets to screen 
-	 */
-	@Override
-	public void draw(Graphics g){
-		g.drawImage(bg, 0, 0, WoE.WIDTH, WoE.HEIGHT, null);
-		displayMenu(g);
-		if(optionsSelected){
-			displayOptions(g);
-		}
-		else{
-			if(loadSelected){
-				displayLoads(g);
-			}
-		}
-		
-	}
 	
-	//View
-	
-	private void displayMenu(Graphics g){
+	private void displayMenu(){
 		int i = 0;
 		for(String s : SELECT){
+			float posWidth=WoE.woE.getScreenWidth()/2;
+			float posHeight=WoE.woE.getScreenHeight()/2;
 			if(i == selected){
-				g.setColor(Color.BLACK);
-				g.setFont(new Font("Arial", Font.BOLD, 40)); //Font should really scale better
+				TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.BOLD, 40),true);
+				font.drawString(posWidth-(font.getWidth(s)/2), posHeight+i*font.getLineHeight(), s, Color.black);
+				//Font should really scale better
 			}
 			else{
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("Arial", Font.PLAIN, 40));
+				TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN,40),true);
+				font.drawString(posWidth-(font.getWidth(s)/2), posHeight+i*font.getLineHeight(), s, Color.white);
 			}
-			g.drawString(s, getCenteredX(s, g), WoE.HEIGHT/2+i*g.getFontMetrics().getHeight());//Height is an issue with screen size
 			i++;
 		}
 	}
 	
-	private void displayOptions(Graphics g){
-		g.setColor(Color.BLUE);
-		g.fillRect(
-				WoE.WIDTH/4,
-				WoE.HEIGHT/4,
-				WoE.WIDTH/2,
-				WoE.HEIGHT/2);
-		g.setColor(Color.WHITE);
-		g.drawRect(
-				WoE.WIDTH/4,
-				WoE.HEIGHT/4,
-				WoE.WIDTH/2,
-				WoE.HEIGHT/2);
+	private void displayOptions(){
+		Graphics draw=new Graphics();
+		draw.setColor(Color.blue);
+		draw.fillRect(WoE.woE.getScreenWidth()/4, WoE.woE.getScreenHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
+		
+		draw.setColor(Color.white);
+		draw.drawRect(WoE.woE.getScreenWidth()/4, WoE.woE.getScreenHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
+		
 		
 		String prompt = "OPTIONS";
-		g.drawString(prompt, getCenteredX(prompt, g), WoE.HEIGHT/3);
+		TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
+		font.drawString(getCenteredX(prompt, font), WoE.woE.getHeight()/3, prompt,Color.black);
 		
 		int i = 0;
 		for(String s : OPTIONS){
 			if(i == optionsSelector){
-				g.setColor(Color.BLACK);
-				g.setFont(new Font("Arial", Font.BOLD, 40)); //Font should really scale better
+				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(),s,Color.black);
 			}
 			else{
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("Arial", Font.PLAIN, 40));
+				font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
+				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(),s,Color.white);
 			}
-			g.drawString(s, getCenteredX(s, g), WoE.HEIGHT/2+i*g.getFontMetrics().getHeight());
 			i++;
 		}
 	}
 	
-	private void displayLoads(Graphics g){
-		g.setColor(Color.BLUE);
-		g.fillRect(
-				WoE.WIDTH/4,
-				WoE.HEIGHT/4,
-				WoE.WIDTH/2,
-				WoE.HEIGHT/2);
-		g.setColor(Color.WHITE);
-		g.drawRect(
-				WoE.WIDTH/4,
-				WoE.HEIGHT/4,
-				WoE.WIDTH/2,
-				WoE.HEIGHT/2);
+	private void displayLoads(){
+		Graphics draw=new Graphics();
+		draw.setColor(Color.blue);
+		draw.fillRect(
+				WoE.woE.getWidth()/4,
+				WoE.woE.getHeight()/4,
+				WoE.woE.getWidth()/2,
+				WoE.woE.getHeight()/2);
+		draw.setColor(Color.white);
+		draw.drawRect(
+				WoE.woE.getWidth()/4,
+				WoE.woE.getHeight()/4,
+				WoE.woE.getWidth()/2,
+				WoE.woE.getHeight()/2);
 		
 		String loadPrompt = "Do you want to load?";
-		g.drawString(loadPrompt, getCenteredX(loadPrompt, g), WoE.HEIGHT/3);
+		TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
+		font.drawString(getCenteredX(loadPrompt, font), WoE.woE.getHeight()/3,loadPrompt);
 		
 		int i = 0;
 		for(String s : LOADS){
 			if(i == loadSelector){
-				g.setColor(Color.BLACK);
-				g.setFont(new Font("Arial", Font.BOLD, 40)); //Font should really scale better
+				TrueTypeFont bold=new TrueTypeFont(new Font("Arial", Font.BOLD,40),true);
+				bold.drawString(getCenteredX(s,bold), WoE.woE.getHeight()/2+i*font.getHeight(s), s,Color.black);
 			}
 			else{
-				g.setColor(Color.WHITE);
-				g.setFont(new Font("Arial", Font.PLAIN, 40));
+				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(s), s,Color.white);
 			}
-			g.drawString(s, getCenteredX(s, g), WoE.HEIGHT/2+i*g.getFontMetrics().getHeight());//Height is an issue with screen size
 			i++;
 		}
 	}
 	
-	private int getCenteredX(String s, Graphics g){
-		return (WoE.WIDTH-g.getFontMetrics().stringWidth(s))/2;
-	}
-	
-	//Controller
-	
-	public void keyDown(int key){
-		switch(key){
-		case KeyEvent.VK_ENTER:
-			forwardResponse();
-			break;
-		case KeyEvent.VK_UP:
-			upResponse();
-			break;
-		case KeyEvent.VK_DOWN:
-			downResponse();
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			backwardResponse();
-			break;
-		}
+	private int getCenteredX(String s, TrueTypeFont f){
+		return (WoE.woE.getWidth()-f.getWidth(s))/2;
 	}
 
+	public void keyUp(int key){}
+	//Depending on your context A does the following
+
+	
+	@Override
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		background=new Image("/bg.jpg");
+		
+	}
+	@Override
+	public void render(GameContainer arg0, StateBasedGame arg1, org.newdawn.slick.Graphics arg2) throws SlickException {
+		background.draw(0, 0, WoE.woE.getScreenWidth(), WoE.woE.getScreenHeight());
+		if(!(optionsSelected||loadSelected))displayMenu();
+		else if(optionsSelected) displayOptions();
+		else if(loadSelected) displayLoads();
+	}
+	@Override
+	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+		Input input=WoE.woE.getInput();
+		if(input.isKeyDown(Input.KEY_DOWN)){
+			downResponse();
+		}
+		else if(input.isKeyDown(Input.KEY_UP)){
+			upResponse();
+		}
+		else if(input.isKeyDown(Input.KEY_ENTER)){
+			forwardResponse();
+		}
+		else if(input.isKeyDown(Input.KEY_BACK)){
+			backwardResponse();
+		}
+		
+	}
+	@Override
+	public int getID() {
+		return id;
+	}
 	private void forwardResponse(){
 		if(!(loadSelected || optionsSelected)){
 			switch(selected){
 			case 0:
-				super.getGameStateManager().nextState(new GamePlay(super.getGameStateManager()));
+				WoE.game.enterState(1, new FadeOutTransition(),new HorizontalSplitTransition());
 				break;
 			case 1:
 				loadSelected = true;
@@ -195,6 +199,21 @@ public class StartScreen extends GameState {
 				forwardLoad();
 			}
 		}
+	}
+	
+	private void forwardLoad(){
+		switch(loadSelector){
+		case 0:
+			//BEGIN LOAD
+			break;
+		case 1:
+			loadSelected = false;
+			break;
+		}
+	}
+	
+	private void forwardOption(){
+		
 	}
 	
 	private void backwardResponse(){
@@ -240,29 +259,4 @@ public class StartScreen extends GameState {
 		}
 	}
 
-	public void keyUp(int key){}
-	//Depending on your context A does the following
-	private void forwardOption(){
-		switch(optionsSelector){
-		case 0:
-			break;
-		case 1:
-			
-			break;
-		case 2:
-			optionsSelected = false;
-			break;
-		}
-	}
-	
-	private void forwardLoad(){
-		switch(loadSelector){
-		case 0:
-			//BEGIN LOAD
-			break;
-		case 1:
-			loadSelected = false;
-			break;
-		}
-	}
 }

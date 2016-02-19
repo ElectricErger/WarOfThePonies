@@ -2,50 +2,36 @@ package menuEngine;
 
 import gameStateManager.GamePlay;
 
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
+import org.newdawn.slick.state.transition.*;
 
-public class Menu {
-	private GamePlay game;
+public class Menu extends BasicGameState{
+	int id=3;
 	
-	public Menu(GamePlay gp) {
-		game = gp;
+	public Menu() {
 	}
 
-	public void draw(Graphics g){}
-	
-	public void keyDown(int key){
-		switch(key){
-		case KeyEvent.VK_UP:
-			upResponse();
-			break;
-		case KeyEvent.VK_DOWN:
-			downResponse();
-			break;
-		case KeyEvent.VK_LEFT:
-			leftResponse();
-			break;
-		case KeyEvent.VK_RIGHT:
-			rightResponse();
-			break;
-		case KeyEvent.VK_SPACE:
-			forwardResponse();
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			backwardResponse();
-			break;
-		}
-	}
-
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
-	private void forwardResponse(){}
-	private void backwardResponse(){}
-
-	public void keyUp(int key) {
-		// TODO Auto-generated method stub
+	@Override
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 		
+		
+	}
+
+	@Override
+	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+		
+		
+	}
+
+	@Override
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		
+		
+	}
+
+	@Override
+	public int getID() {
+		return id;
 	}
 }

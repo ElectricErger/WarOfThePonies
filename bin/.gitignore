@@ -1,1 +1,6 @@
 /main/
+/characters/
+/gameStateManager/
+/menuEngine/
+/mapEngine/
+/textEngine/
