@@ -5,6 +5,8 @@ package gameStateManager;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
 
 import textEngine.TextWindow;
 import battleEngine.Battle;
@@ -13,7 +15,7 @@ import characters.MainCharacter;
 import mapEngine.Map;
 import menuEngine.Menu;
 
-public class GamePlay extends GameState{
+public class GamePlay extends BasicGameState{
 	
 	private MainCharacter player;
 	private boolean inMenu, inBattle, inConvo;
@@ -24,14 +26,13 @@ public class GamePlay extends GameState{
 	private Characters npcs;
 	private int plot;
 	
-	public GamePlay(GameStateManager g){
-		
-		super(g);
+	public GamePlay(){
+		super();
 		
 		//Make the variables
 		world = new Map(this);
 		dialog = new TextWindow(this);
-		menu = new Menu(this);
+		menu = new Menu();
 		//Pieces to go on the board
 		player = new MainCharacter("/characterData/player.png", world);
 		npcs = new Characters(world);
