@@ -1,0 +1,230 @@
+/Intro Black Screen - last words of Cutie Mark Lecture
+	/"But, um...the real question about cutie mark magic is...who it seems to affect."
+	/setting Canterlot - outside School for Gifted Unicorns
+		/Intro Cutscene
+			Twilight - "So Spike, what did you think of my presentation?"
+			Spike - "Err...it was great Twilight, nopony knows more about Cutie marks than you,"
+			Twilight - "I really think I inspired them I--, I don't feel so good."
+			Spike - "Are you alright Twilight?"
+			Twilight - *nervous laugh* "It's probably just something I ate."
+			Spike - "It's probably all of this fancy Canterlot food. Let's go home, it's been a long day."
+			/walk off screen together
+/Transition
+	/setting Ponyville - Outside the castle
+		/Cutscene
+			Twilight - "It's good to be home, Spike. I can't wait to start on the new book Princess Celestia gave me. She says it came from Starswirl the Bearded's private collection."
+			/Pinkie proings in
+			Pinkie - "Hi Twilight!"
+			Twilight - "Hello Pinkie."
+			Pinkie - "Somepony was knocking on the castle door looking for you, so I let them in."
+			Twilight - "You did what!?"
+			Pinkie - "See you later."
+			/Pinkie proings out
+			Twilight - "I wonder who that could be."
+			/Twilight and Spike enter castle move to centre of room - dark swirly hole on the ceiling
+			/Dr Whooves gallops in behind them - "Wait--"
+/Transition, white flash, then black screen
+	/setting Sombre-verse - Battlefield flat, snowy field with mountains at the top 
+		/Cutscene
+			Twilight - "What just happened..."
+			/Twilight gets 
+			Twilight - "SPIKE!"
+			Spike - "I'm here Twi. Doctor Whooves is too."
+			Twilight - "Doctor, why are you here? \n Where is here?"
+			Dr W - "I was coming to your castle to investigate just that."
+			Dr W - "It appears that we have been taken into some kind of parallel dimension. A time line that diverged from ours at some point."
+			Dr W - "As for the where exactly, I'm afraid I have no idea."
+			Twilight - "Well sitting around here isn't going to solve anything. We have to find some books."
+			Spike - "Or, you know, ponies."
+			Twilight - "Semantics."
+			Twilight - "Now how do I move again?"
+			Spike - "Are you serious Twi?"
+			Dr W - "Not a problem Twilight. I recently finished my 'How to pony' course with Lyra recently."
+			Dr W - "I WILL TEACH YOU!"
+			Twilight - "... Thank you...?"
+			Dr W - "It's no problem. The least I can do for the princess."
+			Dr W - "Let us start with movement."
+			Dr W - "Use the right analog stick, WASD, or arrow keys to move in the corresponding direction."
+			Dr W - "Try walking to me."
+		/Analog control given
+			/Walk to Doctor Whooves
+			Dr W - "Now we shall talk about items."
+			Dr W - "There are several types of items: weapons, armor, food/potions, misc."
+			Dr W - "Now open your menu with Start/Esc"
+		/Menu control given
+			/Open menu
+			Dr W - "This is the menu. It gives you an overview of your game so far."
+			Dr W - "Look around, there are some good things in here."
+			Dr W - "Right now you are in the STATS tab."
+			Dr W - "Here you'll find all of your statistics used for battle."
+			/////Explains each of the stats
+			Dr W - "Flip to the PARTY tab"
+			/Flips to the party tab
+			/////Explains equiping weapons and armor
+			Dr W - "Now check out the SAVE tab"
+			/Flips to the SAVE tab
+			Dr W - "This, in essence, lets you go back in time if something goes wrong."
+			Dr W - "(Mainly your death)"
+			Dr W - "Many people forget about this until it's too late. Save frequently."
+			Dr W - "You can leave this window at any time with Start/Esc or just press B/bksp."
+			Dr W - "Do that now."
+			/Close window
+			Dr W - "Lastly there are interactions."
+			Dr W - "To interact with something or someone simply go upto it and press A/Enter"
+			Dr W - "Here, practice by giving this gem to Spike."
+			/Received gem
+			Spike - "What is it?"
+			/Walks to Spike
+			Twilight - "Here you go."
+			Spike -  "*Drools* Thanks Doc."
+			Dr W - "Great. I think you've got it. Now let's find civilization."
+			Spike - "I think I see a town to the East."
+			Twilight - "Let's check it out."
+		/Walk right (left map disabled)	
+			Spike - "Hold on guys. I think I see something"
+			Pony 1 - "Crystals..."
+			Twilight - "This can't be good."
+			/Battle starts with two armorred ponies
+			Dr W - "This seems bad. These ponies are hostiles. Enimies if you will."
+			Dr W - "Let me walk you through how battle mechanics work here in Equestria."
+			Dr W - "Each pony or creature on the field has an initiative at the start of the encounter which determines when they go."
+			Dr W - "The order stays for the entire encounter, and loops when it reaches the last pony."
+			Dr W - "This is called a round."
+			Dr W - "During each pony's turn, you can decide to do one of several things."
+			Dr W - "You can attack with your current weapon,"
+			/Highlight FIGHT
+			Dr W - "Use some magic or a skill,"
+			/Highlight MAGIC
+			Dr W - "Use an item such as a potion"
+			/Highlight ITEMS
+			Dr W - "Or you could use my favourite strategy..."
+			Dr W - "RUN!"
+			/Highligh RUN (and runs off screen)
+			Spike - "He's not coming back, is he."
+			/You can attempt to run or fight, but you will be unsuccessful
+			/Armorred ponies attack and hit you down to 1 HP
+			/Again you can select any move, but it will fail
+			/Rainbow Dash arrives and knocks out an enemy
+			RD - "What is a civilian doing here!"
+			Twilight - "Rainbow Dash, just in time. I thought we were gonners."
+			RD - "(Who is this strange mare and how does she know me?)"
+			RD - "I have this pony. Sargent Heartstrings escort these civis back to base."
+			Lyra - "Yes ma'am!"
+			Lyra - "Come with me. Commander Dash will take care of these ponies."
+		/Party escapes
+/Fade into the camp - Lyra walks in with us in tow
+	Lyra - "You are to wait here till Commander Dash returns from the field."
+	/Dash flys in
+	RD - "Lyra, what was my time?"
+	Lyra - "Based off of your last clock time I would say about 10.127 seconds."
+	RD - "So close"
+	/Turns towards Twilight
+	RD - "Now you."
+	RD - "Who are you?"
+	Twilight - "I'm Princess Twilight Sparkle."
+	RD - "There are only 3 princesses, and unless you're Celestia, Luna or Cadence, you're an imposter."
+	Twilight - "I know this might be hard to belive, but I am from another timeline, one where we are friends."
+	RD - "Lock her up. We have ways of making you talk."
+	Spike - "Twilight, do something. I'm do young to be a PoW."
+	/Twilight teleports just past RD
+	RD - "Oh no you don't. Get back here!"
+	/RD tackles Twilight
+/Fade into jail guarded by RD
+	RD - "That ought to hold you"
+	RD - "What do you know?"
+	Twilight - "What do you mean?"
+	RD - "Don't play coy with me. You're an Empire spy."()
+	RD - "What are you? Recon? Infultration? Who do you report to!"
+	Twilight - "Dashie I honestly have no idea what is going on. What is the Empire?"
+	RD - "First of all, NOBODY calls me Dashie. Do I make myself clear!"
+	RD - "As for the Empire, you know which one I'm talking about. I bet you work for Sombra directly."
+	Twilight - "WHAT!?"
+	Twilight - "Dash, you have to understand. This world was never meant to exist. We took down Sombra along with AppleJack, Rarity, Pinkie Pie, and Fluttershy."
+	RD - "So you know about our Special Ops unit! I knew it."
+	Twilight - "Special Ops unit?"
+	/Pinkie, Maud, and Limestone all pop out of the ground
+	Pinkie - "Team Mud Pie reporting in. The traps are set ma'am."
+	RD - "Good work team. Take a break, and we will reconvine at 2000 hours."
+	Pinkie - "Thank you ma'am."
+	/Team Mud Pie digs away
+	Twilight - "Well that was unexpected..."
+	Twilight - "Rainbow Dash, what do we have to do to prove to you that we are not spies?"
+	RD - "What makes you think I'm going to ever trust your kind."
+	Twilight - "What if I told you I knew how to stop Sombra."
+	/RD turns around
+	RD - "I'm listening, turncoat."
+	Twilight - "In my world, Sombra originally conquired the Crystal Empire in the North. A cold dark wasteland,"
+	Twilight - "Like Canada."
+	RD - "What's a Canada?"
+	Lyra - "In anthropology, Canada is a Northern country known for it's cold climate and civilians being scared of the dark."
+	Twilight - "... yes"
+	Twilight - "More importantly, we could only stop Sombra with the power by returning the Crystal Heart."
+	RD - "Lyra, get word to the Princesses. We need this Crystal Heart to stop Sombra."
+	Lyra - "Yes ma'am"
+	/Lyra leaves
+	RD - "As for you."
+	/Turns
+	RD - "If this checks out, we may be able to work out a deal."
+	RD - "Your information on Sombra for your release."
+	Spike - "Sounds pretty one si- "
+	Twilight - "What he means to say is, what would be our arrangement."
+	RD - "You would join my platoon under my command as a consultant. We would fight side-by-side to get this Crystal Heart and defeat Sombra."
+	/Turns away
+	RD - "But until your facts are checked you will remain our prisoner."
+	/Walks away
+	Spike - "What was that about?"
+	Twilight - "Sorry Spike. Remember, this isn't our Rainbow Dash. We need to reform our friendship before she will trust us."
+	Twilight - "For now, we take what we can get and we try to win over Dashie."
+/Fade to black - Wake up next day with door open
+	RD - "Wake up maggots!"
+	/Fade into room again
+	RD - "Your story checked out. Our spies have noted Sombra's adversion to heart shaped crystals, and Empire infiltrators have retrieved town documents that suggest that before Sombra's rule there used to be a Crystal Heart in the town Plaza."
+	RD - "The offer is on the table. Do you want to join us?"
+/Option menu. If you select no Spike will bug you
+	RD - "Then it's settled. Welcome aboard Private Sparkle."
+	Spike - "I believe you mean Twili-"
+	*Glomp*
+	Twilight - "Never mind him. It's great to be aboard Commander Dash."
+	RD - "Agent Pinkie will show you around camp. Report back to me when you are situated."
+	Twilight - "Aye aye ma'am."
+	/RD leaves
+	Pinkie - "Follow me."
+	/Pikie escorts you outside
+/Fades outside
+	Twilight - "Where did she go?"
+/FREE PLAY	
+	//Pinkie will pop up when you approach a stand
+	/Pinkie pops up by the armory
+	Pinkie - "This is the armory."
+	Pinkie - "A shop that will trade you armor and weapons."
+	Pinkie - "I don't think I need to explain myself more."
+	/Pinkie burrows over to the med tent
+	Pinkie - "This is our medical tent."
+	Pinkie - "Our doctors and nurses can heal any kind of injury or ailment you have."
+	Pinkie - "Except death."
+	/Pinkie pops up by the barracks
+	Pinkie - "Welcome to the barracks."
+	Pinkie - "Every soldier needs a good night sleep. Or they won't perform at their peak."
+	Pinkie - "If you ever need to rest and restore your mana, take a nap."
+/Cannot leave town, go to Dash's Quarters
+	/Pinkie pops up
+	RD - "Perfect I was just about to send for you."
+	/RD moves across the table
+	RD - "We have a situation."
+	RD - "Maud! Limestone! Report!"
+	/Maud and Limestone move in
+	Maud - "We were dispatched at 0600 hours to do recon with the "
+
+	
+	
+	Pinkie - "So do you really know me from another world?"
+	//OPEN GAME
+	
+	
+	--Does that mean that we are near the Crystal Empire?
+	--No, Sombra has spread across most of Equestria. Now we are near a place called Ponyville
+	--The Crystal Heart was taken by some pony that looked very irrily similar to you.
+		--We'll have to use love magic to stop him.
+	
+	
+	

@@ -1,5 +1,10 @@
 package main;
 
+
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
+import org.newdawn.slick.state.transition.*;
+
 import gameStateManager.GameStateManager;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -7,54 +12,33 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Panel extends JPanel implements KeyListener{
-	GameStateManager gsm;
-	Thread main;
+public class Panel extends StateBasedGame {
 	
 	public static final int FPmS = 1000/60;
 	
-	
 	public Panel(){
-		super();
-		setFocusable(true);
-		requestFocus();
-		addKeyListener(this);
-		requestFocusInWindow();
-
-		gsm = new GameStateManager();
+		super("WoE");
+	}	
 		
-		//Create a thread that repaints every FPS
-		main = new Thread(){
-			private long startTime, stopTime, elapsed;
-			public void run(){
-				while(true){
-					startTime = System.nanoTime();
-					
-					repaint();
-					
-					stopTime = System.nanoTime();
-					elapsed = (stopTime - startTime)/1000000;
-					elapsed = elapsed - FPmS;
-					if(elapsed < 0 ) { elapsed = FPmS; }
-					try{ sleep(elapsed); }
-					catch(Exception e){ e.printStackTrace(); }
-				}
-			}
-		};
-		main.start();
-		
-		String[] s = {"Hello my name is Bob!", "What is your name?", "Bye :("};
+	public void gameDisplay() throws SlickException{
+		AppGameContainer WoE=new AppGameContainer(new Panel());
+		WoE.setTitle("War for Equestria");
+		WoE.setDisplayMode(int width, int height, true);
+		//creates window and sets to fullscreen - put in the non-fullscreen basic dimensions you want
+		//to tell it how big the picture is supposed to be(e.g. how many tiles should fit)
+		WoE.start();
+		//starts game, calls init, render, then update, render, update, render etc
 	}
 	
 	@Override
-	public void paintComponent(Graphics g){ //Called every time you repaint
-		super.paintComponent(g);
-		gsm.draw(g);
+	public void initStatesList(GameContainer WoE) throws SlickException {
+		//addState(new Menu()); - to add states to your possible states for initialization
+		/*Each state extends BasicGameState and has to override the methods init, update, and render 
+		 * These contain the loading of static resources, the logic updates, and the command to render at set time interval
+		 * Eclipse will write these for you if you ask it to :P
+		 * Note that each state has a built in event listener for mouse/key/gamecontroller so you don't need to write/add one
+		 */
 	}
 
-	public void keyTyped(KeyEvent e) {}
-	public void keyPressed(KeyEvent e) { gsm.keyDown(e.getKeyCode()); }
-	public void keyReleased(KeyEvent e) { gsm.keyUp(e.getKeyCode()); }
-	
-	
+		
 }
