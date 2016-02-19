@@ -9,32 +9,28 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 
-@SuppressWarnings("serial")
-public class WoE{
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
-	public final static int WIDTH = (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-	public final static  int HEIGHT = (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-	
-	public static void main(String[] args) {
-		JFrame window = new JFrame("War of Equestria");
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//window.setPreferredSize(new Dimension(WIDTH*2/3, HEIGHT*2/3));
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH); //Full dimensions	
-		window.setUndecorated(true);
-		window.setContentPane(new Panel());
-		
-		//Bind Keys - Temporary
-		window.getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "EXIT");
-		window.getRootPane().getActionMap().put("EXIT", new AbstractAction(){ 
-			        public void actionPerformed(ActionEvent e){
-			            window.dispose();
-			            System.exit(0);
-			        }
-			    }
-		);
-		
-		window.pack();
-		window.setVisible(true);
+public class WoE{
+	public static StateBasedGame game;
+	public static AppGameContainer woE;
+
+	public static void main(String[] args){
+		try{
+			game=new Panel();
+			woE=new AppGameContainer(game);
+			woE.setTitle("War for Equestria");
+			woE.setDisplayMode(800, 600, true);
+		//creates window and sets to fullscreen - put in the non-fullscreen basic dimensions you want
+		//to tell it how big the picture is supposed to be(e.g. how many tiles should fit)
+			game.enterState(0);
+		//starts game, calls init, render, then update, render, update, render etc
+		}
+		catch(SlickException e){
+			e.printStackTrace();
+		}
 	}
 
 }
