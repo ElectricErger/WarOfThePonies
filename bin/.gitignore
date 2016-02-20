@@ -1,6 +1,8 @@
-/main/
-/characters/
-/gameStateManager/
-/menuEngine/
+/Buildings/
+/MapLayout.xlsx
+/Maps/
 /mapEngine/
+/menuEngine/
 /textEngine/
+/battleEngine/
+/characters/

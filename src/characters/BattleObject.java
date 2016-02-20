@@ -31,6 +31,7 @@ public abstract class BattleObject extends WorldObject implements Comparable<Bat
 	
 	//Getters for when you enter a battle
 	public int getHP(){ return HP; }
+	public String getName(){return name;}
 	public int getMP(){ return MP; }
 	public int getMaxHP(){ return maxHP; }
 	public int getMaxMP(){ return maxMP; }

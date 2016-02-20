@@ -21,7 +21,7 @@ public abstract class WorldObject {
 	private int y;	
 	private boolean isAnimated;
 	protected BufferedImage imgSheet; //Debating if it should be Image for scaling purposes
-	protected Image currentImage;
+	protected org.newdawn.slick.Image currentImage;
 	private boolean isWalking;
 
 	public static final int UP = 0;
@@ -76,7 +76,7 @@ public abstract class WorldObject {
 	public double getOffsetY(){ return offsetY; }
 	
 	//Get image
-	public Image getImage(){ return currentImage; }
+	public org.newdawn.slick.Image getImage(){ return currentImage; }
 	
 	public int getDirection(){ return walkingDirection; }
 	

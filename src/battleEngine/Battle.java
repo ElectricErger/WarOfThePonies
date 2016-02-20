@@ -1,14 +1,19 @@
 package battleEngine;
 
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.font.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
+
 import mapEngine.Map;
 import characters.BattleObject;
 
-public class Battle {
+public class Battle extends BasicGameState{
 	
 	private boolean inBattle;
 	private BattleObject[] initiativeOrder;
@@ -16,11 +21,47 @@ public class Battle {
 	private BattleObject[] enemies;
 	private BattleObject current;
 	private int currentIndex;
+	private static final int id=4;
+	private Map map;
 	
-	public void draw(Graphics g){
+
+	@Override
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {
+		startBattle(party, enemies, map);
+	}
+
+	@Override
+	public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics draw) throws SlickException {
+		draw.drawRect(0, 0, 50, 200);
+		Font font=new Font("Arial", Font.PLAIN, 20);
+		TrueTypeFont write=new TrueTypeFont(font,true);
+		int i=0;
+		for(BattleObject b: initiativeOrder){
+			if(b==current){
+				write.drawString(5, (write.getHeight(b.getName())+5)*i, b.getName(), Color.white);
+			}
+			else write.drawString(5, (write.getHeight(b.getName())+5)*i, b.getName(), Color.black);
+			i++;		
+		}
+		i=0;
+		for(BattleObject b:party){
+			Image sprite=b.getImage();
+			sprite.draw(container.getWidth()-64-32*i,container.getHeight()-64-32*i);
+			i++;
+		}
 		
 	}
-	
+
+	@Override
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getID() {
+		return id;
+	}
 	public void startBattle(BattleObject[] party, BattleObject[] enemies, Map location){
 		this.party=party;
 		this.enemies=enemies;
@@ -100,39 +141,5 @@ public class Battle {
 		nextAttacker();
 	}
 	public boolean inBattle(){ return inBattle; }
-	
-	public void keyDown(int key){
-		switch(key){
-		case KeyEvent.VK_UP:
-			upResponse();
-			break;
-		case KeyEvent.VK_DOWN:
-			downResponse();
-			break;
-		case KeyEvent.VK_LEFT:
-			leftResponse();
-			break;
-		case KeyEvent.VK_RIGHT:
-			rightResponse();
-			break;
-		case KeyEvent.VK_SPACE:
-			forwardResponse();
-			break;
-		case KeyEvent.VK_BACK_SPACE:
-			backwardResponse();
-			break;
-		}
-	}
 
-	private void upResponse(){}
-	private void downResponse(){}
-	private void leftResponse(){}
-	private void rightResponse(){}
-	private void forwardResponse(){}
-	private void backwardResponse(){}
-
-	public void keyUp(int key) {
-		// TODO Auto-generated method stub
-		
-	}
 }
