@@ -32,7 +32,8 @@ public class Battle extends BasicGameState{
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics draw) throws SlickException {
-		draw.drawRect(0, 0, 50, 200);
+		draw.setColor(Color.blue);
+		draw.fillRect(0, 0, 50, 200);
 		Font font=new Font("Arial", Font.PLAIN, 20);
 		TrueTypeFont write=new TrueTypeFont(font,true);
 		int i=0;
@@ -43,24 +44,29 @@ public class Battle extends BasicGameState{
 			else write.drawString(5, (write.getHeight(b.getName())+5)*i, b.getName(), Color.black);
 			i++;		
 		}
-		i=0;
-		for(BattleObject b:party){
-			Image sprite=b.getImage();
-			sprite.draw(container.getWidth()-64-32*i,container.getHeight()-64-32*i);
-			i++;
-		}
+		drawParty(container);
+		
 		
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-		// TODO Auto-generated method stub
+		check();
+		
 		
 	}
 
 	@Override
 	public int getID() {
 		return id;
+	}
+	public void drawParty(GameContainer container){
+		int i=0;
+		for(BattleObject b:party){
+			Image sprite=b.getImage();
+			sprite.draw(container.getWidth()-64-32*i,container.getHeight()-64-32*i);
+			i++;
+		}
 	}
 	public void startBattle(BattleObject[] party, BattleObject[] enemies, Map location){
 		this.party=party;
@@ -77,8 +83,7 @@ public class Battle extends BasicGameState{
 			i++;
 		}
 		Arrays.sort(initiativeOrder);
-		current=initiativeOrder[0];
-		currentIndex=0;
+		currentIndex=-1;
 	}
 	public void endBattle(){
 		int battleExp=0;

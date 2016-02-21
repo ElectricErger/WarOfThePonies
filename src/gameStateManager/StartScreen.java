@@ -30,7 +30,6 @@ public class StartScreen extends BasicGameState {
 	private static final int id=0;
 	Image background;
 	
-	private BufferedImage bg;
 	private final String[] SELECT = {
 			"NEW GAME",
 			"LOAD GAME",
@@ -48,28 +47,31 @@ public class StartScreen extends BasicGameState {
 	};
 	private int selected, optionsSelector, loadSelector;
 	private boolean optionsSelected, loadSelected;
-	
+	private Font menuFont=new Font("Arial", Font.PLAIN,40);
+	private Font selectFont=new Font("Arial",Font.BOLD,40);
+	private TrueTypeFont bold;
+	private TrueTypeFont plain;
 	
 	
 	public StartScreen(){
 		super();
 		selected = optionsSelector = loadSelector = 0;
 		optionsSelected = loadSelected = false;
+		bold=new TrueTypeFont(selectFont,false);
+		plain=new TrueTypeFont(menuFont,false);
 	}
 	
 	private void displayMenu(){
 		int i = 0;
 		for(String s : SELECT){
-			float posWidth=WoE.woE.getScreenWidth()/2;
-			float posHeight=WoE.woE.getScreenHeight()/2;
+			float posWidth=WoE.woE.getWidth()/2;
+			float posHeight=WoE.woE.getHeight()/2;
 			if(i == selected){
-				TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.BOLD, 40),true);
-				font.drawString(posWidth-(font.getWidth(s)/2), posHeight+i*font.getLineHeight(), s, Color.black);
+				bold.drawString(posWidth-(bold.getWidth(s)/2), posHeight+i*bold.getLineHeight(), s, Color.black);
 				//Font should really scale better
 			}
 			else{
-				TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN,40),true);
-				font.drawString(posWidth-(font.getWidth(s)/2), posHeight+i*font.getLineHeight(), s, Color.white);
+				plain.drawString(posWidth-(plain.getWidth(s)/2), posHeight+i*plain.getLineHeight(), s, Color.white);
 			}
 			i++;
 		}
@@ -78,24 +80,22 @@ public class StartScreen extends BasicGameState {
 	private void displayOptions(){
 		Graphics draw=new Graphics();
 		draw.setColor(Color.blue);
-		draw.fillRect(WoE.woE.getScreenWidth()/4, WoE.woE.getScreenHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
+		draw.fillRect(WoE.woE.getScreenWidth()/4, WoE.woE.getHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
 		
 		draw.setColor(Color.white);
-		draw.drawRect(WoE.woE.getScreenWidth()/4, WoE.woE.getScreenHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
+		draw.drawRect(WoE.woE.getScreenWidth()/4, WoE.woE.getHeight()/4,WoE.woE.getScreenWidth()/2,WoE.woE.getScreenWidth()/2);
 		
 		
 		String prompt = "OPTIONS";
-		TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
-		font.drawString(getCenteredX(prompt, font), WoE.woE.getHeight()/3, prompt,Color.black);
+		bold.drawString(getCenteredX(prompt, bold), WoE.woE.getHeight()/3, prompt,Color.black);
 		
 		int i = 0;
 		for(String s : OPTIONS){
 			if(i == optionsSelector){
-				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(),s,Color.black);
+				bold.drawString(getCenteredX(s,bold), WoE.woE.getHeight()/2+i*bold.getHeight(),s,Color.black);
 			}
 			else{
-				font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
-				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(),s,Color.white);
+				plain.drawString(getCenteredX(s,plain), WoE.woE.getHeight()/2+i*plain.getHeight(),s,Color.white);
 			}
 			i++;
 		}
@@ -104,30 +104,30 @@ public class StartScreen extends BasicGameState {
 	private void displayLoads(){
 		Graphics draw=new Graphics();
 		draw.setColor(Color.blue);
+		int width=WoE.woE.getWidth();
+		int height=WoE.woE.getHeight();
 		draw.fillRect(
-				WoE.woE.getWidth()/4,
-				WoE.woE.getHeight()/4,
-				WoE.woE.getWidth()/2,
-				WoE.woE.getHeight()/2);
+				width/4,
+				height/4,
+				width/2,
+				height/2);
 		draw.setColor(Color.white);
 		draw.drawRect(
-				WoE.woE.getWidth()/4,
-				WoE.woE.getHeight()/4,
-				WoE.woE.getWidth()/2,
-				WoE.woE.getHeight()/2);
+				width/4,
+				height/4,
+				width/2,
+				height/2);
 		
 		String loadPrompt = "Do you want to load?";
-		TrueTypeFont font=new TrueTypeFont(new Font("Arial", Font.PLAIN, 40),true);
-		font.drawString(getCenteredX(loadPrompt, font), WoE.woE.getHeight()/3,loadPrompt);
+		bold.drawString(getCenteredX(loadPrompt, bold), WoE.woE.getHeight()/3,loadPrompt);
 		
 		int i = 0;
 		for(String s : LOADS){
 			if(i == loadSelector){
-				TrueTypeFont bold=new TrueTypeFont(new Font("Arial", Font.BOLD,40),true);
-				bold.drawString(getCenteredX(s,bold), WoE.woE.getHeight()/2+i*font.getHeight(s), s,Color.black);
+				bold.drawString(getCenteredX(s,bold), WoE.woE.getHeight()/2+i*bold.getHeight(s), s,Color.black);
 			}
 			else{
-				font.drawString(getCenteredX(s,font), WoE.woE.getHeight()/2+i*font.getHeight(s), s,Color.white);
+				plain.drawString(getCenteredX(s,plain), WoE.woE.getHeight()/2+i*plain.getHeight(s), s,Color.white);
 			}
 			i++;
 		}
@@ -148,13 +148,13 @@ public class StartScreen extends BasicGameState {
 	}
 	@Override
 	public void render(GameContainer arg0, StateBasedGame arg1, org.newdawn.slick.Graphics arg2) throws SlickException {
-		background.draw(0, 0, WoE.woE.getScreenWidth(), WoE.woE.getScreenHeight());
+		background.draw(0, 0, WoE.woE.getWidth(), WoE.woE.getHeight());
 		if(!(optionsSelected||loadSelected))displayMenu();
 		else if(optionsSelected) displayOptions();
 		else if(loadSelected) displayLoads();
 	}
 	@Override
-	public void update(GameContainer arg0, StateBasedGame arg1, int arg2) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input=WoE.woE.getInput();
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			downResponse();
