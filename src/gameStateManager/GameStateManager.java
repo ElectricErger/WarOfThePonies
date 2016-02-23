@@ -2,12 +2,13 @@ package gameStateManager;
 
 import java.awt.Graphics;
 
+import org.newdawn.slick.state.BasicGameState;
 
 import characters.MainCharacter;
 import mapEngine.Map;
 
 public class GameStateManager {
-	private GameState currentPlot;
+	private BasicGameState currentPlot;
 	
 	public static final int TITLE = 0;
 	public static final int INGAME = 1;
@@ -16,13 +17,13 @@ public class GameStateManager {
 	//...
 	
 	public GameStateManager(){
-		currentPlot = new StartScreen(this);
+		currentPlot = new StartScreen();
 	}
 	
 	/**
 	 * Previous level trigger advances it by giving it to this method
 	 */
-	public void nextState(GameState newState){
+	public void nextState(BasicGameState newState){
 		currentPlot = newState;
 	}
 	
