@@ -5,11 +5,16 @@ package gameStateManager;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+<<<<<<< HEAD
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
+=======
+import java.util.ArrayList;
+>>>>>>> 2774e4aa401a8cbbd09f27b3155b57100ce2d343
 
 import textEngine.TextWindow;
 import battleEngine.Battle;
+import characters.BattleObject;
 import characters.Characters;
 import characters.MainCharacter;
 import mapEngine.Map;
@@ -25,6 +30,7 @@ public class GamePlay extends BasicGameState{
 	private Map world;
 	private Characters npcs;
 	private int plot;
+	private BattleObject[] party = new BattleObject[6];
 	
 	public GamePlay(){
 		super();
@@ -41,6 +47,7 @@ public class GamePlay extends BasicGameState{
 		world.setPlayer(player);
 		world.setNPCs(npcs);
 		world.setText(dialog);
+		party[0] = player;
 
 		plot = 0;
 		inMenu = inBattle = inConvo = false;
@@ -72,7 +79,7 @@ public class GamePlay extends BasicGameState{
 			inBattle = battle.inBattle();
 		}
 		else{
-			if(inConvo){ //Not sure how to deal with this
+			if(inConvo){ //Not sure how to deal with this - May display, but wont advance
 				dialog.keyDown(key);
 				inConvo = dialog.hasContent();
 			}
@@ -107,5 +114,7 @@ public class GamePlay extends BasicGameState{
 		}
 	}
 
-	
+	public void startBattle(BattleObject[] enemies){
+		battle.startBattle(party, enemies, world);
+	}
 }

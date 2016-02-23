@@ -32,6 +32,8 @@ public class OverworldParser {
 	private BufferedImage tileFile;
 	private Tile[][] tiles;
 	
+	private int[][] bounds;
+	
 	public OverworldParser(){
 		try {
 			overworld = new RandomAccessFile("res/maps/worldMap.map", "r");
@@ -64,6 +66,7 @@ public class OverworldParser {
 		return currentMap;
 	}
 		
+	//Processes the data from findMapByIndex
 	public void parse(int location){
 		String[] mapData = findMapByIndex(location);
 		RandomAccessFile rawMap = null;
@@ -75,12 +78,16 @@ public class OverworldParser {
 			parseTileSheet(rawMap.readLine());
 			ArrayList<String> map = isolateMap(rawMap);
 			parseMap(map);
+			
+			//Get boundaries
+			parseBoundaries(mapData[2]);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
 	
+	//Searches through the WorldMap
 	private String[] findMapByIndex(int location){
 		try { overworld.seek(location*LINES_PER_WORLDMAP); } catch (Exception e1) { e1.printStackTrace(); }
 		String[] mapData = new String[LINES_PER_WORLDMAP];
@@ -126,7 +133,18 @@ public class OverworldParser {
 			}
 		}
 	}
-
+ 	private void parseBoundaries(String s){
+		String[] raw = s.split(",");
+		bounds = new int[raw.length/5][5];
+		
+		//Puts all the data into the array
+		for(int a = 0; a<bounds.length; a++){
+			for(int b = 0; b<bounds[a].length; b++){
+				bounds[a][b] = Integer.parseInt(raw[a*4+b]);
+			}
+		}
+ 	}
+ 	
 	private BufferedImage scale(Image img){
 		int currentX = img.getWidth(null);
 		BufferedImage imgSheet;
@@ -138,6 +156,10 @@ public class OverworldParser {
 		imgSheet.createGraphics().drawImage(img, 0, 0, null);
 		imgSheet.createGraphics().dispose();
 		return imgSheet;
+	}
+
+	public int[][] getBoundaries() {
+		return bounds;
 	}
 }
 
