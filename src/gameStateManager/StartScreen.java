@@ -156,19 +156,19 @@ public class StartScreen extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 		Input input=WoE.woE.getInput();
-		if(input.isKeyDown(Input.KEY_DOWN)){
+		if(input.isKeyPressed(Input.KEY_DOWN)){
 			downResponse();
 		}
-		else if(input.isKeyDown(Input.KEY_UP)){
+		else if(input.isKeyPressed(Input.KEY_UP)){
 			upResponse();
 		}
-		else if(input.isKeyDown(Input.KEY_ENTER)){
+		else if(input.isKeyPressed(Input.KEY_ENTER)){
 			forwardResponse();
 		}
-		else if(input.isKeyDown(Input.KEY_BACK)){
+		else if(input.isKeyPressed(Input.KEY_BACK)){
 			backwardResponse();
+			System.exit(0);
 		}
-		
 	}
 	@Override
 	public int getID() {
