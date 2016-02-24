@@ -166,9 +166,12 @@ public class StartScreen extends BasicGameState {
 			forwardResponse();
 		}
 		else if(input.isKeyDown(Input.KEY_BACK)){
+			System.out.println("back");
 			backwardResponse();
 		}
-		
+		else if (input.isKeyDown(Input.KEY_ESCAPE)){
+			System.exit(0);
+		}
 	}
 	@Override
 	public int getID() {

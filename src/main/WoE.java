@@ -22,7 +22,8 @@ public class WoE{
 			game=new Panel();
 			woE=new AppGameContainer(game);
 			woE.setTitle("War for Equestria");
-			woE.setDisplayMode(800, 600, true);
+			woE.setDisplayMode(1024, 768, true);
+			woE.setMaximumLogicUpdateInterval(1000/60);
 		//creates window and sets to fullscreen - put in the non-fullscreen basic dimensions you want
 		//to tell it how big the picture is supposed to be(e.g. how many tiles should fit)
 			woE.start();
