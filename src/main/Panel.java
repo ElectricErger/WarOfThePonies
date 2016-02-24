@@ -15,6 +15,7 @@ public class Panel extends StateBasedGame {
 		super("WoE");
 	}	
 
+
 	@Override
 	public void initStatesList(GameContainer WoE) throws SlickException {
 		//addState(new Menu()); - to add states to your possible states for initialization

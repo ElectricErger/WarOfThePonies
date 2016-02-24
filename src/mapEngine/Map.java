@@ -40,6 +40,7 @@ public class Map {
 	private BufferedImage tileSet;
 	private int mapLocation;
 	private String locationName;
+	private static int[][] boundaries;
 	
 	//Window information
 	private int top, bottom, right, left;
@@ -63,36 +64,15 @@ public class Map {
 		game = g;
 		
 		world = new OverworldParser();
-		world.parse(mapLocation);
-		locationName = world.getName(mapLocation);
-		field = world.getTiles(mapLocation);
-		tileSet = world.getTileImages(mapLocation);
+		updateMapLocation();
 
 		//Load NPCS
 		
 		
 		//Load Objects
 	}
-	public void setPlayer(MainCharacter c){
-		player = c;
-
-		c.setX(field[0].length/2);
-		c.setY(field.length/2);
-	}
-	
-	public void centerAround(int x, int y){
-		top = y-TILESDOWN/2;
-		bottom = y+TILESDOWN/2;
-		left = x-TILESACROSS/2;
-		right = x+TILESACROSS/2;
-	}
-	public void centerAround(int x, int y, double offsetX, double offsetY){
-		centerAround(x,y);
-		xOffset = offsetX;
-		yOffset = offsetY;
-	}
-	
-	
+		
+	//Draw
 	public void draw(Graphics g){
 		centerAround(player.getX(), player.getY(), player.getOffsetX(), player.getOffsetY());
 		
@@ -139,7 +119,6 @@ public class Map {
 	}
 	
 	//Convert tiles to pixels
-	//Off by 1?
 	public int convertAbsoluteToRelativeX(int x){
 		return (x-left)*TILEWIDTH;
 	}
@@ -148,6 +127,27 @@ public class Map {
 	}
 	
 
+	//Player update
+	public void setPlayer(MainCharacter c){
+		player = c;
+
+		c.setX(field[0].length/2);
+		c.setY(field.length/2);
+	}
+	
+	public void centerAround(int x, int y){
+		top = y-TILESDOWN/2;
+		bottom = y+TILESDOWN/2;
+		left = x-TILESACROSS/2;
+		right = x+TILESACROSS/2;
+	}
+	public void centerAround(int x, int y, double offsetX, double offsetY){
+		centerAround(x,y);
+		xOffset = offsetX;
+		yOffset = offsetY;
+	}
+
+	
 	//Responsiveness is slow. Consider making it a vector.
 	public void keyDown(int key){
 		switch(key){
@@ -172,7 +172,6 @@ public class Map {
 		}
 	}
 
-	//With the variable set, all we have to do is call the move function, which can be done on a loop
 	private void upResponse(){ 
 		player.move(WorldObject.UP);
 		//player.setVector(WorldObject.UP);
@@ -249,6 +248,7 @@ public class Map {
 		else{ player.move(player.getVector()); }
 	}
 	
+	
 	//Currently WRT player only, if we want to make this soft, we'll replace that
 	private Tile getAdjacentTile(int direction){
 		int x = player.getX();
@@ -279,6 +279,24 @@ public class Map {
 		this.npcs = npcs;
 		int[] chars = {0}; //Get characters on current map
 		charactersOnScreen = npcs.getNPCS(chars);
+	}
+
+	
+	
+	
+	//Updates overworld location
+	public void updateMapLocation(){
+		world.parse(mapLocation);
+		locationName = world.getName(mapLocation);
+		field = world.getTiles(mapLocation);
+		tileSet = world.getTileImages(mapLocation);
+		boundaries = world.getBoundaries();
+	}
+	
+	private void mapSwitch(){
+		//Given player's X,Y location check if on a boundary
+		//If on a boundary switch to new map
+		//Update player's location
 	}
 }
 

@@ -16,6 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class WoE{
 	public static StateBasedGame game;
 	public static AppGameContainer woE;
+	public static final int FPS = 60;
 
 	public static void main(String[] args){
 		try{
@@ -26,12 +27,15 @@ public class WoE{
 			woE.setMaximumLogicUpdateInterval(1000/60);
 		//creates window and sets to fullscreen - put in the non-fullscreen basic dimensions you want
 		//to tell it how big the picture is supposed to be(e.g. how many tiles should fit)
+			woE.setTargetFrameRate(FPS);
+			//woE.setMinimumLogicUpdateInterval(10);
 			woE.start();
 		//starts game, calls init, render, then update, render, update, render etc
 		}
 		catch(SlickException e){
 			e.printStackTrace();
 		}
+		
 	}
 
 }
