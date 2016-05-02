@@ -4,8 +4,6 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.state.transition.*;
 
-import mapEngine.GamePlay;
-
 public class Menu extends BasicGameState{
 	int id=3;
 	
