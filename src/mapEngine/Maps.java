@@ -8,6 +8,7 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
 import character.Character;
+import main.Camera;
 import main.CameraController;
 
 public class Maps extends BasicGameState {
@@ -17,7 +18,7 @@ public class Maps extends BasicGameState {
 	Animation spikeRight;
 	character.Character[] npcs;
 	public static final int id=1;
-	CameraController camera;
+	Camera camera;
 	private boolean[][] blocked;
 	private ArrayList<Rectangle> colliders=new ArrayList<Rectangle>();
 	
@@ -44,7 +45,7 @@ public class Maps extends BasicGameState {
 	}
 	@Override
 	public void init(GameContainer app, StateBasedGame game) throws SlickException {
-		camera=new CameraController(current,app);
+		camera=new Camera(current,app);
 		Image spike=new Image("/res/Spikesheet.png");
 		pc=new Character("Spike", 20, 20, spike, 0);
 		spikeLeft=new Animation(pc.getSprites(),0,0,2,0, true, 100, false);
@@ -53,7 +54,7 @@ public class Maps extends BasicGameState {
 	}
 	@Override
 	public void render(GameContainer app, StateBasedGame game, Graphics g) throws SlickException {
-		drawMap(app);
+		camera.draw(0, 0);
 		Image avatar=pc.getAvatar();
 		avatar.draw(pc.getXPos(), pc.getYPos());
 	}
@@ -137,27 +138,7 @@ public class Maps extends BasicGameState {
 		else return false;
 	}
 
-	public void drawMap(GameContainer app) {
-		this.drawMap(app,0, 0);
-		}
-		   
-	public void drawMap(GameContainer app,int offsetX,int offsetY){
-		int tileOffsetX = (int) - (camera.getX() % 32);
-		int tileOffsetY = (int) - (camera.getY() % 32);
-		       
-		//calculate the index of the leftmost tile that is being displayed
-		int tileIndexX = (int) (camera.getX() / 32);
-		int tileIndexY = (int) (camera.getY() / 32);
-		       
-		//finally draw the section of the map on the screen
-		camera.getMap().render(   
-		   tileOffsetX + offsetX, 
-		   tileOffsetY + offsetY, 
-		   tileIndexX,  
-		   tileIndexY,
-		   (app.getWidth()  - tileOffsetX) / 32  + 1,
-		   (app.getHeight() - tileOffsetY) / 32 + 1);
-	}
+
 
 	
 
