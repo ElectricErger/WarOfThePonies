@@ -3,3 +3,9 @@
 /battleObjects/
 /characters/
 /worldMaptemp.map
+/battleEngine/
+/gameStateManager/
+/main/
+/mapEngine/
+/menuEngine/
+/textEngine/
