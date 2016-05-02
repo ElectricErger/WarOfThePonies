@@ -1,9 +1,9 @@
-/character/
-/gameStateManager/
-/textEngine/
-/Parser/
-/mapEngine/
 /menuEngine/
-/battleEngine/
-/characters/
+/map.tmx
+/SkyBG.png
+/Spikesheet.png
+/sprite_Pinkie pie1.png
+/tiles/
+/Buildings/
 /main/
+/mapEngine/

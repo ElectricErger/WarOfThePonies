@@ -7,10 +7,10 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class CameraController {
 	protected TiledMap map;
-	protected int mapTileWidth=20;
-	protected int mapTileHeight=20;
-	protected int mapWidth=640;
-	protected int mapHeight=640;
+	protected int mapTileWidth=40;
+	protected int mapTileHeight=40;
+	protected int mapWidth;
+	protected int mapHeight;
 	protected int tileWidth=32;
 	protected int tileHeight=32;
 	GameContainer app;
@@ -20,19 +20,25 @@ public class CameraController {
 	public CameraController(TiledMap map,GameContainer app){
 		this.map=map;
 		this.app=app;
+		mapWidth=mapTileWidth*tileWidth;
+		mapHeight=mapTileHeight*tileHeight;
 	}
 	
 	public float getMapHeight(){return mapHeight;}
+	public float getMapWidth(){return mapWidth;}
+	public float getX(){return cameraX;}
+	public float getY(){return cameraY;}
+	public TiledMap getMap(){return map;}
 	
 	public void centerOn(float x,float y){
 		cameraX=x-app.getWidth()/2;
-		cameraY=y-app.getWidth()/2;
+		cameraY=y-app.getHeight()/2;
 		if(cameraX < 0) cameraX = 0;
-		if(cameraX + app.getWidth() > mapWidth) cameraX = mapWidth - app.getWidth();
+		else if(cameraX + app.getWidth()/2 > mapWidth) cameraX = mapWidth - app.getWidth();
 		
 	    //if the camera is at the top or bottom edge lock it to prevent a black bar
 	    if(cameraY < 0) cameraY = 0;
-	    if(cameraY + app.getHeight() > mapHeight) cameraY = mapHeight - app.getHeight();
+	    else if(cameraY + app.getHeight()/2 > mapHeight) cameraY = mapHeight - app.getHeight();
 	}
 	public void centerOn(float x, float y, float height, float width) {
 		this.centerOn(x + width / 2, y + height / 2);
@@ -42,32 +48,11 @@ public class CameraController {
 		    * @param shape the Shape which should be centered on the screen
 		    */
 	public void centerOn(Shape shape) {
-		this.centerOn(shape.getCenterX(), shape.getCenterY());
+		this.centerOn(shape.getX(), shape.getY(), shape.getHeight(), shape.getWidth());
 		}
 		   
 		   /**
 		    * draws the part of the map which is currently focused by the camera on the screen
 		    */
-	public void drawMap() {
-		this.drawMap(0, 0);
-		}
-		   
-	public void drawMap(int offsetX,int offsetY){
-		int tileOffsetX = (int) - (cameraX % tileWidth);
-		int tileOffsetY = (int) - (cameraY % tileHeight);
-		       
-		//calculate the index of the leftmost tile that is being displayed
-		int tileIndexX = (int) (cameraX / tileWidth);
-		int tileIndexY = (int) (cameraY / tileHeight);
-		       
-		//finally draw the section of the map on the screen
-		map.render(   
-		   tileOffsetX + offsetX, 
-		   tileOffsetY + offsetY, 
-		   tileIndexX,  
-		   tileIndexY,
-		   (app.getWidth()  - tileOffsetX) / tileWidth  + 1,
-		   (app.getHeight() - tileOffsetY) / tileHeight + 1);
-	}
-
+	
 }

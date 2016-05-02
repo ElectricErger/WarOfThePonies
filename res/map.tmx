@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="grass and dirt" tilewidth="32" tileheight="32" tilecount="16" columns="4">
+  <image source="tiles/Dirt and Grass.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="17" name="Forest" tilewidth="32" tileheight="32" tilecount="4" columns="2">
+  <image source="tiles/Forest Floor.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="21" name="Water" tilewidth="32" tileheight="32" tilecount="4" columns="2">
+  <image source="tiles/Water.png" width="64" height="64"/>
+  <tile id="0">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="25" name="SweetApple" tilewidth="32" tileheight="32" tilecount="32" columns="4">
+  <image source="Buildings/Sweet Apple Acres.png" width="128" height="256"/>
+ </tileset>
+ <tileset firstgid="57" name="Sugar Cube" tilewidth="32" tileheight="32" tilecount="12" columns="3">
+  <image source="Buildings/SugarCube Corner.png" width="96" height="128"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="40" height="40">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC83WbQ6CMAwG4KKJioqfoB7Po3EUjmabuKRZYFsLdPvxxriQ7KHbOhoAaBJywlz/qTEtwHDHX2naxPkk2Xq2plBfzcasfJVgbXfe+NPAR/MeE2z+c5Wyhhqfm7vywm38OTe+Aehxvl5SR61PG7c/1/JdFvA9BOvsr1Es3HjD7CPh71MLbZr3J+MGxs/nVJxVYtP6eFJ90jWd46M6HIQ+bW++Q3z/+OH3g4VPc785X6hPj6xvb+2zMGq/D3jfGLtLxu6Wo8I45/tF06tpz655v801nkF2Xpb8/sO+/eUW/D9MPZvqw1oPaPymJmb079pAz+lj0ZynpXxrnXlrn7S3W/sk+4GSy7dUcvo+gX6R20e2V6H1c7aSfGTqsB9TnK0UH6+Xn9y+KVcJvi5QtxJ8MVtO3xvvhpJ9KbZcvtB5ze2T2Kx9UpulT2Oz8mlcVr45NsoPoWNkfgAZAAA=
+  </data>
+ </layer>
+ <layer name="Objects" width="40" height="40">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3OyRGCUBQFUVLBEREnnBEHxPxjsgN4f8PmltY9Vb3vLPs/V2roph5JaOlOD/VIwpNe1Ik/Ut7U00c9YmZmZmZmZoPkNKIxTcQvkSnNaE6F+CWyoJKWVIlfIita04a24pfIjmra00H8EjnSic50Eb+Ymf26L0V15FMAGQAA
+  </data>
+ </layer>
+</map>

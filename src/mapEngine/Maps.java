@@ -24,7 +24,7 @@ public class Maps extends BasicGameState {
 	public Maps(String screen) throws SlickException {
 		current=new TiledMap(screen);
 		blocked=new boolean[current.getWidth()][current.getHeight()];
-		int layer=0;
+		int layer=1;
 		for(int i=0; i<(current.getWidth());i++ ){
 			for(int j=0;j<(current.getHeight());j++){
 				int id=current.getTileId(i, j, layer);
@@ -53,7 +53,7 @@ public class Maps extends BasicGameState {
 	}
 	@Override
 	public void render(GameContainer app, StateBasedGame game, Graphics g) throws SlickException {
-		camera.drawMap();
+		drawMap(app);
 		Image avatar=pc.getAvatar();
 		avatar.draw(pc.getXPos(), pc.getYPos());
 	}
@@ -97,7 +97,7 @@ public class Maps extends BasicGameState {
 	}
 	void isOnScreen(GameContainer app){
 		if(pc.getCollider().getCenterX()<=16)pc.setX(16f);
-		if(pc.getCollider().getCenterX()>=current.getWidth()*32-16f)pc.setX(current.getWidth()*32-16f);
+		if(pc.getCollider().getCenterX()>=camera.getMapWidth()-16f)pc.setX(camera.getMapWidth()-16f);
 		if(pc.getCollider().getCenterY()<=16)pc.setY(16f);
 		if(pc.getCollider().getCenterY()>=camera.getMapHeight()-16f)pc.setY(camera.getMapHeight()-16f);
 	}
@@ -135,6 +135,28 @@ public class Maps extends BasicGameState {
 		if(moving.intersects(fixed)&&fixed.getCenterX()-16<=moving.getCenterX()+16)return true;
 		//if(moving.getX()+16>=fixed.getX()+16&&fixed.getX()+16>=moving.getX()-16) return true;
 		else return false;
+	}
+
+	public void drawMap(GameContainer app) {
+		this.drawMap(app,0, 0);
+		}
+		   
+	public void drawMap(GameContainer app,int offsetX,int offsetY){
+		int tileOffsetX = (int) - (camera.getX() % 32);
+		int tileOffsetY = (int) - (camera.getY() % 32);
+		       
+		//calculate the index of the leftmost tile that is being displayed
+		int tileIndexX = (int) (camera.getX() / 32);
+		int tileIndexY = (int) (camera.getY() / 32);
+		       
+		//finally draw the section of the map on the screen
+		camera.getMap().render(   
+		   tileOffsetX + offsetX, 
+		   tileOffsetY + offsetY, 
+		   tileIndexX,  
+		   tileIndexY,
+		   (app.getWidth()  - tileOffsetX) / 32  + 1,
+		   (app.getHeight() - tileOffsetY) / 32 + 1);
 	}
 
 	
