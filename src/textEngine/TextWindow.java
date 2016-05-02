@@ -12,7 +12,6 @@
 
 package textEngine;
 
-import gameStateManager.GamePlay;
 import gameStateManager.GameState;
 import gameStateManager.GameStateManager;
 
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import main.WoE;
+import mapEngine.GamePlay;
 import characters.WorldObject;
 
 public class TextWindow {

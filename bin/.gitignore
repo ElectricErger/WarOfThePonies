@@ -1,2 +1,6 @@
-/plot/
+/character/
 /gameStateManager/
+/textEngine/
+/Parser/
+/mapEngine/
+/menuEngine/

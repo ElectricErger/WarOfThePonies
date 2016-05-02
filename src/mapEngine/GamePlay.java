@@ -1,7 +1,7 @@
 /*
  * This is the state manager for playing the game.
  */
-package gameStateManager;
+package mapEngine;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -17,7 +17,6 @@ import battleEngine.Battle;
 import characters.BattleObject;
 import characters.Characters;
 import characters.MainCharacter;
-import mapEngine.Map;
 import menuEngine.Menu;
 
 public class GamePlay extends BasicGameState{
@@ -65,7 +64,7 @@ public class GamePlay extends BasicGameState{
 	
 	//Redirects to current state
 	@Override 
-	public void draw(Graphics g) {
+	public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics g) {
 		if(inBattle){ battle.draw(g); }
 		else{
 			world.draw(g);

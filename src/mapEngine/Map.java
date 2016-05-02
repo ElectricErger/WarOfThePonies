@@ -14,8 +14,6 @@
 
 package mapEngine;
 
-import gameStateManager.GamePlay;
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
