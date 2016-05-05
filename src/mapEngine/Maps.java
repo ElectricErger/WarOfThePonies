@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
+import character.*;
 import character.Character;
 import main.Camera;
-import main.CameraController;
 
 public class Maps extends BasicGameState {
 	TiledMap current;
 	character.Character pc;
 	Animation spikeLeft;
 	Animation spikeRight;
-	character.Character[] npcs;
+	character.NPC[] npcs;
 	public static final int id=1;
 	Camera camera;
 	private boolean[][] blocked;
@@ -88,8 +89,12 @@ public class Maps extends BasicGameState {
 			spikeLeft.update(delta);
 			pc.setAvatar(spikeLeft.getCurrentFrame());
 		}
-		isColliding(app);
 		camera.centerOn(pc.getCollider());
+		for(NPC x:npcs){
+			if(npcCollision(x)){
+				//trigger NPC action
+			}
+		}
 
 	}
 	@Override
@@ -102,43 +107,14 @@ public class Maps extends BasicGameState {
 		if(pc.getCollider().getCenterY()<=16)pc.setY(16f);
 		if(pc.getCollider().getCenterY()>=camera.getMapHeight()-16f)pc.setY(camera.getMapHeight()-16f);
 	}
-	void isColliding(GameContainer app){
-		Rectangle test=pc.getCollider();
-		for(Rectangle r:colliders){
-			
-			if(overlapRight(r,test))pc.setX(r.getCenterX()-32);
-			
-			else if(overlapLeft(r,test))pc.setX(r.getCenterX()+32);
-
-			else if (overlapBottom(r,test))pc.setY(r.getCenterY()-32);
-
-			else if(overlapTop(r,test))pc.setY(r.getCenterY()+32);
-				
+	
+	public boolean npcCollision(NPC x){
+		if(pc.getCollider().intersects(x.getCollider())){ 
+			x.setInCollision(true);
+			return true;
 		}
-		isOnScreen(app);
-	}
-	boolean overlapTop(Rectangle fixed, Rectangle moving){
-		if(moving.intersects(fixed)&&fixed.getCenterY()-16<=moving.getCenterY()+16) return true;
-		//if(moving.getY()+16>=fixed.getY()-16&&fixed.getY()-16>=moving.getY()-16) return true;
 		else return false;
 	}
-	boolean overlapBottom(Rectangle fixed, Rectangle moving){
-		if(moving.intersects(fixed)&&fixed.getCenterY()+16<=moving.getCenterY()-16)return true;
-		//if(moving.getY()+16>=fixed.getY()+16&&fixed.getY()-16<=moving.getY()-16) return true;
-		else return false;
-	}
-	boolean overlapLeft(Rectangle fixed, Rectangle moving){
-		if(moving.intersects(fixed)&&fixed.getCenterX()+16<=moving.getCenterX()-16)return true;
-		//if(moving.getX()+16>=fixed.getX()-16&&fixed.getX()-16>=moving.getX()-16) return true;
-		else return false;
-	}
-	boolean overlapRight(Rectangle fixed, Rectangle moving){
-		if(moving.intersects(fixed)&&fixed.getCenterX()-16<=moving.getCenterX()+16)return true;
-		//if(moving.getX()+16>=fixed.getX()+16&&fixed.getX()+16>=moving.getX()-16) return true;
-		else return false;
-	}
-
-
 
 	
 
