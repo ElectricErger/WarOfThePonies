@@ -22,6 +22,7 @@ public class Maps extends BasicGameState {
 	Camera camera;
 	private boolean[][] blocked;
 	private ArrayList<Rectangle> colliders=new ArrayList<Rectangle>();
+	Rectangle test;
 	
 	public Maps(String screen) throws SlickException {
 		current=new TiledMap(screen);
@@ -51,6 +52,7 @@ public class Maps extends BasicGameState {
 		pc=new Character("Spike", 20, 20, spike, 0);
 		spikeLeft=new Animation(pc.getSprites(),0,0,2,0, true, 100, false);
 		spikeRight=new Animation(pc.getSprites(),0,1,2,1, true, 100, false);
+		test=pc.getCollider();
 		
 	}
 	@Override
@@ -67,34 +69,57 @@ public class Maps extends BasicGameState {
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			float x=pc.getXPos()-0.1f*delta;
-			pc.setX(x);
-			spikeLeft.update(delta);
-			pc.setAvatar(spikeLeft.getCurrentFrame());
+			float prev=test.getX();
+			test.setX(x);
+			if(obstacleCollision(test))test.setX(prev);
+			else{
+				pc.setX(x);
+				spikeLeft.update(delta);
+				pc.setAvatar(spikeLeft.getCurrentFrame());
+			}
+			
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			float x=pc.getXPos()+(0.1f*delta);
-			pc.setX(x);
-			spikeRight.update(delta);
-			pc.setAvatar(spikeRight.getCurrentFrame());
+			float prev=test.getX();
+			test.setX(x);
+			if(obstacleCollision(test))test.setX(prev);
+			else{
+				pc.setX(x);
+				spikeRight.update(delta);
+				pc.setAvatar(spikeRight.getCurrentFrame());
+			}
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			float y=pc.getYPos()+(0.1f*delta);
-			pc.setY(y);
-			spikeRight.update(delta);
-			pc.setAvatar(spikeRight.getCurrentFrame());
+			float prev=test.getY();
+			test.setY(y);
+			if(obstacleCollision(test))test.setY(prev);
+			else{
+				pc.setY(y);
+				spikeRight.update(delta);
+				pc.setAvatar(spikeRight.getCurrentFrame());
+			}
+
 		}
 		if(input.isKeyDown(Input.KEY_UP)){
 			float y=pc.getYPos()-(0.1f*delta);
-			pc.setY(y);
-			spikeLeft.update(delta);
-			pc.setAvatar(spikeLeft.getCurrentFrame());
+			float prev=test.getY();
+			test.setY(y);
+			if(obstacleCollision(test))test.setY(prev);
+			else{
+				pc.setY(y);
+				spikeLeft.update(delta);
+				pc.setAvatar(spikeLeft.getCurrentFrame());
+			}
+
 		}
 		camera.centerOn(pc.getCollider());
-		for(NPC x:npcs){
+		/*for(NPC x:npcs){
 			if(npcCollision(x)){
 				//trigger NPC action
 			}
-		}
+		}*/
 
 	}
 	@Override
@@ -114,6 +139,13 @@ public class Maps extends BasicGameState {
 			return true;
 		}
 		else return false;
+	}
+	public boolean obstacleCollision(Rectangle y){
+		for (Rectangle x:colliders){
+			if(y.intersects(x)){return true;}
+		}
+		return false;
+		
 	}
 
 	
