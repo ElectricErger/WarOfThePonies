@@ -70,7 +70,7 @@ public class Camera {
 		map.render(   
 		   tileOffsetX + offsetX, 
 		   tileOffsetY + offsetY, 
-		   tileIndexX,  
+		   tileIndexX,
 		   tileIndexY,
 		   (app.getWidth()  - tileOffsetX) / tileWidth  + 1,
 		   (app.getHeight() - tileOffsetY) / tileHeight + 1);

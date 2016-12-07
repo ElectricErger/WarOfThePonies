@@ -54,7 +54,8 @@ public class Maps extends BasicGameState {
 	@Override
 	public void render(GameContainer app, StateBasedGame game, Graphics g) throws SlickException {
 		camera.drawMap();
-		pc.getAvatar().drawCentered(pc.getCollider().getCenterX(), pc.getCollider().getCenterY());
+		g.translate(-camera.getCameraX(), -camera.getCameraY());
+		pc.render();
 	}
 	@Override
 	public void update(GameContainer app, StateBasedGame game, int delta) throws SlickException {
@@ -63,65 +64,18 @@ public class Maps extends BasicGameState {
 			app.exit();
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
-			float x=pc.getXPos()-0.1f*delta;
-			float prev=pc.getXPos();
-			pc.getCollider().setX(x);
-			if(obstacleCollision(pc.getCollider())){
-				pc.getCollider().setX(prev);
-			}
-			else{
-				pc.setX(x);
-				sprite[0].update(delta);
-				pc.setAvatar(sprite[0].getCurrentFrame());
-			}
-			
+			pc.setX((float)(pc.getXPos()-0.1*(delta)));
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
-			float x=pc.getXPos()+(0.1f*delta);
-			float prev=pc.getXPos();
-			pc.getCollider().setX(x);
-			if(obstacleCollision(pc.getCollider())){
-					pc.getCollider().setX(prev);
-				}
-			else{
-				pc.setX(x);
-				sprite[1].update(delta);
-				pc.setAvatar(sprite[1].getCurrentFrame());
-			}
+			pc.setX((float)(pc.getXPos()+0.1*(delta)));
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
-			float y=pc.getYPos()+(0.1f*delta);
-			float prev=pc.getYPos();
-			pc.getCollider().setY(y);;
-			if(obstacleCollision(pc.getCollider()))pc.getCollider().setY(prev);
-			else{
-				pc.setY(y);
-				sprite[1].update(delta);
-				pc.setAvatar(sprite[1].getCurrentFrame());
-			}
-
+			pc.setY((float)(pc.getYPos()+0.1*(delta)));
 		}
 		if(input.isKeyDown(Input.KEY_UP)){
-			float y=pc.getYPos()-(0.1f*delta);
-			float prev=pc.getYPos();
-			pc.getCollider().setY(y);
-			if(obstacleCollision(pc.getCollider()))pc.getCollider().setY(prev);
-			else{
-				pc.setY(y);
-				sprite[0].update(delta);
-				pc.setAvatar(sprite[0].getCurrentFrame());
-			}
-
+			pc.setY((float)(pc.getYPos()-0.1*(delta)));
 		}
-		onMap();
 		camera.centerOn(pc.getCollider());
-		System.out.println(camera.getCameraX()+" "+camera.getCameraY()+" player "+pc.getCollider().getCenterX()+" "+pc.getCollider().getCenterY());
-		/*for(NPC x:npcs){
-			if(x.getInCollision()){
-				//relay dialogue to dialogue engine?
-			}
-		}*/
-
 	}
 	@Override
 	public int getID() {
@@ -134,22 +88,5 @@ public class Maps extends BasicGameState {
 		if(pc.getYPos()>camera.getMapHeight())pc.setY(camera.getMapHeight()-16f);
 		if(pc.getYPos()<0)pc.setY(16f);
 	}
-	
-	public boolean npcCollision(NPC x){
-		if(pc.getCollider().intersects(x.getCollider())){ 
-			x.setInCollision(true);
-			return true;
-		}
-		else return false;
-	}
-	public boolean obstacleCollision(Rectangle y){
-		for (Rectangle x:colliders){
-			if(y.intersects(x)){return true;}
-		}
-		return false;
-		
-	}
-	
-	
 
 }

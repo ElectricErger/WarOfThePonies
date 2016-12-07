@@ -68,6 +68,8 @@ public class Character {
 		positionY=move;
 		collider.setY(move);
 		}
-
+	public void render(){
+		currentAvatar.draw(collider.getX(), collider.getY());
+	}
 
 }
