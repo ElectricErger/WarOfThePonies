@@ -20,8 +20,8 @@ public class Character {
 	int defence=10;
 	SpriteSheet avatar;
 	Image currentAvatar;
-	float positionX=100f;
-	float positionY=100f;
+	float positionX=500f;
+	float positionY=500f;
 	Random r=new Random();
 	int controller;
 	Rectangle collider;
@@ -62,11 +62,11 @@ public class Character {
 	public void setSpeed (int speed){this.speed=speed;}
 	public void setX(float d){
 		positionX=d;
-		collider.setCenterX(d);
+		collider.setX(d);
 		}
 	public void setY(float move){
 		positionY=move;
-		collider.setCenterY(move);
+		collider.setY(move);
 		}
 
 

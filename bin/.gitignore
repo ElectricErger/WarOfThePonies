@@ -1,4 +1,5 @@
-/character/
+/main/
 /mapEngine/
 /plotEngine/
-/main/
+/battleEngine/
+/character/

@@ -53,10 +53,8 @@ public class Maps extends BasicGameState {
 	}
 	@Override
 	public void render(GameContainer app, StateBasedGame game, Graphics g) throws SlickException {
-		camera.centerOn(pc.getCollider());
-		camera.draw(0, 0);
-		Image avatar=pc.getAvatar();
-		avatar.draw(pc.getXPos(), pc.getYPos());
+		camera.drawMap();
+		pc.getAvatar().drawCentered(pc.getCollider().getCenterX(), pc.getCollider().getCenterY());
 	}
 	@Override
 	public void update(GameContainer app, StateBasedGame game, int delta) throws SlickException {
@@ -67,9 +65,9 @@ public class Maps extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			float x=pc.getXPos()-0.1f*delta;
 			float prev=pc.getXPos();
-			pc.getCollider().setCenterX(x);
+			pc.getCollider().setX(x);
 			if(obstacleCollision(pc.getCollider())){
-				pc.getCollider().setCenterX(prev);
+				pc.getCollider().setX(prev);
 			}
 			else{
 				pc.setX(x);
@@ -81,9 +79,9 @@ public class Maps extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			float x=pc.getXPos()+(0.1f*delta);
 			float prev=pc.getXPos();
-			pc.getCollider().setCenterX(x);
+			pc.getCollider().setX(x);
 			if(obstacleCollision(pc.getCollider())){
-					pc.getCollider().setCenterX(prev);
+					pc.getCollider().setX(prev);
 				}
 			else{
 				pc.setX(x);
@@ -94,8 +92,8 @@ public class Maps extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			float y=pc.getYPos()+(0.1f*delta);
 			float prev=pc.getYPos();
-			pc.getCollider().setCenterY(y);;
-			if(obstacleCollision(pc.getCollider()))pc.getCollider().setCenterY(prev);
+			pc.getCollider().setY(y);;
+			if(obstacleCollision(pc.getCollider()))pc.getCollider().setY(prev);
 			else{
 				pc.setY(y);
 				sprite[1].update(delta);
@@ -106,8 +104,8 @@ public class Maps extends BasicGameState {
 		if(input.isKeyDown(Input.KEY_UP)){
 			float y=pc.getYPos()-(0.1f*delta);
 			float prev=pc.getYPos();
-			pc.getCollider().setCenterY(y);
-			if(obstacleCollision(pc.getCollider()))pc.getCollider().setCenterY(prev);
+			pc.getCollider().setY(y);
+			if(obstacleCollision(pc.getCollider()))pc.getCollider().setY(prev);
 			else{
 				pc.setY(y);
 				sprite[0].update(delta);
@@ -115,7 +113,8 @@ public class Maps extends BasicGameState {
 			}
 
 		}
-		isOnScreen(app);
+		onMap();
+		camera.centerOn(pc.getCollider());
 		/*for(NPC x:npcs){
 			if(x.getInCollision()){
 				//relay dialogue to dialogue engine?
@@ -127,11 +126,12 @@ public class Maps extends BasicGameState {
 	public int getID() {
 		return id;
 	}
-	void isOnScreen(GameContainer app){
-		if(pc.getCollider().getCenterX()<16)pc.setX(16f);
-		if(pc.getCollider().getCenterX()>camera.getMapWidth()-16f)pc.setX(camera.getMapWidth()-16f);
-		if(pc.getCollider().getCenterY()<16)pc.setY(16f);
-		if(pc.getCollider().getCenterY()>camera.getMapHeight()-16f)pc.setY(camera.getMapHeight()-16f);
+
+	public void onMap(){
+		if(pc.getXPos()>camera.getMapWidth())pc.setX(camera.getMapWidth()-16f);
+		if(pc.getXPos()<0)pc.setX(16f);
+		if(pc.getYPos()>camera.getMapHeight())pc.setY(camera.getMapHeight()-16f);
+		if(pc.getYPos()<0)pc.setY(16f);
 	}
 	
 	public boolean npcCollision(NPC x){
