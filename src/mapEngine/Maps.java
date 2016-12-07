@@ -4,11 +4,9 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
-import character.*;
 import character.Character;
 import main.Camera;
 
@@ -65,16 +63,41 @@ public class Maps extends BasicGameState {
 		}
 		if(input.isKeyDown(Input.KEY_LEFT)){
 			pc.setX((float)(pc.getXPos()-0.1*(delta)));
+			sprite[0].update(delta);
+			pc.setAvatar(sprite[0].getCurrentFrame());
+			for(Rectangle collider:colliders){
+				if(collider.intersects(pc.getCollider())){
+					pc.setX((float)(pc.getXPos()+0.1*(delta)));
+				}
+			}
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)){
 			pc.setX((float)(pc.getXPos()+0.1*(delta)));
+			sprite[1].update(delta);
+			pc.setAvatar(sprite[1].getCurrentFrame());
+			for(Rectangle collider:colliders){
+				if(collider.intersects(pc.getCollider())){
+					pc.setX((float)(pc.getXPos()-0.1*(delta)));
+				}
+			}
 		}
 		if(input.isKeyDown(Input.KEY_DOWN)){
 			pc.setY((float)(pc.getYPos()+0.1*(delta)));
+			for(Rectangle collider:colliders){
+				if(collider.intersects(pc.getCollider())){
+					pc.setY((float)(pc.getYPos()-0.1*(delta)));
+				}
+			}
 		}
 		if(input.isKeyDown(Input.KEY_UP)){
 			pc.setY((float)(pc.getYPos()-0.1*(delta)));
+			for(Rectangle collider:colliders){
+				if(collider.intersects(pc.getCollider())){
+					pc.setY((float)(pc.getYPos()+0.1*(delta)));
+				}
+			}
 		}
+		onMap();
 		camera.centerOn(pc.getCollider());
 	}
 	@Override
@@ -83,9 +106,9 @@ public class Maps extends BasicGameState {
 	}
 
 	public void onMap(){
-		if(pc.getXPos()>camera.getMapWidth())pc.setX(camera.getMapWidth()-16f);
+		if(pc.getXPos()>camera.getMapWidth())pc.setX(camera.getMapWidth()-32f);
 		if(pc.getXPos()<0)pc.setX(16f);
-		if(pc.getYPos()>camera.getMapHeight())pc.setY(camera.getMapHeight()-16f);
+		if(pc.getYPos()>camera.getMapHeight())pc.setY(camera.getMapHeight()-32f);
 		if(pc.getYPos()<0)pc.setY(16f);
 	}
 

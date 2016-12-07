@@ -2,12 +2,132 @@
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="40" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="grass and dirt" tilewidth="32" tileheight="32" tilecount="16" columns="4">
   <image source="tiles/Dirt and Grass.png" width="128" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="17" name="Forest" tilewidth="32" tileheight="32" tilecount="9" columns="3">
   <image source="tiles/Forest Floor.png" width="96" height="96"/>
   <tile id="0">
    <properties>
-    <property name="Blocked" value="true"/>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Blocked" value="false"/>
    </properties>
   </tile>
  </tileset>
@@ -23,6 +143,11 @@
     <property name="Blocked" value="true"/>
    </properties>
   </tile>
+  <tile id="2">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
   <tile id="3">
    <properties>
     <property name="Blocked" value="true"/>
@@ -30,19 +155,205 @@
   </tile>
  </tileset>
  <tileset firstgid="30" name="SweetApple" tilewidth="32" tileheight="32" tilecount="32" columns="4">
+  <properties>
+   <property name="Blocked" value="true"/>
+  </properties>
   <image source="Buildings/Sweet Apple Acres.png" width="128" height="256"/>
+  <tile id="8">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="62" name="Sugar Cube" tilewidth="32" tileheight="32" tilecount="12" columns="3">
   <image source="Buildings/SugarCube Corner.png" width="96" height="128"/>
+  <tile id="0">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Blocked" value="true"/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="Tile Layer 1" width="40" height="40">
+ <layer name="Tile Layer 1" width="40" height="40" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC83XXQ6DIAwHcNwSN7e4zW2+7ONuHm1H8WgrUZKGoLZFCw//Bw0JP4EC1saYmpAz5DqmNeZHSQNtm6F9RwnFEcoe2aqhv971vWZifdX4LPU9xrHn9F0w5rb03kuMLXNsbL8ngs1vZ7/rqeRzfRdesA23c+93MFdco9QnjVufW/kuK/jujHrx52gp2HiDHBaCv6di2iTfb407E67PqTgrxyb14VB93DmN8dlxODJ9MWfE0vrxg88HDR+3frFvbp8OzO9P26dhlPj8fTB0loTOlpPAKPVJ9+qSaYzxSYyt4d23Yn04sG932ALPfWxNw32ip96nKXdq/6ydCuW+L6mntXxb1by2j/tvoO3jrAfKv8pWvrWS0ved2S9S+6ztnen4OVtOPmt6wX5s42y5+PB4+Untm3Ll4HvNjFsOviVbSt8HzoacfRRbKt9cvab2cWzaPq5N0yexafkkLi1fjM3mD2vYcxIAGQAA
+   H4sIAAAAAAAAC+3XUQ6DIAwGYHSJmy5uc5v382gexaMNoiRNg9oWZFvSh/9BQ8InUMDWGNMScrW5L+mNGSnpbNtubj9QQnGEcgK2eu5v8n2nTKyvXp6lvtcy9py+C8bcVui9xNgzx8b12xBsuJ37rncmn++7QIE22M6/L+1ccY1SnzR+fR7luyXwPRn1gudoL9D4sDnvBH5PzbRJvt8ZSxOuz7V4K8cm9cFQfdw5jfG5cbgwfTFnxN76wYHnQw4ft36hb2ufDszvmNuXwyjx4X0wdJaEzpZGYJT6pHt1xTTG+CTG3vDuW7E+GLtvD9Bin6fYmrb3iYl6n6bcqfFZuxbKfV9ST6l8R9V8bh/33yC3j7MeKP8qR/lSRX3qU5/61Pd9i/rU92tR33/7Pl71BpUAGQAA
   </data>
  </layer>
  <layer name="Objects" width="40" height="40">
+  <properties>
+   <property name="Blocked" value="true"/>
+  </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OyRGCUBQFUaLBEREnnBEHxPwTsgN4f8PmltY9Vb3vLPs/V2roJv5IaelOD/VIwpNe1KlHEt7U00c9YmZmZmZmZoPkNKIxTcQvkSnNaE6F+CWyoJKWVIlfIita04a24pfIjmra00H8EjnSic50Eb+Ymf26L+pPon0AGQAA
+   H4sIAAAAAAAAC+3OOQ7CQBBEUd+DHMxmdmzMvtlw/wv5hwQzCdNSC1Rfemmpsuz/OuGMi/OPWFfccPc+EumBJxrvI5FavPD2PqKUUkoppZRS6qv6GCDH0PlLqBHGmGDq/CVUgRnmWDh/CbXECmtsDPZ6BhufbVGiws5gz/pfjT0OOBrsWf+zTv/S0r+09C+tX/jXAYQc41kAGQAA
   </data>
  </layer>
 </map>
