@@ -1,5 +1,8 @@
-/main/
+/graphics/
 /mapEngine/
-/plotEngine/
-/battleEngine/
+/main/
+/states/
 /character/
+/battleEngine/
+/characters/
+/plotEngine/

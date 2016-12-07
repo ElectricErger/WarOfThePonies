@@ -5,10 +5,10 @@ import org.newdawn.slick.state.*;
 
 public class BattleScreen extends BasicGameState {
 	Image background;
-	character.Character[] party;
-	character.Character[] opponents;
+	characters.Character[] party;
+	characters.Character[] opponents;
 	private static final int id=2;
-	character.Character current;
+	characters.Character current;
 	
 	public BattleScreen(Image a){
 		background=a;
@@ -19,14 +19,14 @@ public class BattleScreen extends BasicGameState {
 		float x=50;
 		float y=50;
 		int index=0;
-		for(character.Character c:party){
+		for(characters.Character c:party){
 			c.setX(x+10*index);
 			c.setY(y+64*index);
 		}
 		index=0;
 		x=app.getWidth();
 		y=app.getHeight();
-		for(character.Character c:opponents){
+		for(characters.Character c:opponents){
 			c.setX(x-10*index);
 			c.setY(y-10*index);
 		}
@@ -34,10 +34,10 @@ public class BattleScreen extends BasicGameState {
 	@Override
 	public void render(GameContainer app, StateBasedGame game, Graphics g) throws SlickException {
 		background.draw();
-		for(character.Character c:party){
+		for(characters.Character c:party){
 			c.getAvatar().draw(c.getXPos(), c.getYPos());
 		}
-		for(character.Character c:opponents){
+		for(characters.Character c:opponents){
 			c.getAvatar().draw(c.getXPos(),c.getYPos());
 		}
 		

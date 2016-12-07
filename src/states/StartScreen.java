@@ -1,4 +1,4 @@
-package main;
+package states;
 
 import java.awt.Font;
 

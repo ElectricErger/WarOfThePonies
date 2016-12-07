@@ -5,7 +5,7 @@ import java.util.Random;
 
 import org.newdawn.slick.TrueTypeFont;
 
-import character.Character;
+import characters.Character;
 
 public class Mechanics {
 	Character pc;

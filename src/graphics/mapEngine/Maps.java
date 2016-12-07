@@ -1,4 +1,4 @@
-package mapEngine;
+package graphics.mapEngine;
 
 import java.util.ArrayList;
 
@@ -8,15 +8,14 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
-import character.*;
-import character.Character;
-import main.Camera;
+import characters.*;
+import graphics.Camera;
 
 public class Maps extends BasicGameState {
 	TiledMap current;
-	character.Character pc;
+	characters.Character pc;
 	Animation[] sprite;
-	character.NPC[] npcs;
+	characters.NPC[] npcs;
 	public static final int id=1;
 	Camera camera;
 	private boolean[][] blocked;

@@ -1,6 +1,6 @@
 package plotEngine;
 
-import character.NPC;
+import characters.NPC;
 
 public class NPCObjective extends Objective {
 	NPC talker;

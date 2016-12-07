@@ -1,4 +1,4 @@
-package character;
+package characters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
