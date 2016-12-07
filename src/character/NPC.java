@@ -24,7 +24,7 @@ public class NPC {
 		dialogue=new File("address");
 		avatar=new Image("image");
 		xPosition=Float.parseFloat(x);
-		xPosition=Float.parseFloat(y);
+		yPosition=Float.parseFloat(y);
 		collider=new Rectangle(avatar.getCenterOfRotationX()-avatar.getWidth()/2,
 				avatar.getCenterOfRotationY()-avatar.getHeight()/2,
 				avatar.getWidth(),
@@ -39,6 +39,7 @@ public class NPC {
 	public Rectangle getCollider(){return collider;}
 	
 	public void setInCollision(boolean a){inCollision=a;}
+	public boolean getInCollision(){return inCollision;}
 	
 	public String relayDialogue(Plot current){
 		String line=in.nextLine();

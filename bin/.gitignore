@@ -1,11 +1,4 @@
-/menuEngine/
-/map.tmx
-/SkyBG.png
-/Spikesheet.png
-/sprite_Pinkie pie1.png
-/tiles/
-/Buildings/
-/main/
-/mapEngine/
 /character/
+/mapEngine/
 /plotEngine/
+/main/

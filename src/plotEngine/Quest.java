@@ -20,6 +20,12 @@ public class Quest {
 		id=reader.nextInt();
 	}
 	
+	public boolean getActive() {return active;}
+	public boolean getComplete() {return complete;}
+	
+	public void setActive(boolean x){active=x;}
+	public void setComplete(boolean x){complete=x;}																					
+	
 	
 
 }
