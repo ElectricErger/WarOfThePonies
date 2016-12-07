@@ -20,8 +20,8 @@ public class Character {
 	int defence=10;
 	SpriteSheet avatar;
 	Image currentAvatar;
-	float positionX=500f;
-	float positionY=500f;
+	float positionX=320f;
+	float positionY=240f;
 	Random r=new Random();
 	int controller;
 	Rectangle collider;

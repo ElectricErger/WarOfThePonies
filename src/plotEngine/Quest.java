@@ -32,7 +32,8 @@ public class Quest {
 				objectives.add(obj);
 			}
 			else if (y[0].contains("NPCobj")){
-				
+				NPCObjective obj=new NPCObjective(y[1], y[2]);
+				objectives.add(obj);
 			}
 			else if (y[0].contains("Invobj")){
 				

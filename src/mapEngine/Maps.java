@@ -115,6 +115,7 @@ public class Maps extends BasicGameState {
 		}
 		onMap();
 		camera.centerOn(pc.getCollider());
+		System.out.println(camera.getCameraX()+" "+camera.getCameraY()+" player "+pc.getCollider().getCenterX()+" "+pc.getCollider().getCenterY());
 		/*for(NPC x:npcs){
 			if(x.getInCollision()){
 				//relay dialogue to dialogue engine?

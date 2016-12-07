@@ -24,6 +24,11 @@ public class Camera {
 	
 	public float getMapHeight(){return mapHeight;}
 	public float getMapWidth() {return mapWidth;}
+	public float getCameraX() {return cameraX;}
+	public float getCameraY() {return cameraY;}
+	
+	public void setCameraX(float f) {cameraX=f;}
+	public void setCameraY(float f) {cameraY=f;}
 	
 	public void centerOn(float x,float y){
 		cameraX=x-app.getWidth()/2;
