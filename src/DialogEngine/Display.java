@@ -8,9 +8,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.dom4j.tree.ElementIterator;
+import org.dom4j.tree.*;
 
-import character.NPC;
+import characters.NPC;
 import plotEngine.Quest;
 
 public class Display {

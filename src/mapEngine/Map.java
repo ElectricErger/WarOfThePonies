@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
 
 import battleEngine.Enemy;
-import character.NPC;
+import characters.NPC;
 import inventory.Item;
 
 public class Map {
@@ -36,6 +36,9 @@ public class Map {
 		
 	}
 	public ArrayList<Rectangle> getBlocked(){return blocked;}
+	public TiledMap getOverworld(){return overworld;}
+	public NPC[] getNPCs(){return npcs;}
+	public ArrayList<Rectangle> getLeave(){return leave;}
 	
 	//parse .txt to generate relevant NPCs, monsters, and items
 	private void parseData() throws FileNotFoundException{

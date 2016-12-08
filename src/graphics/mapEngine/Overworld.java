@@ -1,4 +1,4 @@
-package mapEngine;
+package graphics.mapEngine;
 
 import java.util.ArrayList;
 import java.awt.font.*;
@@ -9,13 +9,14 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.tiled.*;
 
 import DialogEngine.Display;
-import character.Character;
-import character.NPC;
-import main.Camera;
+import characters.Character;
+import characters.NPC;
+import graphics.Camera;
+import mapEngine.Map;
 //TODO: fix coordinates to be bottom of App screen etc
 public class Overworld extends BasicGameState {
 	Map current;
-	character.Character pc;
+	characters.Character pc;
 	Animation[] sprite;
 	public static final int id=1;
 	Camera camera;
@@ -32,7 +33,7 @@ public class Overworld extends BasicGameState {
 	}
 	@Override
 	public void init(GameContainer app, StateBasedGame game) throws SlickException {
-		camera=new Camera(current.overworld,app);
+		camera=new Camera(current.getOverworld(),app);
 		Image player=new Image("res/characterData/player.png");
 		pc=new Character("player", 20, 20, player, 0);
 		sprite=new Animation[]{
@@ -48,7 +49,7 @@ public class Overworld extends BasicGameState {
 		camera.drawMap();
 		g.translate(-camera.getCameraX(), -camera.getCameraY());
 		pc.render();
-		for(NPC n:current.npcs){
+		for(NPC n:current.getNPCs()){
 			n.getAvatar().draw(n.getX(), n.getY());
 		}
 		if(inDialog){
@@ -168,7 +169,7 @@ public class Overworld extends BasicGameState {
 	}
 	
 	private void conversationCheckX(float n){
-		for(NPC npc:current.npcs){
+		for(NPC npc:current.getNPCs()){
 			if(npc.getCollider().intersects(pc.getCollider())){
 				inDialog=true;
 				speaker=npc;
@@ -177,7 +178,7 @@ public class Overworld extends BasicGameState {
 		}
 	}
 	private void conversationCheckY(float n){
-		for(NPC npc:current.npcs){
+		for(NPC npc:current.getNPCs()){
 			if(npc.getCollider().intersects(pc.getCollider())){
 				inDialog=true;
 				speaker=npc;
@@ -186,7 +187,7 @@ public class Overworld extends BasicGameState {
 		}
 	}
 	private void leave(){
-		for(Rectangle r:current.leave){
+		for(Rectangle r:current.getLeave()){
 			if(r.intersects(pc.getCollider()))toNext=true;
 		}
 	}

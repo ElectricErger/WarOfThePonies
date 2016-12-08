@@ -1,11 +1,17 @@
-/main/
+/graphics/
 /mapEngine/
-/plotEngine/
-/battleEngine/
+/main/
+/states/
 /character/
+<<<<<<< HEAD
 /DialogEngine/
 /inventory/
 /characterData/
 /plot/
 /maps/
 /world1.txt
+=======
+/battleEngine/
+/characters/
+/plotEngine/
+>>>>>>> 28f46562bd1cf72e0ba7de4661e90afffdc15301
