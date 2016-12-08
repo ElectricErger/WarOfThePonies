@@ -1,0 +1,4 @@
+1; //QuestId
+enemyobj; 5 slime; Kill 5 slimes //DefeatObjective
+NPCobj; Applejack; Tell Applejack that the slimes are dead //NPCObjective
+Invobj; 1 moonstone; Collect the moonstone //InvObjective

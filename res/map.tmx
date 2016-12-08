@@ -159,6 +159,46 @@
    <property name="Blocked" value="true"/>
   </properties>
   <image source="Buildings/Sweet Apple Acres.png" width="128" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Blocked" value="false"/>
+   </properties>
+  </tile>
   <tile id="8">
    <properties>
     <property name="Blocked" value="false"/>
@@ -353,7 +393,7 @@
    <property name="Blocked" value="true"/>
   </properties>
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OOQ7CQBBEUd+DHMxmdmzMvtlw/wv5hwQzCdNSC1Rfemmpsuz/OuGMi/OPWFfccPc+EumBJxrvI5FavPD2PqKUUkoppZRS6qv6GCDH0PlLqBHGmGDq/CVUgRnmWDh/CbXECmtsDPZ6BhufbVGiws5gz/pfjT0OOBrsWf+zTv/S0r+09C+tX/jXAYQc41kAGQAA
+   H4sIAAAAAAAAC+3ORwoCQRhE4bmHmBHEnLNjTve/kM+FMAzdC5mRv9F68G2LiqLfK8YOe+Mfvg444mR9xNMZF1ytj3i64Y6H9RGllFJKKaXU31ZCGRVUba84C/1fDXU00TD+4qqFNjroGn9x1UMfAwyNv7gaYYwJpsZfXM0wxwLLHPaKOWwkW2GNDbYZt17fCpkffaf3txD/Jb+F9i/9LbR/6W/691n6ly3Xvyev4hr3ABkAAA==
   </data>
  </layer>
 </map>

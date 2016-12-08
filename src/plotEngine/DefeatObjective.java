@@ -18,7 +18,8 @@ public class DefeatObjective extends Objective {
 		}
 		description=desc;
 	}
-	public void isComplete(){
+	@Override
+	protected void update(){
 		boolean killed=true;
 		for(Enemy x:enemies){
 			if(x.getDefeated()==true){
