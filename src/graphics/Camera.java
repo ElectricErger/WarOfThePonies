@@ -26,6 +26,7 @@ public class Camera {
 	public float getMapWidth() {return mapWidth;}
 	public float getCameraX() {return cameraX;}
 	public float getCameraY() {return cameraY;}
+	public GameContainer getApp() {return app;}
 	
 	public void setCameraX(float f) {cameraX=f;}
 	public void setCameraY(float f) {cameraY=f;}

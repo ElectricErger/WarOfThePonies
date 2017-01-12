@@ -1,13 +1,13 @@
 package main;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+import mapEngine.Map;
 import battleEngine.BattleScreen;
-import graphics.mapEngine.Maps;
+import graphics.mapEngine.Overworld;
 import states.StartScreen;
 
 public class WarOfThePonies extends StateBasedGame {
@@ -37,7 +37,7 @@ public class WarOfThePonies extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer game) throws SlickException {
 		addState(new states.StartScreen());
-		addState(new Maps("/res/map.tmx"));
+		addState(new Overworld(new Map(new File("/res/map.tmx"), new File("res/maps/world1.txt")), game));
 		//addState(new BattleScreen(new Image("/res/SkyBG.png")));
 	}
 

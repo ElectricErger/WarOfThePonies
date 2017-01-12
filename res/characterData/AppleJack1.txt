@@ -1,0 +1,4 @@
+Applejack
+sprite_AppleJack1.png
+128
+352

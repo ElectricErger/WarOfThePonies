@@ -1,0 +1,25 @@
+<dialog>
+	Howdy Sugarcube
+	<quest id="1">
+		<status> active</status>
+		<dialog>
+			I've been having some trouble with the fruit bats. Would you mind clearing them from the orchard at Sweet Apple Acres for me?
+			<response>Sure.</response>
+				<dialog file="quest2.txt">Thanks a million Sugarcube.</dialog>
+					<response type="exit"> See you later. </response>
+			<response>What's in it for me?</response>
+				<dialog> AJ says something</dialog>
+		</dialog>
+	</quest>
+	<quest id="2">
+		<status> active </status>
+		<dialog>
+			Sweet Apple Acres is to the north, Sugarcube. I hope you can save our orchard.
+			<response type="exit"> I'll get right on it </response>
+		</dialog>
+	</quest>
+	<quest id="3">
+		<status> active </status>
+		<dialog file="reward2.txt" type="exit"> Thanks for all the help Sugarcube! I couldn't have done it without you! Here's (something) for your help. </dialog>
+	</quest>
+</dialog>

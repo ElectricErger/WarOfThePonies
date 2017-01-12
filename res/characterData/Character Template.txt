@@ -1,0 +1,4 @@
+Name
+Avatar file
+X coord
+Y coord

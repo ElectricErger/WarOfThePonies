@@ -36,7 +36,10 @@ public class Quest {
 				objectives.add(obj);
 			}
 			else if (y[0].contains("Invobj")){
-				
+				String [] z=y[1].split(" ");
+				int number=Integer.parseInt(z[0]);
+				String type=z[1];
+				InvObjective obj=new InvObjective(number, type, y[2]);
 			}
 		}
 		
@@ -44,6 +47,7 @@ public class Quest {
 	
 	public boolean getActive() {return active;}
 	public boolean getComplete() {return complete;}
+	public int getID() {return id;}
 	
 	public void setActive(boolean x){active=x;}
 	public void setComplete(boolean x){complete=x;}	
@@ -51,13 +55,12 @@ public class Quest {
 	public void checkComplete(){
 		boolean finished=true;
 		for(Objective x: objectives){
-			if(x.getComplete()==true){
-				finished=true;
-			}
-			else {
+			x.update();
+			if(x.getComplete()==false){
 				finished=false;
 				break;
 			}
+			else finished=true;
 
 		}
 		if(finished=false) setComplete(false);

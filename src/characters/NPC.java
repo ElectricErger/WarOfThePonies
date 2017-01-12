@@ -11,17 +11,24 @@ import plotEngine.Plot;
 
 public class NPC {
 	String name;
-	File dialogue;
 	Image avatar;
 	float xPosition;
 	float yPosition;
 	boolean inCollision=false;
 	Rectangle collider;
-	Scanner in;
+	File data;
 	
-	public NPC(String title, String address, String image, String x, String y) throws SlickException{
+	public NPC (String file){
+		data=new File(file);
+		try {
+			parseData();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public NPC(String title, String image, String x, String y) throws SlickException{
 		name=title;
-		dialogue=new File("address");
 		avatar=new Image("image");
 		xPosition=Float.parseFloat(x);
 		yPosition=Float.parseFloat(y);
@@ -29,26 +36,37 @@ public class NPC {
 				avatar.getCenterOfRotationY()-avatar.getHeight()/2,
 				avatar.getWidth(),
 				avatar.getHeight());
-		try {
-			in=new Scanner(dialogue);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public Rectangle getCollider(){return collider;}
+	public String getName(){return name;}
+	public float getX(){return xPosition;}
+	public float getY(){return yPosition;}
+	public Image getAvatar(){return avatar;}
 	
 	public void setInCollision(boolean a){inCollision=a;}
 	public boolean getInCollision(){return inCollision;}
 	
-	public String relayDialogue(Plot current){
-		String line=in.nextLine();
-		return line;	
-	}
 	public void collision(Shape rectangle){
 		if(collider.intersects(rectangle)){
 			inCollision=true;
 		}
+	}
+
+		
+	private void parseData() throws FileNotFoundException{
+		Scanner reader=new Scanner(data);
+		name=reader.nextLine();
+		try {
+			avatar=new Image("res/characterData/"+reader.nextLine());
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		xPosition=(float)Integer.parseInt(reader.nextLine());
+		yPosition=(float)Integer.parseInt(reader.nextLine());
+		collider=new Rectangle(xPosition, yPosition, 32, 32);
+		reader.close();
+		
 	}
 
 }

@@ -12,5 +12,8 @@ public class NPCObjective extends Objective {
 		description=desc;
 	}
 	
+	protected void update(){
+		
+	}
 
 }
